@@ -43,6 +43,7 @@ export default function Admin() {
           <Tabs defaultValue="metrics" className="space-y-6">
             <TabsList className="bg-secondary/50 border border-border flex-wrap">
               <TabsTrigger value="metrics"><BarChart3 size={14} className="mr-1.5" />Metrics</TabsTrigger>
+              <TabsTrigger value="testing"><Settings size={14} className="mr-1.5" />Testing</TabsTrigger>
               <TabsTrigger value="users"><Users size={14} className="mr-1.5" />Users</TabsTrigger>
               <TabsTrigger value="subscriptions"><CreditCard size={14} className="mr-1.5" />Subscriptions</TabsTrigger>
               <TabsTrigger value="licenses"><Key size={14} className="mr-1.5" />Licenses</TabsTrigger>
@@ -50,6 +51,7 @@ export default function Admin() {
               <TabsTrigger value="downloads"><Download size={14} className="mr-1.5" />Downloads</TabsTrigger>
             </TabsList>
             <TabsContent value="metrics"><MetricsTab /></TabsContent>
+            <TabsContent value="testing"><TestingTab /></TabsContent>
             <TabsContent value="users"><UsersTab /></TabsContent>
             <TabsContent value="subscriptions"><SubscriptionsTab /></TabsContent>
             <TabsContent value="licenses"><LicensesTab /></TabsContent>
@@ -250,6 +252,109 @@ function TicketsTab() {
           </CardContent>
         </Card>
       ))}
+    </div>
+  );
+}
+
+function TestingTab() {
+  const { data: users } = trpc.admin.getUsers.useQuery();
+  const { data: allRuns, isLoading, refetch } = trpc.admin.getAllStudioRuns.useQuery();
+  const { data: stats } = trpc.admin.getTestingEngineStats.useQuery();
+  const runBacktest = trpc.admin.adminRunBacktest.useMutation({ onSuccess: () => { toast.success("Backtest started!"); refetch(); } });
+  const runMonteCarlo = trpc.admin.adminRunMonteCarloSimulation.useMutation({ onSuccess: () => { toast.success("Monte Carlo simulation started!"); refetch(); } });
+  const runWalkForward = trpc.admin.adminRunWalkForwardAnalysis.useMutation({ onSuccess: () => { toast.success("Walk-Forward analysis started!"); refetch(); } });
+  const runStressTest = trpc.admin.adminRunStressTest.useMutation({ onSuccess: () => { toast.success("Stress test started!"); refetch(); } });
+
+  const { user } = useAuth();
+  const [selectedUser, setSelectedUser] = useState<string>("");
+  const [testMode, setTestMode] = useState<'admin' | 'self'>('admin');
+  const [testConfig, setTestConfig] = useState({ name: "Admin Test", symbol: "EURUSD", timeframe: "H1", initialBalance: 10000, riskPerTrade: 0.02, winRate: 0.55, numTrades: 100 });
+
+  const handleRunBacktest = () => {
+    if (testMode === 'admin' && !selectedUser) { toast.error("Select a user"); return; }
+    const userId = testMode === 'self' ? user?.id : parseInt(selectedUser);
+    if (!userId) { toast.error("User not found"); return; }
+    runBacktest.mutate({ userId, name: testConfig.name, symbol: testConfig.symbol, timeframe: testConfig.timeframe });
+  };
+
+  if (isLoading) return <LoadingSkeleton />;
+
+  return (
+    <div className="space-y-6">
+      {/* Testing Stats */}
+      <div className="grid md:grid-cols-5 gap-4">
+        <Card className="bg-card border-border"><CardContent className="pt-6"><div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Total Runs</span><span className="text-3xl font-bold">{stats?.totalRuns ?? 0}</span></div></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="pt-6"><div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Completed</span><span className="text-3xl font-bold text-green-400">{stats?.completedRuns ?? 0}</span></div></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="pt-6"><div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Running</span><span className="text-3xl font-bold text-blue-400">{stats?.runningRuns ?? 0}</span></div></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="pt-6"><div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Failed</span><span className="text-3xl font-bold text-red-400">{stats?.failedRuns ?? 0}</span></div></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="pt-6"><div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Avg Profit</span><span className="text-3xl font-bold">${(stats?.avgNetProfit ?? 0).toFixed(0)}</span></div></CardContent></Card>
+      </div>
+
+      {/* Test Mode Toggle */}
+      <div className="flex gap-2 mb-4">
+        <Button onClick={() => setTestMode('admin')} className={testMode === 'admin' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground'}>Run for User</Button>
+        <Button onClick={() => setTestMode('self')} className={testMode === 'self' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-foreground'}>Run My Own Test</Button>
+      </div>
+
+      {/* Run Test Configuration */}
+      <Card className="bg-card border-border">
+        <CardHeader><CardTitle>{testMode === 'self' ? 'Run Your Own Test' : 'Run Test for User'}</CardTitle></CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid md:grid-cols-4 gap-4">
+            {testMode === 'admin' && <div>
+              <label className="text-sm text-muted-foreground block mb-2">Select User</label>
+              <Select value={selectedUser} onValueChange={setSelectedUser}>
+                <SelectTrigger className="bg-input border-border"><SelectValue placeholder="Choose user..." /></SelectTrigger>
+                <SelectContent>
+                  {users?.map((u: any) => <SelectItem key={u.id} value={String(u.id)}>{u.email} (ID: {u.id})</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>}
+            <div>
+              <label className="text-sm text-muted-foreground block mb-2">Test Name</label>
+              <Input value={testConfig.name} onChange={e => setTestConfig({...testConfig, name: e.target.value})} className="bg-input border-border" />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground block mb-2">Symbol</label>
+              <Input value={testConfig.symbol} onChange={e => setTestConfig({...testConfig, symbol: e.target.value})} className="bg-input border-border" />
+            </div>
+            <div>
+              <label className="text-sm text-muted-foreground block mb-2">Timeframe</label>
+              <Input value={testConfig.timeframe} onChange={e => setTestConfig({...testConfig, timeframe: e.target.value})} className="bg-input border-border" />
+            </div>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <Button onClick={handleRunBacktest} disabled={runBacktest.isPending} className="bg-primary text-primary-foreground">Run Backtest</Button>
+            <Button onClick={() => selectedUser && runMonteCarlo.mutate({ runId: allRuns?.[0]?.id || 1, numSimulations: 1000 })} disabled={runMonteCarlo.isPending} variant="outline">Monte Carlo (1000)</Button>
+            <Button onClick={() => selectedUser && runWalkForward.mutate({ runId: allRuns?.[0]?.id || 1, numWindows: 6 })} disabled={runWalkForward.isPending} variant="outline">Walk-Forward</Button>
+            <Button onClick={() => selectedUser && runStressTest.mutate({ runId: allRuns?.[0]?.id || 1 })} disabled={runStressTest.isPending} variant="outline">Stress Test</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Test History */}
+      <Card className="bg-card border-border">
+        <CardHeader><CardTitle>Test History</CardTitle></CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-border text-muted-foreground"><th className="text-left py-2 pr-4">ID</th><th className="text-left py-2 pr-4">User</th><th className="text-left py-2 pr-4">Symbol</th><th className="text-left py-2 pr-4">Status</th><th className="text-left py-2 pr-4">Profit</th><th className="text-left py-2">Created</th></tr></thead>
+              <tbody>
+                {allRuns?.slice(0, 20).map((r: any) => (
+                  <tr key={r.id} className="border-b border-border/50">
+                    <td className="py-2 pr-4 font-medium">{r.id}</td>
+                    <td className="py-2 pr-4 text-muted-foreground">{r.userId}</td>
+                    <td className="py-2 pr-4">{r.symbol}</td>
+                    <td className="py-2 pr-4"><Badge className={r.status === "completed" ? "bg-green-500/10 text-green-400" : r.status === "running" ? "bg-blue-500/10 text-blue-400" : "bg-red-500/10 text-red-400"}>{r.status}</Badge></td>
+                    <td className="py-2 pr-4 font-medium">${(r.metrics?.netProfit ?? 0).toFixed(2)}</td>
+                    <td className="py-2 text-muted-foreground">{new Date(r.createdAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

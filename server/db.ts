@@ -635,6 +635,17 @@ export async function cancelStudioRun(id: number) {
   db.update(studioRuns).set({ status: "cancelled", updatedAt: new Date().toISOString() }).where(eq(studioRuns.id, id)).run();
 }
 
+export async function getAllStudioRuns() {
+  const db = getDb();
+  const runs = db.select().from(studioRuns).orderBy(desc(studioRuns.createdAt)).all();
+  return runs.map(r => ({
+    ...r,
+    parameters: r.parameters ? JSON.parse(r.parameters as string) : null,
+    results: r.results ? JSON.parse(r.results as string) : null,
+    metrics: r.metrics ? JSON.parse(r.metrics as string) : null,
+  }));
+}
+
 /* ── Feature flags helpers ─────────────────────────────────────── */
 export async function getAllFeatureFlags() {
   const db = getDb();

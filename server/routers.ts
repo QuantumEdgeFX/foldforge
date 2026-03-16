@@ -5,6 +5,9 @@ import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_
 import { z } from "zod";
 import * as db from "./db";
 import { storageGet } from "./storage";
+import { realTestingEngine } from "./realTestingEngine";
+import { workerPool } from "./workerPool";
+import { studioCache } from "./studioCache";
 
 export const appRouter = router({
   system: systemRouter,
@@ -113,71 +116,132 @@ export const appRouter = router({
       await db.cancelStudioRun(input.id);
       return { success: true };
     }),
-    startRun: protectedProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+    startRun: protectedProcedure.input(z.object({ id: z.number() })).mutation(async ({ input, ctx }) => {
       await db.updateStudioRun(input.id, { status: "running", startedAt: new Date() });
-      // Simulate EA backtest execution (3-8 seconds)
-      setTimeout(async () => {
-        try {
-          const run = await db.getStudioRunById(input.id);
-          if (!run || run.status !== "running") return;
-          const totalTrades = Math.floor(Math.random() * 200) + 50;
-          const winRate = 0.45 + Math.random() * 0.25;
-          const wins = Math.floor(totalTrades * winRate);
-          const losses = totalTrades - wins;
-          const avgWin = 20 + Math.random() * 80;
-          const avgLoss = 15 + Math.random() * 50;
-          const profitFactor = (wins * avgWin) / Math.max(losses * avgLoss, 1);
-          const netProfit = (wins * avgWin) - (losses * avgLoss);
-          const maxDrawdown = -(5 + Math.random() * 25);
-          const sharpeRatio = 0.5 + Math.random() * 2.5;
-          const metrics = {
-            totalTrades, wins, losses,
-            winRate: Math.round(winRate * 10000) / 100,
-            avgWin: Math.round(avgWin * 100) / 100,
-            avgLoss: Math.round(avgLoss * 100) / 100,
-            profitFactor: Math.round(profitFactor * 100) / 100,
-            netProfit: Math.round(netProfit * 100) / 100,
-            maxDrawdownPercent: Math.round(maxDrawdown * 100) / 100,
-            sharpeRatio: Math.round(sharpeRatio * 100) / 100,
-            recoveryFactor: Math.round((netProfit / Math.abs(maxDrawdown)) * 100) / 100,
-          };
-          const equityCurve: { trade: number; equity: number }[] = [];
-          let equity = 10000;
-          for (let i = 0; i < totalTrades; i++) {
-            const isWin = Math.random() < winRate;
-            equity += isWin ? avgWin * (0.5 + Math.random()) : -avgLoss * (0.5 + Math.random());
-            equityCurve.push({ trade: i + 1, equity: Math.round(equity * 100) / 100 });
-          }
-          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-          const monthlyReturns = months.map(m => ({ month: m, return: Math.round((Math.random() * 20 - 5) * 100) / 100 }));
-          const drawdownCurve: { trade: number; drawdown: number }[] = [];
-          let peak = 10000;
-          let eq2 = 10000;
-          for (let i = 0; i < equityCurve.length; i++) {
-            eq2 = equityCurve[i].equity;
-            if (eq2 > peak) peak = eq2;
-            const dd = ((peak - eq2) / peak) * 100;
-            drawdownCurve.push({ trade: i + 1, drawdown: Math.round(dd * 100) / 100 });
-          }
-          const tradeDistribution = [
-            { range: "-100 to -80", count: Math.floor(Math.random() * 3) },
-            { range: "-80 to -60", count: Math.floor(Math.random() * 5) },
-            { range: "-60 to -40", count: Math.floor(Math.random() * 10) },
-            { range: "-40 to -20", count: Math.floor(Math.random() * 20) + 5 },
-            { range: "-20 to 0", count: Math.floor(Math.random() * 30) + 10 },
-            { range: "0 to 20", count: Math.floor(Math.random() * 35) + 15 },
-            { range: "20 to 40", count: Math.floor(Math.random() * 25) + 5 },
-            { range: "40 to 60", count: Math.floor(Math.random() * 15) },
-            { range: "60 to 80", count: Math.floor(Math.random() * 8) },
-            { range: "80 to 100", count: Math.floor(Math.random() * 3) },
-          ];
-          const results = { equityCurve, monthlyReturns, drawdownCurve, tradeDistribution };
-          await db.updateStudioRun(input.id, { status: "completed", results, metrics, completedAt: new Date() });
-        } catch {
-          await db.updateStudioRun(input.id, { status: "failed", completedAt: new Date() });
-        }
-      }, 3000 + Math.random() * 5000);
-      return { success: true };
+      
+      // Submit to worker pool for background processing
+      const taskId = workerPool.submitTask({
+        type: 'backtest',
+        userId: ctx.user.id,
+        runId: input.id,
+        config: {
+          symbol: 'EURUSD',
+          timeframe: 'H1',
+          initialBalance: 10000,
+          riskPerTrade: 0.02,
+          winRate: 0.55,
+          avgWinMultiplier: 1.5,
+          avgLossMultiplier: 1.0,
+          numTrades: 100,
+        },
+      });
+      
+      return { success: true, taskId };
+    }),
+    
+    getRunStatus: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
+      const run = await db.getStudioRunById(input.id);
+      if (!run) throw new Error("Run not found");
+      return run;
+    }),
+    
+    // MONTE CARLO SIMULATION
+    runMonteCarloSimulation: protectedProcedure.input(z.object({
+      runId: z.number(),
+      numSimulations: z.number().default(1000),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      // Generate baseline trades from metrics
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      // Run Monte Carlo
+      const simulations = testingEngine.monteCarloSimulation(trades, initialBalance, input.numSimulations);
+      
+      // Store results
+      const summaryMetrics = {
+        avgNetProfit: simulations.reduce((sum, s) => sum + s.metrics.netProfit, 0) / simulations.length,
+        avgMaxDrawdown: simulations.reduce((sum, s) => sum + s.metrics.maxDrawdownPercent, 0) / simulations.length,
+        avgSharpeRatio: simulations.reduce((sum, s) => sum + s.metrics.sharpeRatio, 0) / simulations.length,
+        worstCaseDrawdown: Math.max(...simulations.map(s => s.metrics.maxDrawdownPercent)),
+        bestCaseProfit: Math.max(...simulations.map(s => s.metrics.netProfit)),
+        numSimulations: input.numSimulations,
+      };
+      
+      return { success: true, summaryMetrics, simulationCount: simulations.length };
+    }),
+    
+    // WALK-FORWARD ANALYSIS
+    runWalkForwardAnalysis: protectedProcedure.input(z.object({
+      runId: z.number(),
+      numWindows: z.number().default(6),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      // Generate baseline trades from metrics
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      // Run Walk-Forward Analysis
+      const windows = testingEngine.walkForwardAnalysis(trades, initialBalance, input.numWindows);
+      
+      // Calculate statistics
+      const avgMetrics = {
+        avgNetProfit: windows.reduce((sum, w) => sum + w.metrics.netProfit, 0) / windows.length,
+        avgMaxDrawdown: windows.reduce((sum, w) => sum + w.metrics.maxDrawdownPercent, 0) / windows.length,
+        avgSharpeRatio: windows.reduce((sum, w) => sum + w.metrics.sharpeRatio, 0) / windows.length,
+        consistency: (windows.filter(w => w.metrics.netProfit > 0).length / windows.length) * 100,
+      };
+      
+      return { success: true, avgMetrics, windowCount: windows.length };
+    }),
+    
+    // STRESS TESTING
+    runStressTest: protectedProcedure.input(z.object({
+      runId: z.number(),
+      stressFactors: z.array(z.number()).default([0.5, 0.75, 1.0, 1.25, 1.5]),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      // Generate baseline trades from metrics
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      // Run Stress Test
+      const stressResults = testingEngine.stressTest(trades, initialBalance, input.stressFactors);
+      
+      // Extract key metrics
+      const results = stressResults.map((result, idx) => ({
+        stressFactor: input.stressFactors[idx],
+        netProfit: result.metrics.netProfit,
+        maxDrawdown: result.metrics.maxDrawdownPercent,
+        sharpeRatio: result.metrics.sharpeRatio,
+        profitFactor: result.metrics.profitFactor,
+      }));
+      
+      return { success: true, stressResults: results };
     }),
   }),
 
@@ -235,6 +299,164 @@ export const appRouter = router({
     })).mutation(async ({ input }) => {
       await db.setFeatureFlag(input.key, input.value, input.description);
       return { success: true };
+    }),
+    
+    // TESTING ENGINE ADMIN ENDPOINTS
+    getAllStudioRuns: adminProcedure.query(async () => {
+      return db.getAllStudioRuns();
+    }),
+    getStudioRunDetails: adminProcedure.input(z.object({ runId: z.number() })).query(async ({ input }) => {
+      return db.getStudioRunById(input.runId);
+    }),
+    getStudioRunsByUser: adminProcedure.input(z.object({ userId: z.number() })).query(async ({ input }) => {
+      return db.getUserStudioRuns(input.userId);
+    }),
+    
+    // Admin-level testing operations
+    adminRunBacktest: adminProcedure.input(z.object({
+      userId: z.number(),
+      name: z.string(),
+      symbol: z.string(),
+      timeframe: z.string(),
+    })).mutation(async ({ input }) => {
+      const runId = await db.createStudioRun({
+        userId: input.userId,
+        name: input.name,
+        symbol: input.symbol,
+        timeframe: input.timeframe,
+      });
+      
+      // Execute backtest
+      await db.updateStudioRun(runId, { status: "running", startedAt: new Date() });
+      
+      setTimeout(async () => {
+        try {
+          const initialBalance = 10000;
+          const backtestResults = testingEngine.runBacktest(initialBalance, 1, 0.0, "2024-01-01", "2024-12-31");
+          const metrics = backtestResults.metrics;
+          const equityCurve = backtestResults.equityCurve.map(point => ({
+            trade: point.trade,
+            equity: point.equity,
+            drawdown: point.drawdown,
+          }));
+          const results = { equityCurve, monthlyReturns: backtestResults.monthlyReturns, tradeDistribution: backtestResults.tradeDistribution };
+          await db.updateStudioRun(runId, { status: "completed", results, metrics, completedAt: new Date() });
+        } catch (error) {
+          console.error("Admin backtest error:", error);
+          await db.updateStudioRun(runId, { status: "failed", completedAt: new Date() });
+        }
+      }, 2000);
+      
+      return { success: true, runId };
+    }),
+    
+    adminRunMonteCarloSimulation: adminProcedure.input(z.object({
+      runId: z.number(),
+      numSimulations: z.number().default(1000),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      const simulations = testingEngine.monteCarloSimulation(trades, initialBalance, input.numSimulations);
+      
+      const summaryMetrics = {
+        avgNetProfit: simulations.reduce((sum, s) => sum + s.metrics.netProfit, 0) / simulations.length,
+        avgMaxDrawdown: simulations.reduce((sum, s) => sum + s.metrics.maxDrawdownPercent, 0) / simulations.length,
+        avgSharpeRatio: simulations.reduce((sum, s) => sum + s.metrics.sharpeRatio, 0) / simulations.length,
+        worstCaseDrawdown: Math.max(...simulations.map(s => s.metrics.maxDrawdownPercent)),
+        bestCaseProfit: Math.max(...simulations.map(s => s.metrics.netProfit)),
+        numSimulations: input.numSimulations,
+      };
+      
+      return { success: true, summaryMetrics, simulationCount: simulations.length };
+    }),
+    
+    adminRunWalkForwardAnalysis: adminProcedure.input(z.object({
+      runId: z.number(),
+      numWindows: z.number().default(6),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      const windows = testingEngine.walkForwardAnalysis(trades, initialBalance, input.numWindows);
+      
+      const avgMetrics = {
+        avgNetProfit: windows.reduce((sum, w) => sum + w.metrics.netProfit, 0) / windows.length,
+        avgMaxDrawdown: windows.reduce((sum, w) => sum + w.metrics.maxDrawdownPercent, 0) / windows.length,
+        avgSharpeRatio: windows.reduce((sum, w) => sum + w.metrics.sharpeRatio, 0) / windows.length,
+        consistency: (windows.filter(w => w.metrics.netProfit > 0).length / windows.length) * 100,
+      };
+      
+      return { success: true, avgMetrics, windowCount: windows.length };
+    }),
+    
+    adminRunStressTest: adminProcedure.input(z.object({
+      runId: z.number(),
+      stressFactors: z.array(z.number()).default([0.5, 0.75, 1.0, 1.25, 1.5]),
+    })).mutation(async ({ input }) => {
+      const run = await db.getStudioRunById(input.runId);
+      if (!run || !run.metrics) throw new Error("Run not found or not completed");
+      
+      const initialBalance = 10000;
+      const trades = testingEngine.generateRealisticTrades(
+        initialBalance,
+        run.metrics.winRate / 100,
+        run.metrics.avgWin,
+        run.metrics.avgLoss,
+        run.metrics.totalTrades
+      );
+      
+      const stressResults = testingEngine.stressTest(trades, initialBalance, input.stressFactors);
+      
+      const results = stressResults.map((result, idx) => ({
+        stressFactor: input.stressFactors[idx],
+        netProfit: result.metrics.netProfit,
+        maxDrawdown: result.metrics.maxDrawdownPercent,
+        sharpeRatio: result.metrics.sharpeRatio,
+        profitFactor: result.metrics.profitFactor,
+      }));
+      
+      return { success: true, stressResults: results };
+    }),
+    
+    getTestingEngineStats: adminProcedure.query(async () => {
+      const allRuns = await db.getAllStudioRuns();
+      const completedRuns = allRuns.filter(r => r.status === "completed");
+      const failedRuns = allRuns.filter(r => r.status === "failed");
+      const runningRuns = allRuns.filter(r => r.status === "running");
+      
+      const avgMetrics = {
+        totalRuns: allRuns.length,
+        completedRuns: completedRuns.length,
+        failedRuns: failedRuns.length,
+        runningRuns: runningRuns.length,
+        avgNetProfit: completedRuns.length > 0 
+          ? completedRuns.reduce((sum, r) => sum + (r.metrics?.netProfit || 0), 0) / completedRuns.length
+          : 0,
+        avgMaxDrawdown: completedRuns.length > 0
+          ? completedRuns.reduce((sum, r) => sum + (r.metrics?.maxDrawdownPercent || 0), 0) / completedRuns.length
+          : 0,
+      };
+      
+      return avgMetrics;
     }),
   }),
 });
