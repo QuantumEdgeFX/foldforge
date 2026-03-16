@@ -31,6 +31,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4">Product</h4>
             <div className="flex flex-col gap-2.5">
+              <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium">Home</Link>
               <Link href="/pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
               <Link href="/studio" className="text-sm text-muted-foreground hover:text-primary transition-colors">Studio</Link>
               <Link href="/aureus-prime" className="text-sm text-muted-foreground hover:text-primary transition-colors">Aureus Prime EA</Link>

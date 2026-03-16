@@ -21,9 +21,9 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <div className="container flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2.5">
-          <img src={LOGO_URL} alt="FoldForge" className="w-8 h-8 rounded" />
-          <span className="text-lg font-bold gold-text font-['Playfair_Display']">FoldForge</span>
+        <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <img src={LOGO_URL} alt="FoldForge Home" className="w-8 h-8 rounded cursor-pointer" title="Back to Home" />
+          <span className="text-lg font-bold gold-text font-['Playfair_Display'] cursor-pointer">FoldForge</span>
         </Link>
 
         {/* Desktop nav */}
