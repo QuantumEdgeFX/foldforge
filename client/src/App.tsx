@@ -19,6 +19,11 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
 const Disclaimer = lazy(() => import("./pages/Disclaimer"));
 const Docs = lazy(() => import("./pages/Docs"));
+const FundedAccountRiskManagement = lazy(() => import("./pages/FundedAccountRiskManagement"));
+const AutomatedTradingPlatform = lazy(() => import("./pages/AutomatedTradingPlatform"));
+const ExpertAdvisorBuilder = lazy(() => import("./pages/ExpertAdvisorBuilder"));
+const MetatraderRiskManagementTool = lazy(() => import("./pages/MetatraderRiskManagementTool"));
+const EAStressTesting = lazy(() => import("./pages/EAStressTesting"));
 const Support = lazy(() => import("./pages/Support"));
 const Success = lazy(() => import("./pages/Success"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -52,6 +57,11 @@ function Router() {
         <Route path="/refund-policy" component={RefundPolicy} />
         <Route path="/disclaimer" component={Disclaimer} />
         <Route path="/docs" component={Docs} />
+        <Route path="/funded-account-risk-management" component={FundedAccountRiskManagement} />
+        <Route path="/automated-trading-platform" component={AutomatedTradingPlatform} />
+        <Route path="/expert-advisor-builder" component={ExpertAdvisorBuilder} />
+        <Route path="/metatrader-risk-management-tool" component={MetatraderRiskManagementTool} />
+        <Route path="/ea-stress-testing" component={EAStressTesting} />
         <Route path="/support" component={Support} />
         <Route path="/success" component={Success} />
         <Route path="/404" component={NotFound} />
