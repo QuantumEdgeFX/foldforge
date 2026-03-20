@@ -14,6 +14,7 @@ const Studio = lazy(() => import("./pages/Studio"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const AureusPrime = lazy(() => import("./pages/AureusPrime"));
+const AureusPrimeShowcase = lazy(() => import("./pages/AureusPrimeShowcase"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
@@ -51,6 +52,7 @@ function Router() {
         <Route path="/studio" component={Studio} />
         <Route path="/admin" component={Admin} />
         <Route path="/pricing" component={Pricing} />
+        <Route path="/aureus-prime/showcase" component={AureusPrimeShowcase} />
         <Route path="/aureus-prime" component={AureusPrime} />
         <Route path="/terms" component={Terms} />
         <Route path="/privacy" component={Privacy} />

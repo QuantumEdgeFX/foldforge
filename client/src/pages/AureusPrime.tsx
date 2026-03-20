@@ -282,11 +282,18 @@ export default function AureusPrime() {
           <p className="text-muted-foreground max-w-xl mx-auto mb-8">
             Subscribe to any FoldForge plan to receive your Aureus Prime EA license key and full access to the testing studio.
           </p>
-          <Link href="/pricing">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">
-              View Plans <ArrowRight size={18} className="ml-2" />
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/pricing">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">
+                View Plans <ArrowRight size={18} className="ml-2" />
+              </Button>
+            </Link>
+            <Link href="/aureus-prime/showcase">
+              <Button variant="outline" size="lg" className="px-8 h-12 border-border hover:border-primary/50">
+                <BarChart3 size={18} className="mr-2" /> View Showcase
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
