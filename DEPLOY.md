@@ -52,7 +52,7 @@ pnpm build
 ### 4. Start the Server
 ```bash
 # Production
-NODE_ENV=production node dist/server/_core/index.js
+NODE_ENV=production PROJECT_ROOT=$(pwd) node dist/index.js
 
 # Or with tsx (development)
 pnpm dev
@@ -115,3 +115,65 @@ server {
 - 50+ Symbol Reference Hub (seeded automatically)
 - PDF Report Generation
 - Funded Account Guardian UI
+
+---
+
+## Deploying to Render
+
+### Prerequisites
+- GitHub repository with FoldForge code
+- Render account (https://render.com)
+
+### Steps
+
+1. **Push to GitHub** (if not already done)
+   ```bash
+   git add .
+   git commit -m "Fix deployment configuration"
+   git push origin main
+   ```
+
+2. **Connect to Render**
+   - Go to https://dashboard.render.com
+   - Click "New +" → "Web Service"
+   - Connect your GitHub account and select the `foldforge` repository
+   - Select branch: `main` (or your deployment branch)
+
+3. **Configure Service**
+   - **Name:** `foldforge` (or your preferred name)
+   - **Environment:** `Node`
+   - **Build Command:** `pnpm install && pnpm run build`
+   - **Start Command:** `pnpm run start`
+   - **Plan:** Free or Paid (as needed)
+
+4. **Set Environment Variables**
+   In Render dashboard, add these environment variables:
+   - `NODE_ENV`: `production`
+   - `PORT`: `10000` (Render default)
+   - `JWT_SECRET`: Generate a strong random secret
+   - Any optional variables (STRIPE_SECRET_KEY, SUPABASE_URL, etc.)
+
+5. **Deploy**
+   - Click "Create Web Service"
+   - Render will automatically build and deploy
+   - Monitor the deployment logs in the dashboard
+
+### Troubleshooting
+
+**Error: `ENOENT: no such file or directory, stat '/opt/render/project/dist/public/index.html'`**
+
+This error has been fixed in the latest version. The issue was that the server couldn't find the static files directory. The fixes include:
+
+- Updated `server/_core/vite.ts` to use `process.cwd()` for reliable path resolution
+- Modified build and start scripts to set `PROJECT_ROOT` environment variable
+- Added `render.yaml` for explicit Render configuration
+
+If you still encounter this error:
+1. Ensure you've pulled the latest changes from GitHub
+2. Clear Render's build cache: Dashboard → Service → Settings → Clear Build Cache
+3. Trigger a new deployment
+
+### Port Configuration
+
+Render automatically detects the port your application listens on. FoldForge listens on the `PORT` environment variable (default: 3000), but Render may override this. The application will automatically find an available port if the default is busy.
+

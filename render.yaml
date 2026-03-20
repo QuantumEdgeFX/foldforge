@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: foldforge
+    env: node
+    plan: free
+    buildCommand: pnpm install && pnpm run build
+    startCommand: pnpm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PROJECT_ROOT
+        fromPath: /opt/render/project

@@ -48,8 +48,11 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  // Always resolve dist/public relative to the project root (2 levels up from server/_core)
-  const distPath = path.resolve(import.meta.dirname, "../..", "dist", "public");
+  // Resolve dist/public from the project root
+  // When bundled with esbuild, import.meta.dirname will be in dist/
+  // So we need to use process.cwd() or an environment variable for reliability
+  const projectRoot = process.env.PROJECT_ROOT || process.cwd();
+  const distPath = path.resolve(projectRoot, "dist", "public");
 
   if (!fs.existsSync(distPath)) {
     console.error(
