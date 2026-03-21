@@ -2,7 +2,7 @@ import { useRoute, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin, Facebook, TrendingUp, Shield, Database, BarChart3, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Twitter, Linkedin, Facebook, TrendingUp, Shield, Database, BarChart3, Users } from "lucide-react";
 import { useEffect } from "react";
 
 const BLOG_POSTS: Record<string, any> = {
@@ -383,7 +383,7 @@ export default function BlogPost() {
         const isOrdered = block.startsWith('1. ');
         const ListTag = isOrdered ? 'ol' : 'ul';
         return (
-          <ListTag key={i} className={\`my-6 pl-6 space-y-3 text-muted-foreground leading-relaxed \${isOrdered ? 'list-decimal' : 'list-disc'}\`}>
+          <ListTag key={i} className={'my-6 pl-6 space-y-3 text-muted-foreground leading-relaxed ' + (isOrdered ? 'list-decimal' : 'list-disc')}>
             {items.map((item, j) => {
               const text = item.replace(/^(-\\s|\\d+\\.\\s)/, '');
               // Handle bold text in list items
