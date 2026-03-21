@@ -124,8 +124,16 @@ export function registerSupabaseAuthRoutes(app: Express) {
         }
         if (!data.user) return res.status(500).json({ error: "Failed to create user" });
         openId = data.user.id;
+        // Upsert into local DB (no passwordHash needed — Supabase owns credentials)
+        await db.upsertUser({
+          openId,
+          name: name || null,
+          email,
+          loginMethod: "email",
+          lastSignedIn: new Date(),
+        });
       } else {
-        // Local auth: hash password and store
+        // Local auth: hash password and store — single upsert with hash
         const passwordHash = await bcrypt.hash(password, 12);
         openId = `local_${Date.now()}_${Math.random().toString(36).slice(2)}`;
         await db.upsertUser({
@@ -137,15 +145,6 @@ export function registerSupabaseAuthRoutes(app: Express) {
           lastSignedIn: new Date(),
         });
       }
-
-      // Ensure user exists in local DB
-      await db.upsertUser({
-        openId,
-        name: name || null,
-        email,
-        loginMethod: "email",
-        lastSignedIn: new Date(),
-      });
 
       const localUser = await db.getUserByOpenId(openId);
       if (!localUser) {

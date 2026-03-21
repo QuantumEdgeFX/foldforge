@@ -158,6 +158,59 @@ export default function AureusPrimeShowcase() {
         </div>
       </section>
 
+      {/* ── Demo Video ────────────────────────────────────────── */}
+      <section className="py-20 border-t border-border/50">
+        <div className="container">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 mb-6">
+              <Zap size={14} className="text-primary" />
+              <span className="text-xs font-semibold text-primary tracking-wide uppercase">Full Studio Walkthrough</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">
+              Watch <span className="gold-text">FoldForge Studio</span> in Action
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              See the EA Stress Testing Studio, Monte Carlo simulations, Broker Data Pipeline, and
+              Funded Account Guardian — all running live. This is the platform protecting your funded accounts.
+            </p>
+          </div>
+
+          {/* Video Player */}
+          <div className="max-w-5xl mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/10 bg-black group">
+              {/* Glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 blur-xl opacity-60 pointer-events-none" />
+              <video
+                className="relative w-full aspect-video"
+                controls
+                preload="metadata"
+                poster="/og-image.png"
+                playsInline
+              >
+                <source src="/foldforge_demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Video feature callouts */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              {[
+                { icon: BarChart3, label: "EA Stress Testing", desc: "Monte Carlo & Walk-Forward" },
+                { icon: Shield, label: "Funded Guardian", desc: "Real-time DD protection" },
+                { icon: Activity, label: "Broker Data Sync", desc: "Your exact spreads & swaps" },
+                { icon: TrendingUp, label: "Performance Analytics", desc: "Sharpe, PF, equity curves" },
+              ].map((item, i) => (
+                <div key={i} className="glass-card rounded-xl p-4 text-center border border-border/50 hover:border-primary/30 transition-colors">
+                  <item.icon size={20} className="text-primary mx-auto mb-2" />
+                  <div className="text-sm font-semibold mb-0.5">{item.label}</div>
+                  <div className="text-xs text-muted-foreground">{item.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Gallery ───────────────────────────────────────────── */}
       <section className="py-20">
         <div className="container">
@@ -186,8 +239,10 @@ export default function AureusPrimeShowcase() {
                   <img
                     src={item.src}
                     alt={item.alt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 bg-background/80"
                     loading="lazy"
+                    decoding="async"
+                    style={{ imageRendering: 'crisp-edges' }}
                   />
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-colors duration-300 flex items-center justify-center">

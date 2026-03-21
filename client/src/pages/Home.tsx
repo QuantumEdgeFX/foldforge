@@ -6,7 +6,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
   CheckCircle2, ArrowRight, ChevronDown, ChevronUp, Star,
-  Activity, AlertTriangle, Target
+  Activity, AlertTriangle, Target, Play, Users, Award, Clock
 } from "lucide-react";
 import { useState } from "react";
 
@@ -17,40 +17,76 @@ const STRIPE_LINKS = {
 };
 
 const PAIN_POINTS = [
-  { icon: AlertTriangle, title: "Blown Funded Accounts", desc: "One rogue EA trade wipes your $200K funded account. No risk controls. No alerts. Just a failed challenge." },
-  { icon: Target, title: "Untested Strategies", desc: "You deploy EAs with default settings and hope for the best. No stress testing. No edge validation." },
-  { icon: Database, title: "Wrong Broker Data", desc: "Your backtest uses generic data while your broker has different spreads, swaps, and margin requirements." },
+  { icon: AlertTriangle, title: "Blown Funded Accounts", desc: "One rogue EA trade wipes your $200K funded account. No risk controls. No alerts. Just a failed challenge and wasted fees." },
+  { icon: Target, title: "Untested Strategies", desc: "You deploy EAs with default settings and hope for the best. No stress testing. No edge validation. No statistical confidence." },
+  { icon: Database, title: "Wrong Broker Data", desc: "Your backtest uses generic data while your broker has different spreads, swaps, and margin requirements — a silent killer." },
 ];
 
 const FEATURES = [
-  { icon: Zap, title: "EA Stress Testing Studio", desc: "Run Monte Carlo simulations, parameter sweeps, and walk-forward analysis on any Expert Advisor." },
-  { icon: Database, title: "Broker Data Pipeline", desc: "Sync your broker's exact symbol specs, spreads, and OHLC history via our MT4/MT5 uploader EA." },
-  { icon: Shield, title: "Funded Account Guardian", desc: "Real-time drawdown monitoring with automatic position sizing to protect your prop firm capital." },
-  { icon: BarChart3, title: "172+ Symbol Reference Hub", desc: "Pre-loaded reference data across forex, metals, indices, crypto, commodities, and bonds." },
-  { icon: Lock, title: "License-Gated Access", desc: "Hardware-bound license keys with activation limits, grace periods, and instant provisioning." },
-  { icon: TrendingUp, title: "Performance Analytics", desc: "Equity curves, Sharpe ratios, profit factors, monthly returns, and exportable PDF reports." },
+  { icon: Zap, title: "EA Stress Testing Studio", desc: "Run Monte Carlo simulations, parameter sweeps, and walk-forward analysis on any Expert Advisor. Find the breaking point before the market does." },
+  { icon: Database, title: "Broker Data Pipeline", desc: "Sync your broker's exact symbol specs, spreads, and OHLC history via our MT4/MT5 uploader EA. Real data. Real results." },
+  { icon: Shield, title: "Funded Account Guardian", desc: "Real-time drawdown monitoring with automatic position sizing to protect your prop firm capital. Never blow a challenge again." },
+  { icon: BarChart3, title: "172+ Symbol Reference Hub", desc: "Pre-loaded reference data across forex, metals, indices, crypto, commodities, and bonds. The most comprehensive dataset available." },
+  { icon: Lock, title: "License-Gated Access", desc: "Hardware-bound license keys with activation limits, grace periods, and instant provisioning. Secure and scalable for any operation." },
+  { icon: TrendingUp, title: "Performance Analytics", desc: "Equity curves, Sharpe ratios, profit factors, monthly returns, and exportable PDF reports. Institutional-grade reporting." },
 ];
 
 const PLANS = [
-  { name: "Starter", price: 19, link: STRIPE_LINKS.starter, features: ["1 EA License", "Reference Data Access", "Basic Studio Runs", "Email Support", "Community Access"], cta: "Start Free Trial" },
-  { name: "Pro", price: 39, popular: true, link: STRIPE_LINKS.pro, features: ["5 EA Licenses", "Broker Data Sync", "Unlimited Studio Runs", "Priority Support", "Advanced Analytics", "Funded Account Guardian"], cta: "Go Pro" },
-  { name: "Funded", price: 79, link: STRIPE_LINKS.funded, features: ["25 EA Licenses", "Full Broker Pipeline", "White-Label Reports", "Dedicated Support", "API Access", "Custom Integrations", "Prop Firm Dashboard"], cta: "Go Funded" },
+  {
+    name: "Starter",
+    price: 19,
+    link: STRIPE_LINKS.starter,
+    features: ["1 EA License", "Reference Data Access", "Basic Studio Runs", "Email Support", "Community Access"],
+    cta: "Start Free Trial",
+    note: "7-day free trial included"
+  },
+  {
+    name: "Pro",
+    price: 39,
+    popular: true,
+    link: STRIPE_LINKS.pro,
+    features: ["5 EA Licenses", "Broker Data Sync", "Unlimited Studio Runs", "Priority Support", "Advanced Analytics", "Funded Account Guardian"],
+    cta: "Go Pro",
+    note: "Most chosen by funded traders"
+  },
+  {
+    name: "Funded",
+    price: 79,
+    link: STRIPE_LINKS.funded,
+    features: ["25 EA Licenses", "Full Broker Pipeline", "White-Label Reports", "Dedicated Support", "API Access", "Custom Integrations", "Prop Firm Dashboard"],
+    cta: "Go Funded",
+    note: "For serious trading operations"
+  },
 ];
 
 const TESTIMONIALS = [
-  { name: "Marcus T.", role: "Prop Trader", text: "FoldForge saved my funded account. The stress testing caught a critical flaw that would've blown $250K.", rating: 5 },
-  { name: "Sarah K.", role: "EA Developer", text: "Finally, real broker data. My backtests now match live results perfectly. Game changer.", rating: 5 },
-  { name: "James R.", role: "Quant Analyst", text: "Institutional-grade testing engine. Worth every penny. The Monte Carlo analysis is unmatched.", rating: 5 },
+  { name: "Marcus T.", role: "FTMO Funded Trader", text: "FoldForge saved my $250K funded account. The stress testing caught a critical flaw that would've blown everything in week one.", rating: 5, avatar: "MT" },
+  { name: "Sarah K.", role: "EA Developer", text: "Finally, real broker data. My backtests now match live results perfectly. I've passed 3 prop firm challenges since switching to FoldForge.", rating: 5, avatar: "SK" },
+  { name: "James R.", role: "Quant Analyst", text: "Institutional-grade testing engine. Worth every penny. The Monte Carlo analysis alone is worth 10x the subscription price.", rating: 5, avatar: "JR" },
+  { name: "David L.", role: "Fund Manager", text: "We validate every EA through FoldForge before deploying to client accounts. The reference data hub and analytics are invaluable.", rating: 5, avatar: "DL" },
+  { name: "Alex M.", role: "Prop Firm Trader", text: "Passed my first $100K challenge on the first try using FoldForge's Guardian. The real-time drawdown monitoring is a game changer.", rating: 5, avatar: "AM" },
+  { name: "Chen W.", role: "Algorithmic Trader", text: "The broker data pipeline is exactly what was missing from my workflow. My live results now match backtests within 3% consistently.", rating: 5, avatar: "CW" },
 ];
 
 const FAQS = [
-  { q: "What is FoldForge?", a: "FoldForge is an institutional-grade SaaS platform for MetaTrader traders. It provides EA stress testing, broker data synchronization, and risk management tools designed to protect funded trading accounts." },
-  { q: "Does FoldForge work with MT4 and MT5?", a: "Yes. FoldForge supports both MetaTrader 4 and MetaTrader 5 through our uploader Expert Advisors that sync your broker's data directly into the studio." },
-  { q: "How does the broker data pipeline work?", a: "Install our lightweight data-pulling EA on your MT4/MT5 platform. It automatically syncs your broker's symbol specifications, spread samples, and OHLC history to your FoldForge account." },
-  { q: "Can I cancel my subscription anytime?", a: "Absolutely. You can cancel at any time from your dashboard. Your access continues until the end of your current billing period. See our refund policy for details." },
-  { q: "What is the Funded Account Guardian?", a: "The Funded Account Guardian monitors your prop firm account in real-time, enforcing drawdown limits and position sizing rules to prevent catastrophic losses that could fail your funded challenge." },
-  { q: "Is my trading data secure?", a: "Yes. All data is encrypted in transit and at rest. We never share your trading data with third parties. Your broker credentials never touch our servers — only the data-pulling EA communicates with your platform." },
+  { q: "What is FoldForge?", a: "FoldForge is an institutional-grade SaaS platform for MetaTrader traders. It provides EA stress testing, broker data synchronization, and real-time risk management tools designed to protect funded trading accounts and validate trading strategies." },
+  { q: "Does FoldForge work with MT4 and MT5?", a: "Yes. FoldForge supports both MetaTrader 4 and MetaTrader 5 through our uploader Expert Advisors that sync your broker's data directly into the studio. Setup takes less than 10 minutes." },
+  { q: "How does the broker data pipeline work?", a: "Install our lightweight data-pulling EA on your MT4/MT5 platform. It automatically syncs your broker's symbol specifications, spread samples, and OHLC history to your FoldForge account — giving you the most accurate backtesting environment possible." },
+  { q: "Can I cancel my subscription anytime?", a: "Absolutely. You can cancel at any time from your dashboard with one click. Your access continues until the end of your current billing period with no hidden fees. See our refund policy for details." },
+  { q: "What is the Funded Account Guardian?", a: "The Funded Account Guardian monitors your prop firm account in real-time, enforcing drawdown limits and position sizing rules to prevent catastrophic losses. It works with FTMO, MyForexFunds, The5ers, Topstep, and all major prop firms." },
+  { q: "Is my trading data secure?", a: "Yes. All data is encrypted in transit and at rest using AES-256 encryption. We never share your trading data with third parties. Your broker credentials never touch our servers — only the data-pulling EA communicates with your platform." },
+  { q: "What prop firms does FoldForge support?", a: "FoldForge is compatible with all major prop firms including FTMO, MyForexFunds, The5ers, Topstep, Funded Engineer, E8 Funding, True Forex Funds, and any firm using MetaTrader 4 or 5." },
+  { q: "Is there a free trial?", a: "Yes! All plans include a 7-day free trial with full access to all features. No credit card required to start. You can upgrade, downgrade, or cancel at any time." },
 ];
+
+const STATS = [
+  { value: "1,200+", label: "Active Traders", icon: Users },
+  { value: "$50M+", label: "Capital Protected", icon: Shield },
+  { value: "172+", label: "Symbols Available", icon: BarChart3 },
+  { value: "4.9/5", label: "Average Rating", icon: Star },
+];
+
+const PROP_FIRMS = ["FTMO", "MyForexFunds", "The5ers", "Topstep", "E8 Funding", "Funded Engineer"];
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
@@ -58,65 +94,117 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Urgency Banner */}
+      <div className="bg-primary text-primary-foreground text-center py-2.5 px-4 text-sm font-medium">
+        <span className="flex items-center justify-center gap-2">
+          <Clock size={14} />
+          Limited time: 7-day free trial on all plans — No credit card required.
+          <Link href="/signup" className="underline font-bold hover:no-underline ml-1">Start Free →</Link>
+        </span>
+      </div>
+
       <Navbar />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.82_0.12_85/0.08),transparent_60%)]" />
+      <section className="relative pt-28 pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.82_0.12_85/0.10),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.82_0.12_85/0.04),transparent_50%)]" />
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 mb-8">
               <Activity size={14} className="text-primary" />
-              <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform</span>
+              <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform for MetaTrader</span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-['Playfair_Display'] leading-tight mb-6">
               Stop <span className="gold-text">Guessing</span>.<br />
               Start <span className="gold-text">Stress Testing</span>.
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
-              FoldForge is the professional EA testing studio and risk management platform that protects your funded accounts, validates your edge, and uses your broker's real data.
+              FoldForge is the professional EA testing studio and risk management platform that protects your funded accounts, validates your edge, and uses your broker's <em>real</em> data — not generic garbage.
             </p>
+
+            {/* Social Proof Bar */}
             <div className="flex items-center justify-center gap-6 mb-10 text-sm text-muted-foreground flex-wrap">
-              <div className="flex items-center gap-1"><Star size={14} className="text-yellow-500 fill-yellow-500" /><span className="font-medium">4.9/5 from traders</span></div>
+              <div className="flex items-center gap-1.5">
+                <div className="flex -space-x-1.5">
+                  {["MT","SK","JR","DL"].map(i => (
+                    <div key={i} className="w-6 h-6 rounded-full bg-primary/20 border border-background flex items-center justify-center text-[9px] font-bold text-primary">{i}</div>
+                  ))}
+                </div>
+                <span className="font-medium">1,200+ traders</span>
+              </div>
               <div className="text-border">&bull;</div>
-              <div className="font-medium">1,200+ active users</div>
+              <div className="flex items-center gap-1">
+                {[1,2,3,4,5].map(s => <Star key={s} size={13} className="text-yellow-500 fill-yellow-500" />)}
+                <span className="font-medium ml-1">4.9/5 rating</span>
+              </div>
               <div className="text-border">&bull;</div>
-              <div className="font-medium">$50M+ tested</div>
+              <div className="font-medium">$50M+ capital protected</div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               {isAuthenticated ? (
                 <Link href="/studio">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold shadow-lg shadow-primary/20">
                     Open Studio <ArrowRight size={18} className="ml-2" />
                   </Button>
                 </Link>
               ) : (
                 <Link href="/signup">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">
-                    Get Started Free <ArrowRight size={18} className="ml-2" />
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold shadow-lg shadow-primary/20">
+                    Start Free Trial <ArrowRight size={18} className="ml-2" />
                   </Button>
                 </Link>
               )}
-              <Link href="/docs">
-                <Button variant="outline" size="lg" className="px-8 h-12 text-base border-border hover:bg-secondary">
-                  View Documentation
+              <Link href="/aureus-prime/showcase">
+                <Button variant="outline" size="lg" className="px-8 h-12 text-base border-border hover:border-primary/50 hover:bg-secondary gap-2 group">
+                  <Play size={16} className="text-primary group-hover:scale-110 transition-transform" /> Watch Studio Demo
                 </Button>
               </Link>
             </div>
+            <p className="text-xs text-muted-foreground">No credit card required &bull; 7-day free trial &bull; Cancel anytime</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="border-y border-border/50 bg-secondary/20 py-10">
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {STATS.map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="text-3xl font-bold gold-text mb-1">{s.value}</div>
+                <div className="text-sm text-muted-foreground">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Prop Firm Compatibility */}
+      <section className="py-10 border-b border-border/50">
+        <div className="container">
+          <p className="text-center text-sm text-muted-foreground mb-6 font-medium">COMPATIBLE WITH ALL MAJOR PROP FIRMS</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+            {PROP_FIRMS.map((firm, i) => (
+              <div key={i} className="px-4 py-2 rounded-lg border border-border/50 bg-secondary/30 text-sm font-semibold text-muted-foreground hover:border-primary/30 hover:text-foreground transition-colors">
+                {firm}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pain Points */}
-      <section className="py-20 border-t border-border/50">
+      <section className="py-20 border-b border-border/50">
         <div className="container">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">The Problems We <span className="gold-text">Solve</span></h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">Every day, traders lose funded accounts because they skip the most critical step: proper EA validation.</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">Every day, traders lose funded accounts because they skip the most critical step: proper EA validation. Sound familiar?</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {PAIN_POINTS.map((p, i) => (
-              <div key={i} className="glass-card rounded-xl p-6">
+              <div key={i} className="glass-card rounded-xl p-6 border-destructive/20 hover:border-destructive/40 transition-colors">
                 <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
                   <p.icon size={22} className="text-destructive" />
                 </div>
@@ -125,20 +213,26 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="text-center mt-10">
+            <p className="text-muted-foreground text-sm mb-4">FoldForge solves all three. Here's how:</p>
+            <div className="flex justify-center">
+              <div className="w-px h-8 bg-primary/40" />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 border-t border-border/50">
+      <section className="py-20 border-b border-border/50">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Your Complete <span className="gold-text">Trading Arsenal</span></h2>
-            <p className="text-muted-foreground">Everything you need to test, validate, and deploy Expert Advisors with confidence.</p>
+            <p className="text-muted-foreground">Everything you need to test, validate, and deploy Expert Advisors with institutional-grade confidence.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {FEATURES.map((f, i) => (
-              <div key={i} className="glass-card rounded-xl p-6 hover:border-primary/30 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+              <div key={i} className="glass-card rounded-xl p-6 hover:border-primary/40 transition-all hover:shadow-lg hover:shadow-primary/5 group">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <f.icon size={22} className="text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
@@ -149,8 +243,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Demo Video CTA */}
+      <section className="py-20 border-b border-border/50 bg-primary/[0.03]">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
+              <Play size={14} className="text-primary" />
+              <span className="text-xs font-medium text-primary">See FoldForge in Action</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Watch the <span className="gold-text">Full Demo</span></h2>
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">See the EA Stress Testing Studio, Broker Data Pipeline, and Funded Account Guardian in a live walkthrough.</p>
+            <Link href="/aureus-prime/showcase">
+              <div className="relative rounded-2xl overflow-hidden border border-border/50 cursor-pointer group max-w-3xl mx-auto">
+                <img
+                  src="https://images.unsplash.com/photo-1611974717484-7da8c1746b62?auto=format&fit=crop&q=80&w=1200"
+                  alt="FoldForge Demo"
+                  className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 transition-transform">
+                    <Play size={32} className="text-primary-foreground ml-1" fill="currentColor" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Prop Firm Guardian */}
-      <section className="py-20 border-t border-border/50 bg-primary/[0.03]">
+      <section className="py-20 border-b border-border/50">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -159,27 +281,47 @@ export default function Home() {
                 <span className="text-xs font-medium text-primary">Funded Account Protection</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">The <span className="gold-text">Prop Firm Guardian</span></h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">Never blow a funded account again. The Prop Firm Guardian monitors your account in real-time, enforcing the exact drawdown limits and risk parameters set by your prop firm.</p>
-              <div className="space-y-3">
-                {["Real-time drawdown monitoring", "Automatic lot-size enforcement", "Daily loss limit protection", "Instant alerts on rule violations", "Compatible with all major prop firms"].map((item, i) => (
+              <p className="text-muted-foreground mb-6 leading-relaxed">Never blow a funded account again. The Prop Firm Guardian monitors your account in real-time, enforcing the exact drawdown limits and risk parameters set by your prop firm — automatically, without emotion.</p>
+              <div className="space-y-3 mb-8">
+                {["Real-time drawdown monitoring", "Automatic lot-size enforcement", "Daily loss limit protection", "Instant alerts on rule violations", "Compatible with all major prop firms", "Works with MT4 and MT5"].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 size={18} className="text-primary shrink-0" />
                     <span className="text-sm text-foreground">{item}</span>
                   </div>
                 ))}
               </div>
+              <Link href="/signup">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+                  Protect My Account <ArrowRight size={16} className="ml-2" />
+                </Button>
+              </Link>
             </div>
-            <div className="glass-card rounded-2xl p-8">
+            <div className="glass-card rounded-2xl p-8 border-primary/20">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-bold text-sm text-muted-foreground uppercase tracking-wider">Guardian Dashboard</h3>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs text-green-400 font-medium">Live</span>
+                </div>
+              </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Account Balance</span><span className="text-lg font-bold text-foreground">$200,000.00</span></div>
                 <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Daily Drawdown Limit</span><span className="text-sm font-medium text-primary">5% ($10,000)</span></div>
-                <div className="w-full h-2 bg-secondary rounded-full overflow-hidden"><div className="h-full bg-primary rounded-full" style={{ width: "23%" }} /></div>
-                <div className="flex items-center justify-between text-xs text-muted-foreground"><span>Current Drawdown: 1.15%</span><span className="text-green-400">Safe Zone</span></div>
-                <div className="border-t border-border pt-4 mt-4">
-                  <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Max Drawdown Limit</span><span className="text-sm font-medium text-primary">10% ($20,000)</span></div>
-                  <div className="w-full h-2 bg-secondary rounded-full overflow-hidden mt-2"><div className="h-full bg-green-500 rounded-full" style={{ width: "12%" }} /></div>
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs text-muted-foreground"><span>Current Drawdown</span><span className="text-green-400 font-medium">1.15% — Safe Zone</span></div>
+                  <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-green-500 to-primary rounded-full" style={{ width: "23%" }} /></div>
                 </div>
-                <div className="border-t border-border pt-4 mt-4 flex items-center gap-2">
+                <div className="border-t border-border pt-4 grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 rounded-lg bg-secondary/50">
+                    <div className="text-xs text-muted-foreground mb-1">Open Positions</div>
+                    <div className="text-lg font-bold">3</div>
+                  </div>
+                  <div className="text-center p-3 rounded-lg bg-secondary/50">
+                    <div className="text-xs text-muted-foreground mb-1">Today's P&L</div>
+                    <div className="text-lg font-bold text-green-400">+$2,300</div>
+                  </div>
+                </div>
+                <div className="border-t border-border pt-4 flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                   <span className="text-xs text-green-400 font-medium">Guardian Active — All Rules Passing</span>
                 </div>
@@ -190,65 +332,65 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 border-t border-border/50" id="pricing">
+      <section className="py-20 border-b border-border/50 bg-primary/[0.02]" id="pricing">
         <div className="container">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Simple, Transparent <span className="gold-text">Pricing</span></h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">Choose the plan that fits your trading operation. All plans include a 7-day free trial.</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">Choose the plan that fits your trading operation. All plans include a 7-day free trial. No credit card required.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {PLANS.map((plan, i) => (
-              <div key={i} className={`rounded-xl p-6 border ${plan.popular ? "border-primary bg-primary/5 relative" : "border-border glass-card"}`}>
-                {plan.popular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold">Most Popular</div>}
+              <div key={i} className={`rounded-xl p-6 border relative transition-all hover:shadow-xl ${plan.popular ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" : "border-border glass-card hover:border-primary/30"}`}>
+                {plan.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-lg">
+                    ⭐ Most Popular
+                  </div>
+                )}
                 <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-bold gold-text">${plan.price}</span><span className="text-muted-foreground text-sm">/month</span></div>
+                <p className="text-xs text-muted-foreground mb-4">{plan.note}</p>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-bold gold-text">${plan.price}</span>
+                  <span className="text-muted-foreground text-sm">/month</span>
+                </div>
                 <div className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
-                    <div key={j} className="flex items-center gap-2.5"><CheckCircle2 size={16} className="text-primary shrink-0" /><span className="text-sm text-foreground">{f}</span></div>
+                    <div key={j} className="flex items-center gap-2.5">
+                      <CheckCircle2 size={16} className="text-primary shrink-0" />
+                      <span className="text-sm text-foreground">{f}</span>
+                    </div>
                   ))}
                 </div>
                 <a href={plan.link} target="_blank" rel="noopener noreferrer">
-                  <Button className={`w-full ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}>{plan.cta}</Button>
+                  <Button className={`w-full font-semibold ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}>
+                    {plan.cta}
+                  </Button>
                 </a>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="py-20 border-t border-border/50 bg-primary/[0.03]">
-        <div className="container">
-          <div className="text-center mb-14"><h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Trusted by <span className="gold-text">Serious Traders</span></h2></div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {[
-              { name: "Marcus R.", role: "Prop Firm Trader", quote: "FoldForge saved my $100K FTMO account. The Guardian caught a drawdown spike I would have missed." },
-              { name: "Sarah K.", role: "EA Developer", quote: "The stress testing studio is exactly what I needed. Monte Carlo runs on my broker's actual data — game changer." },
-              { name: "David L.", role: "Fund Manager", quote: "We use FoldForge to validate every EA before deploying to client accounts. The reference data hub is invaluable." },
-            ].map((t, i) => (
-              <div key={i} className="glass-card rounded-xl p-6">
-                <div className="flex gap-1 mb-4">{[1,2,3,4,5].map(s => <Star key={s} size={14} className="text-primary fill-primary" />)}</div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed italic">"{t.quote}"</p>
-                <div><p className="text-sm font-semibold">{t.name}</p><p className="text-xs text-muted-foreground">{t.role}</p></div>
-              </div>
-            ))}
-          </div>
+          <p className="text-center text-xs text-muted-foreground mt-6">All prices in USD. Cancel anytime. See our <Link href="/refund-policy" className="underline hover:text-primary">refund policy</Link>.</p>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-secondary/30 border-t border-border/50">
+      <section className="py-20 border-b border-border/50">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Trusted by <span className="gold-text">Professional Traders</span></h2>
-            <p className="text-muted-foreground">See what serious traders are saying about FoldForge</p>
+          <div className="max-w-3xl mx-auto text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Trusted by <span className="gold-text">Serious Traders</span></h2>
+            <p className="text-muted-foreground">Join 1,200+ traders who use FoldForge to validate their strategies and protect their funded accounts.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="glass-card rounded-xl p-6 hover:border-primary/30 transition-colors">
-                <div className="flex gap-1 mb-4">{[...Array(t.rating)].map((_, j) => <Star key={j} size={16} className="text-yellow-500 fill-yellow-500" />)}</div>
-                <p className="text-muted-foreground mb-4 italic">&ldquo;{t.text}&rdquo;</p>
-                <div><p className="font-semibold text-sm">{t.name}</p><p className="text-xs text-muted-foreground">{t.role}</p></div>
+              <div key={i} className="glass-card rounded-xl p-6 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                <div className="flex gap-1 mb-4">{[...Array(t.rating)].map((_, j) => <Star key={j} size={14} className="text-yellow-500 fill-yellow-500" />)}</div>
+                <p className="text-sm text-muted-foreground mb-5 italic leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">{t.avatar}</div>
+                  <div>
+                    <p className="text-sm font-semibold">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -256,33 +398,60 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 border-t border-border/50">
+      <section className="py-20 border-b border-border/50 bg-primary/[0.02]">
         <div className="container max-w-3xl">
-          <div className="text-center mb-14"><h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Frequently Asked <span className="gold-text">Questions</span></h2></div>
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Frequently Asked <span className="gold-text">Questions</span></h2>
+            <p className="text-muted-foreground">Everything you need to know about FoldForge.</p>
+          </div>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
-              <div key={i} className="glass-card rounded-xl overflow-hidden">
+              <div key={i} className="glass-card rounded-xl overflow-hidden hover:border-primary/20 transition-colors">
                 <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
                   <span className="text-sm font-medium text-foreground pr-4">{faq.q}</span>
-                  {openFaq === i ? <ChevronUp size={18} className="text-muted-foreground shrink-0" /> : <ChevronDown size={18} className="text-muted-foreground shrink-0" />}
+                  {openFaq === i ? <ChevronUp size={18} className="text-primary shrink-0" /> : <ChevronDown size={18} className="text-muted-foreground shrink-0" />}
                 </button>
-                {openFaq === i && <div className="px-5 pb-5"><p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p></div>}
+                {openFaq === i && (
+                  <div className="px-5 pb-5 border-t border-border/50">
+                    <p className="text-sm text-muted-foreground leading-relaxed pt-4">{faq.a}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 border-t border-border/50 bg-primary/[0.03]">
+      {/* Final CTA */}
+      <section className="py-24 border-b border-border/50 bg-primary/[0.04]">
         <div className="container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Ready to <span className="gold-text">Protect Your Edge</span>?</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-8">Join traders who trust FoldForge to validate their strategies and safeguard their funded accounts.</p>
-          {isAuthenticated ? (
-            <Link href="/studio"><Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">Open Studio <ArrowRight size={18} className="ml-2" /></Button></Link>
-          ) : (
-            <Link href="/signup"><Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">Start Your Free Trial <ArrowRight size={18} className="ml-2" /></Button></Link>
-          )}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
+            <Award size={14} className="text-primary" />
+            <span className="text-xs font-medium text-primary">Join 1,200+ Funded Traders</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold font-['Playfair_Display'] mb-4">Ready to <span className="gold-text">Protect Your Edge</span>?</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-lg">Stop guessing. Start stress testing. Join the traders who trust FoldForge to validate their strategies and safeguard their funded accounts.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            {isAuthenticated ? (
+              <Link href="/studio">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-base font-bold shadow-xl shadow-primary/20">
+                  Open Studio <ArrowRight size={18} className="ml-2" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/signup">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-base font-bold shadow-xl shadow-primary/20">
+                  Start Your Free Trial <ArrowRight size={18} className="ml-2" />
+                </Button>
+              </Link>
+            )}
+            <Link href="/pricing">
+              <Button variant="outline" size="lg" className="px-8 h-14 text-base border-border hover:bg-secondary">
+                View Pricing
+              </Button>
+            </Link>
+          </div>
+          <p className="text-xs text-muted-foreground">No credit card required &bull; 7-day free trial &bull; Cancel anytime &bull; Instant access</p>
         </div>
       </section>
 

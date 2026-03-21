@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Disallow private/app routes
+Disallow: /dashboard
+Disallow: /studio
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://foldforge.app/sitemap.xml
+
+# Crawl-delay for bots
+Crawl-delay: 1
