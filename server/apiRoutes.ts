@@ -3,6 +3,11 @@ import * as db from "./db";
 
 const apiRouter = Router();
 
+/* ── Health Check (Render / load balancer probe) ──────────────── */
+apiRouter.get("/api/health", (_req: Request, res: Response) => {
+  res.status(200).json({ ok: true, ts: Date.now() });
+});
+
 /* ── License Verification (called by EA) ───────────────────────── */
 apiRouter.post("/api/license/verify", async (req: Request, res: Response) => {
   try {

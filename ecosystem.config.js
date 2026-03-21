@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "foldforge",
-      script: "node_modules/.bin/tsx",
-      args: "server/_core/index.ts",
+      script: "dist/index.js",
+      interpreter: "node",
       cwd: __dirname,
       env: {
         NODE_ENV: "production",

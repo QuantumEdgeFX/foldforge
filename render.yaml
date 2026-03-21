@@ -1,10 +1,75 @@
 services:
   - type: web
     name: foldforge
-    env: node
-    plan: free
-    buildCommand: pnpm install && pnpm run build
-    startCommand: pnpm run start
+    runtime: node
+    plan: starter
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: node dist/index.js
+    healthCheckPath: /api/health
+
+    # Persistent disk for SQLite database
+    disk:
+      name: foldforge-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+
     envVars:
+      # ── Core ────────────────────────────────────────────────────
       - key: NODE_ENV
         value: production
+
+      - key: PORT
+        value: 3000
+
+      - key: JWT_SECRET
+        generateValue: true
+
+      # ── Database (SQLite on persistent disk) ────────────────────
+      - key: DATABASE_PATH
+        value: /opt/render/project/src/data/foldforge.db
+
+      # ── Admin ────────────────────────────────────────────────────
+      # Set this in the Render dashboard: your admin email address
+      - key: ADMIN_EMAIL
+        sync: false
+
+      # ── Supabase Auth ────────────────────────────────────────────
+      # Required for email verification and password reset.
+      # Create a free project at https://supabase.com and paste values below.
+      - key: SUPABASE_URL
+        sync: false
+
+      - key: SUPABASE_ANON_KEY
+        sync: false
+
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      # ── Stripe Payments ──────────────────────────────────────────
+      # Required for subscription billing.
+      # Get keys from https://dashboard.stripe.com/apikeys
+      - key: STRIPE_SECRET_KEY
+        sync: false
+
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+
+      # ── S3 / File Downloads Vault (optional) ─────────────────────
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+
+      - key: AWS_REGION
+        value: us-east-1
+
+      - key: AWS_S3_BUCKET
+        sync: false
+
+      # ── AI Chat (optional) ────────────────────────────────────────
+      - key: BUILT_IN_FORGE_API_URL
+        sync: false
+
+      - key: BUILT_IN_FORGE_API_KEY
+        sync: false
