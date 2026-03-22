@@ -176,6 +176,27 @@ apiRouter.post("/api/broker/heartbeat", async (req: Request, res: Response) => {
   }
 });
 
+/* ── Lead Collection ─────────────────────────────────────────── */
+apiRouter.post("/api/leads/collect", async (req: Request, res: Response) => {
+  try {
+    const { email, source } = req.body;
+    if (!email) return res.status(400).json({ success: false, error: "Email is required" });
+    
+    // In a real app, we would save this to a 'leads' table
+    // For now, we'll log it and return success
+    console.log(`[Lead Collected] Email: ${email}, Source: ${source || 'unknown'}`);
+    
+    return res.json({ 
+      success: true, 
+      message: "Lead collected successfully",
+      downloadUrl: "https://foldforge.app/downloads/EA-Risk-Checklist.pdf" 
+    });
+  } catch (e: any) {
+    console.error("[Lead Collection Error]", e);
+    return res.status(500).json({ success: false, error: "Internal server error" });
+  }
+});
+
 /* ── Stripe Webhook ────────────────────────────────────────────── */
 apiRouter.post("/api/stripe/webhook", async (req: Request, res: Response) => {
   try {

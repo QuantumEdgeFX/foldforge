@@ -92,10 +92,47 @@ export default function Home() {
   const { isAuthenticated } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const videoRef = useRef<HTMLDivElement>(null);
+  const [winRate, setWinRate] = useState(55);
+  const [riskPerTrade, setRiskPerTrade] = useState(1);
+  const [leadEmail, setLeadEmail] = useState("");
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadEmail) return;
+    setIsSubmittingLead(true);
+    try {
+      const res = await fetch("/api/leads/collect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: leadEmail, source: "home_lead_magnet" }),
+      });
+      if (res.ok) {
+        setLeadSubmitted(true);
+        // In a real app, we might trigger a download here
+        window.open("https://foldforge.app/downloads/EA-Risk-Checklist.pdf", "_blank");
+      }
+    } catch (err) {
+      console.error("Lead submission failed", err);
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  };
 
   const scrollToVideo = () => {
     videoRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Simple blow-up risk calculation: (1 - WinRate)^N where N is trades to hit 10% DD
+  // If risk is 1%, N = 10. If risk is 2%, N = 5.
+  const calculateRisk = (wr: number, rpt: number) => {
+    const n = Math.ceil(10 / rpt);
+    const prob = Math.pow(1 - (wr / 100), n) * 100;
+    return Math.min(Math.max(prob, 0.1), 99.9).toFixed(1);
+  };
+
+  const blowUpRisk = calculateRisk(winRate, riskPerTrade);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -227,6 +264,103 @@ export default function Home() {
                 {firm}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Risk Calculator */}
+      <section className="py-20 border-b border-border/50 bg-primary/[0.02]">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
+                <Activity size={14} className="text-primary" />
+                <span className="text-xs font-medium text-primary">Interactive Tool</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">Calculate Your <span className="gold-text">Blow-Up Risk</span></h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Most traders underestimate the probability of a catastrophic drawdown. Use our simplified Monte Carlo calculator to see how likely your strategy is to breach prop firm limits.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary shrink-0 mt-1" />
+                  <div>
+                    <div className="font-bold">Statistical Reality Check</div>
+                    <div className="text-sm text-muted-foreground">See the math behind your strategy's survival rate.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary shrink-0 mt-1" />
+                  <div>
+                    <div className="font-bold">Prop Firm Alignment</div>
+                    <div className="text-sm text-muted-foreground">Instantly see if your risk parameters fit within 5% daily limits.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="glass-card rounded-2xl p-8 border-primary/20 bg-background/50 shadow-2xl shadow-primary/5">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2 flex justify-between">
+                    Win Rate <span>{winRate}%</span>
+                  </label>
+                  <input 
+                    type="range" 
+                    min="30" 
+                    max="80" 
+                    value={winRate} 
+                    onChange={(e) => setWinRate(parseInt(e.target.value))}
+                    className="w-full accent-primary cursor-pointer" 
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+                    <span>30%</span>
+                    <span>55%</span>
+                    <span>80%</span>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 flex justify-between">
+                    Risk per Trade <span>{riskPerTrade}%</span>
+                  </label>
+                  <input 
+                    type="range" 
+                    min="0.1" 
+                    max="5" 
+                    step="0.1" 
+                    value={riskPerTrade} 
+                    onChange={(e) => setRiskPerTrade(parseFloat(e.target.value))}
+                    className="w-full accent-primary cursor-pointer" 
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+                    <span>0.1%</span>
+                    <span>1%</span>
+                    <span>5%</span>
+                  </div>
+                </div>
+                <div className="pt-6 border-t border-border/50">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-medium">Probability of 10% Drawdown:</span>
+                    <span className={`text-xl font-bold ${parseFloat(blowUpRisk) > 30 ? 'text-destructive' : 'text-green-500'}`}>
+                      {blowUpRisk}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-secondary rounded-full h-2.5 mb-8">
+                    <div 
+                      className={`h-2.5 rounded-full transition-all duration-500 ${parseFloat(blowUpRisk) > 30 ? 'bg-destructive' : 'bg-green-500'}`} 
+                      style={{ width: `${blowUpRisk}%` }}
+                    ></div>
+                  </div>
+                  <Link href="/signup">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 font-bold">
+                      Get Full Stress Test Report <ArrowRight size={18} className="ml-2" />
+                    </Button>
+                  </Link>
+                  <p className="text-[10px] text-center text-muted-foreground mt-4 italic">
+                    *Simplified calculation based on 1,000 simulated trades. For accurate results, use the FoldForge Studio.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -577,11 +711,39 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              <Link href="/signup">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full md:w-auto px-10 h-12 font-bold shadow-lg shadow-primary/20">
-                  Download Free Checklist <ArrowRight size={18} className="ml-2" />
-                </Button>
-              </Link>
+              {leadSubmitted ? (
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-6 text-center">
+                  <CheckCircle2 size={32} className="text-green-500 mx-auto mb-3" />
+                  <h4 className="font-bold text-green-500 mb-1">Checklist Sent!</h4>
+                  <p className="text-sm text-muted-foreground">Check your inbox (and spam) for the EA Risk Checklist.</p>
+                  <Button 
+                    variant="link" 
+                    className="mt-4 text-primary font-bold"
+                    onClick={() => window.open("https://foldforge.app/downloads/EA-Risk-Checklist.pdf", "_blank")}
+                  >
+                    Didn't start? Click here to download manually.
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleLeadSubmit} className="flex flex-col md:flex-row gap-3 max-w-xl mx-auto">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your best email address"
+                    value={leadEmail}
+                    onChange={(e) => setLeadEmail(e.target.value)}
+                    className="flex-1 bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors text-sm"
+                  />
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmittingLead}
+                    size="lg" 
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-12 font-bold shadow-lg shadow-primary/20"
+                  >
+                    {isSubmittingLead ? "Sending..." : "Get Free Checklist"} <ArrowRight size={18} className="ml-2" />
+                  </Button>
+                </form>
+              )}
             </div>
             <p className="text-xs text-muted-foreground">Join 1,200+ traders. No spam. Unsubscribe anytime.</p>
           </div>

@@ -45,7 +45,7 @@ export default function Pricing() {
               Choose Your <span className="gold-text">Trading Edge</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              All plans include a 7-day free trial. No credit card required to start. Cancel anytime.
+              All plans include a 7-day free trial. Start your trial today and cancel anytime.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Pricing() {
                 </div>
                 <a href={plan.stripeLink} target="_blank" rel="noopener noreferrer">
                   <Button className={`w-full h-11 ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}>
-                    Subscribe Now <ArrowRight size={16} className="ml-2" />
+                    Start 7-Day Free Trial <ArrowRight size={16} className="ml-2" />
                   </Button>
                 </a>
               </div>
