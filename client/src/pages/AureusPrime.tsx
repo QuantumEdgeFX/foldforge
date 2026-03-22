@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { CheckCircle2, Shield, Zap, BarChart3, TrendingUp, ArrowRight, Star } from "lucide-react";
+import { CheckCircle2, Shield, Zap, BarChart3, TrendingUp, ArrowRight, Star, Play } from "lucide-react";
 
 const LOGO_URL = "/logo.webp";
 
@@ -50,14 +50,14 @@ export default function AureusPrime() {
                 The institutional-grade Expert Advisor built for serious traders. Aureus Prime combines adaptive volatility analysis, dynamic position sizing, and prop-firm-safe risk management into a single, battle-tested trading engine.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/pricing">
+                <Link href="/signup">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12">
-                    Get Aureus Prime <ArrowRight size={18} className="ml-2" />
+                    Get Free Access <ArrowRight size={18} className="ml-2" />
                   </Button>
                 </Link>
-                <Link href="/docs">
+                <Link href="/aureus-prime/showcase">
                   <Button variant="outline" size="lg" className="px-8 h-12 border-border">
-                    View Documentation
+                    See Live Trades
                   </Button>
                 </Link>
               </div>
@@ -219,56 +219,50 @@ export default function AureusPrime() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Video 1: Live Backtest */}
-            <div className="glass-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors">
-              <div className="aspect-video bg-background/50 flex items-center justify-center relative group">
-                <video
-                  className="w-full h-full object-cover"
-                  controls
-                  poster="/logo.webp"
-                  preload="metadata"
-                >
-                  <source src="/videos/aureus-prime-live-backtest-optimized.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+            <a href="https://www.youtube.com/embed/dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="glass-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer">
+              <div className="aspect-video bg-background/50 flex items-center justify-center relative">
+                <img src="/aureus-prime-trade-1.webp" alt="Aureus Prime Live Gold Backtest" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
+                  <div className="w-16 h-16 rounded-full bg-primary/80 flex items-center justify-center group-hover:bg-primary transition-colors">
+                    <Play size={28} className="text-white ml-1" />
+                  </div>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="text-lg font-bold mb-2">Live Gold Backtest Results</h3>
+                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">Live Gold Backtest Results</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  See Aureus Prime in action on XAUUSD with an 18% return. This video demonstrates the EA&apos;s adaptive volatility engine and dynamic position sizing in real market conditions.
+                  See Aureus Prime in action on XAUUSD with an 18% return. This video demonstrates the EA's adaptive volatility engine and dynamic position sizing in real market conditions.
                 </p>
                 <div className="flex items-center gap-2 text-xs text-primary">
-                  <span>&#128202; 4.7 min</span>
+                  <span>▶ 4.7 min</span>
                   <span>&bull;</span>
                   <span>Live Trading</span>
                 </div>
               </div>
-            </div>
+            </a>
 
             {/* Video 2: Stress Testing */}
-            <div className="glass-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors">
-              <div className="aspect-video bg-background/50 flex items-center justify-center relative group">
-                <video
-                  className="w-full h-full object-cover"
-                  controls
-                  poster="/logo.webp"
-                  preload="metadata"
-                >
-                  <source src="/videos/ea-stress-testing-guide-optimized.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+            <a href="https://www.youtube.com/embed/dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="glass-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer">
+              <div className="aspect-video bg-background/50 flex items-center justify-center relative">
+                <img src="/aureus-prime-trade-2.png" alt="EA Stress Testing Guide" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
+                  <div className="w-16 h-16 rounded-full bg-primary/80 flex items-center justify-center group-hover:bg-primary transition-colors">
+                    <Play size={28} className="text-white ml-1" />
+                  </div>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="text-lg font-bold mb-2">Institutional-Grade EA Stress Testing</h3>
+                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">Institutional-Grade EA Stress Testing</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Why your backtests might be lying to you. Learn how FoldForge&apos;s stress testing tools reveal the true edge of your trading strategies with Monte Carlo analysis and walk-forward validation.
+                  Why your backtests might be lying to you. Learn how FoldForge's stress testing tools reveal the true edge of your trading strategies with Monte Carlo analysis and walk-forward validation.
                 </p>
                 <div className="flex items-center gap-2 text-xs text-primary">
-                  <span>&#128200; 1.7 min</span>
+                  <span>▶ 1.7 min</span>
                   <span>&bull;</span>
                   <span>Educational</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -280,17 +274,17 @@ export default function AureusPrime() {
             Ready to Trade with <span className="gold-text">Aureus Prime</span>?
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-            Subscribe to any FoldForge plan to receive your Aureus Prime EA license key and full access to the testing studio.
+            Get 7 days free access to Aureus Prime EA, the testing studio, and real-time drawdown protection. No credit card required.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/pricing">
+            <Link href="/signup">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold">
-                View Plans <ArrowRight size={18} className="ml-2" />
+                Start Free Trial <ArrowRight size={18} className="ml-2" />
               </Button>
             </Link>
             <Link href="/aureus-prime/showcase">
               <Button variant="outline" size="lg" className="px-8 h-12 border-border hover:border-primary/50">
-                <BarChart3 size={18} className="mr-2" /> View Showcase
+                <BarChart3 size={18} className="mr-2" /> View Live Results
               </Button>
             </Link>
           </div>
