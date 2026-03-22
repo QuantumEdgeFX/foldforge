@@ -6,7 +6,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
   CheckCircle2, ArrowRight, Star,
-  Activity, AlertTriangle, Target, Play, Users, Clock
+  Activity, AlertTriangle, Target, Play, Users, Clock, ChevronUp, ChevronDown
 } from "lucide-react";
 import { useState, useRef } from "react";
 
