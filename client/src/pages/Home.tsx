@@ -5,10 +5,10 @@ import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
-  CheckCircle2, ArrowRight, ChevronDown, ChevronUp, Star,
-  Activity, AlertTriangle, Target, Play, Users, Award, Clock
+  CheckCircle2, ArrowRight, Star,
+  Activity, AlertTriangle, Target, Play, Users, Clock
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -91,6 +91,11 @@ const PROP_FIRMS = ["FTMO", "MyForexFunds", "The5ers", "Topstep", "E8 Funding", 
 export default function Home() {
   const { isAuthenticated } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
+
+  const scrollToVideo = () => {
+    videoRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -156,11 +161,14 @@ export default function Home() {
                   </Button>
                 </Link>
               )}
-              <Link href="/aureus-prime/showcase">
-                <Button variant="outline" size="lg" className="px-8 h-12 text-base border-border hover:border-primary/50 hover:bg-secondary gap-2 group">
-                  <Play size={16} className="text-primary group-hover:scale-110 transition-transform" /> Watch Studio Demo
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="px-8 h-12 text-base border-border hover:border-primary/50 hover:bg-secondary gap-2 group"
+                onClick={scrollToVideo}
+              >
+                <Play size={16} className="text-primary group-hover:scale-110 transition-transform" /> Watch Studio Demo
+              </Button>
             </div>
             <p className="text-xs text-muted-foreground">No credit card required &bull; 7-day free trial &bull; Cancel anytime</p>
           </div>
@@ -243,30 +251,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Demo Video CTA */}
-      <section className="py-20 border-b border-border/50 bg-primary/[0.03]">
+      {/* Demo Video Section */}
+      <section ref={videoRef} className="py-20 border-b border-border/50 bg-primary/[0.03]">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
               <Play size={14} className="text-primary" />
-              <span className="text-xs font-medium text-primary">See FoldForge in Action</span>
+              <span className="text-xs font-medium text-primary">Full Studio Walkthrough</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Watch the <span className="gold-text">Full Demo</span></h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">See the EA Stress Testing Studio, Broker Data Pipeline, and Funded Account Guardian in a live walkthrough.</p>
-            <Link href="/aureus-prime/showcase">
-              <div className="relative rounded-2xl overflow-hidden border border-border/50 cursor-pointer group max-w-3xl mx-auto">
-                <img
-                  src="https://images.unsplash.com/photo-1611974717484-7da8c1746b62?auto=format&fit=crop&q=80&w=1200"
-                  alt="FoldForge Demo"
-                  className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 transition-transform">
-                    <Play size={32} className="text-primary-foreground ml-1" fill="currentColor" />
-                  </div>
-                </div>
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Watch <span className="gold-text">FoldForge Studio</span> in Action</h2>
+            <p className="text-muted-foreground mb-10 max-w-2xl mx-auto">See the EA Stress Testing Studio, Monte Carlo simulations, Broker Data Pipeline, and Funded Account Guardian — all running live.</p>
+            
+            {/* Actual Video Player */}
+            <div className="max-w-5xl mx-auto">
+              <div className="relative rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/10 bg-black group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 blur-xl opacity-60 pointer-events-none" />
+                <video
+                  className="relative w-full aspect-video"
+                  controls
+                  preload="metadata"
+                  poster="/og-image.png"
+                  playsInline
+                >
+                  <source src="/foldforge_demo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
-            </Link>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                {[
+                  { icon: BarChart3, label: "EA Stress Testing", desc: "Monte Carlo & Walk-Forward" },
+                  { icon: Shield, label: "Funded Guardian", desc: "Real-time DD protection" },
+                  { icon: Activity, label: "Broker Data Sync", desc: "Your exact spreads & swaps" },
+                  { icon: TrendingUp, label: "Performance Analytics", desc: "Sharpe, PF, equity curves" },
+                ].map((item, i) => (
+                  <div key={i} className="glass-card rounded-xl p-4 text-center border border-border/50 hover:border-primary/30 transition-colors">
+                    <item.icon size={20} className="text-primary mx-auto mb-2" />
+                    <div className="text-sm font-semibold mb-0.5">{item.label}</div>
+                    <div className="text-xs text-muted-foreground">{item.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -360,35 +386,40 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <a href={plan.link} target="_blank" rel="noopener noreferrer">
-                  <Button className={`w-full font-semibold ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}>
+                <a href={plan.link} target="_blank" rel="noopener noreferrer" className="block">
+                  <Button className={`w-full font-bold h-11 ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
                     {plan.cta}
                   </Button>
                 </a>
               </div>
             ))}
           </div>
-          <p className="text-center text-xs text-muted-foreground mt-6">All prices in USD. Cancel anytime. See our <Link href="/refund-policy" className="underline hover:text-primary">refund policy</Link>.</p>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="py-20 border-b border-border/50">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Trusted by <span className="gold-text">Serious Traders</span></h2>
-            <p className="text-muted-foreground">Join 1,200+ traders who use FoldForge to validate their strategies and protect their funded accounts.</p>
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Trusted by <span className="gold-text">1,200+ Traders</span></h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Professional traders, EA developers, and fund managers rely on FoldForge to protect their capital.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="glass-card rounded-xl p-6 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
-                <div className="flex gap-1 mb-4">{[...Array(t.rating)].map((_, j) => <Star key={j} size={14} className="text-yellow-500 fill-yellow-500" />)}</div>
-                <p className="text-sm text-muted-foreground mb-5 italic leading-relaxed">&ldquo;{t.text}&rdquo;</p>
+              <div key={i} className="glass-card rounded-xl p-6 border-border/50 hover:border-primary/30 transition-all">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(t.rating)].map((_, i) => (
+                    <Star key={i} size={14} className="text-yellow-500 fill-yellow-500" />
+                  ))}
+                </div>
+                <p className="text-foreground/90 italic mb-6 leading-relaxed">"{t.text}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">{t.avatar}</div>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-xs font-bold text-primary">
+                    {t.avatar}
+                  </div>
                   <div>
-                    <p className="text-sm font-semibold">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                    <div className="text-sm font-bold">{t.name}</div>
+                    <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{t.role}</div>
                   </div>
                 </div>
               </div>
@@ -398,22 +429,24 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 border-b border-border/50 bg-primary/[0.02]">
+      <section className="py-20 border-b border-border/50 bg-primary/[0.01]">
         <div className="container max-w-3xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Frequently Asked <span className="gold-text">Questions</span></h2>
-            <p className="text-muted-foreground">Everything you need to know about FoldForge.</p>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {FAQS.map((faq, i) => (
-              <div key={i} className="glass-card rounded-xl overflow-hidden hover:border-primary/20 transition-colors">
-                <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                  <span className="text-sm font-medium text-foreground pr-4">{faq.q}</span>
-                  {openFaq === i ? <ChevronUp size={18} className="text-primary shrink-0" /> : <ChevronDown size={18} className="text-muted-foreground shrink-0" />}
+              <div key={i} className="glass-card rounded-xl border-border/50 overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-secondary/30 transition-colors"
+                >
+                  <span className="font-semibold text-foreground/90">{faq.q}</span>
+                  {openFaq === i ? <ChevronUp size={18} className="text-primary" /> : <ChevronDown size={18} className="text-muted-foreground" />}
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 pb-5 border-t border-border/50">
-                    <p className="text-sm text-muted-foreground leading-relaxed pt-4">{faq.a}</p>
+                  <div className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-4 bg-secondary/10">
+                    {faq.a}
                   </div>
                 )}
               </div>
@@ -423,35 +456,26 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 border-b border-border/50 bg-primary/[0.04]">
-        <div className="container text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
-            <Award size={14} className="text-primary" />
-            <span className="text-xs font-medium text-primary">Join 1,200+ Funded Traders</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold font-['Playfair_Display'] mb-4">Ready to <span className="gold-text">Protect Your Edge</span>?</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-lg">Stop guessing. Start stress testing. Join the traders who trust FoldForge to validate their strategies and safeguard their funded accounts.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-            {isAuthenticated ? (
-              <Link href="/studio">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-base font-bold shadow-xl shadow-primary/20">
-                  Open Studio <ArrowRight size={18} className="ml-2" />
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/signup">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-base font-bold shadow-xl shadow-primary/20">
-                  Start Your Free Trial <ArrowRight size={18} className="ml-2" />
-                </Button>
-              </Link>
-            )}
-            <Link href="/pricing">
-              <Button variant="outline" size="lg" className="px-8 h-14 text-base border-border hover:bg-secondary">
-                View Pricing
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full -translate-y-1/2" />
+        <div className="container relative z-10 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] mb-6">Ready to Trade with <span className="gold-text">Certainty?</span></h2>
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
+            Stop guessing and start stress testing. Join 1,200+ traders protecting $50M+ in capital. Your 7-day free trial starts now.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/signup">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-lg font-bold shadow-xl shadow-primary/20">
+                Start Free Trial Now <ArrowRight size={20} className="ml-2" />
+              </Button>
+            </Link>
+            <Link href="/support">
+              <Button variant="outline" size="lg" className="px-10 h-14 text-lg border-border hover:bg-secondary">
+                Talk to Sales
               </Button>
             </Link>
           </div>
-          <p className="text-xs text-muted-foreground">No credit card required &bull; 7-day free trial &bull; Cancel anytime &bull; Instant access</p>
+          <p className="text-xs text-muted-foreground mt-6">No credit card required &bull; Instant setup &bull; Prop firm safe</p>
         </div>
       </section>
 

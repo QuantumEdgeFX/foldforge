@@ -175,9 +175,9 @@ Never go straight from backtesting to a $200K funded account. Deploy the EA on a
 
 ### Automating the Checklist
 
-Running these tests manually takes days. The **FoldForge EA Stress Testing Studio** automates the entire checklist. Upload your EA, select your broker data, and FoldForge runs the Walk-Forward Analysis, Spread Stress Tests, and Monte Carlo simulations in minutes, generating an institutional-grade PDF report.
+Running these tests manually takes days. The **FoldForge EA Stress Testing Studio** automates the entire checklist. Upload your EA, select your broker data, and get a comprehensive institutional-grade report in minutes.
 
-Don't risk your capital on a hunch. Validate your edge.
+Stop guessing. Start stress testing.
     `
   },
   "monte-carlo-simulation-for-forex-traders": {
@@ -189,49 +189,41 @@ Don't risk your capital on a hunch. Validate your edge.
     icon: TrendingUp,
     image: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&q=80&w=1200",
     content: `
-Most retail traders have heard the term "Monte Carlo simulation," but very few actually use it. In institutional finance, however, it is a mandatory step in risk management.
+Monte Carlo simulation is one of the most powerful tools in a quant's arsenal, yet it remains misunderstood by most retail traders. If you are trading a funded account, understanding Monte Carlo isn't just an advantage—it's a requirement for survival.
 
-If you are trading prop firm capital, understanding and utilizing Monte Carlo analysis is the difference between keeping your funded account and losing it to a statistical anomaly.
+### What is Monte Carlo Simulation?
 
-### What is a Monte Carlo Simulation?
+A standard backtest is a single path through history. It shows you what happened in one specific sequence of events. But the market is probabilistic, not deterministic.
 
-A standard backtest gives you a single equity curve based on a specific chronological sequence of trades.
+Monte Carlo simulation takes your historical trade data and runs thousands of "what if" scenarios. It shuffles the order of your trades, simulates variations in spread, and introduces random execution delays. 
 
-For example, your backtest might show: Win, Win, Loss, Win, Loss.
+The goal is to answer one question: **"In 10,000 alternate realities, how many times does this strategy blow my account?"**
 
-But what if the market had presented those exact same setups in a different order? What if the sequence was: Loss, Loss, Win, Win, Win?
+### Why It Matters for Prop Firm Traders
 
-The end profit is the same, but the **drawdown** is entirely different.
+Prop firms have hard drawdown limits. If your maximum drawdown in a backtest was 4%, you might feel safe with a 5% daily limit. 
 
-A Monte Carlo simulation takes your historical trade data and reshuffles the order of trades thousands of times. It creates thousands of alternate realities (equity curves) to show you the absolute worst-case scenarios that are statistically possible with your strategy.
+However, a Monte Carlo simulation might reveal that there is a 15% probability of your trades occurring in a sequence that creates a 6% drawdown. In that case, you don't have a safe strategy—you have a ticking time bomb.
 
-### Why Prop Firm Traders Need It
+### Key Metrics to Watch
 
-Prop firms enforce strict drawdown limits—usually a 5% daily limit and a 10% maximum limit.
+When you run a Monte Carlo simulation on FoldForge, focus on these three institutional metrics:
 
-Your standard backtest might show a maximum historical drawdown of 4%. You feel safe. But that 4% drawdown was just one lucky sequence of trades.
+1. **Risk of Ruin (RoR):** The percentage of simulations that hit your maximum drawdown limit. For a professional funded account, your RoR should be less than 1%.
+2. **Confidence Level Drawdown:** What is the maximum drawdown at a 95% confidence level? This is the "Value at Risk" (VaR) for your strategy.
+3. **Median Recovery Time:** How long does it take, on average, to get out of a drawdown? If this is longer than your payout cycle, you need to adjust your sizing.
 
-When you run a Monte Carlo simulation on that same strategy, you might discover that in 15% of the randomized simulations, the drawdown actually hit 12%.
+### How to Run Your First Simulation
 
-This means you have a **15% probability of blowing your funded account**, even though your standard backtest looked perfect.
+You don't need a PhD in statistics to use Monte Carlo. 
 
-### The Three Key Monte Carlo Metrics
+1. **Export your trade history** from MT4/MT5.
+2. **Upload it to FoldForge Studio.**
+3. **Run the Stress Test.**
 
-When analyzing a Monte Carlo report in FoldForge, focus on these three metrics:
+Our engine will perform 5,000 iterations in seconds, providing you with a clear "Pass/Fail" grade based on your specific prop firm's rules.
 
-1. **Risk of Ruin (Ruination Probability):** The exact percentage chance that your strategy will hit a specific drawdown level (e.g., your 10% prop firm limit). For funded traders, this number must be near zero.
-2. **95th Percentile Drawdown:** If you run 5,000 simulations, what is the maximum drawdown experienced in the worst 5% of those runs? This is your true "worst-case scenario" expectation.
-3. **Confidence Intervals:** The range within which your final profit is likely to fall. It helps set realistic expectations rather than relying on the single, often overly optimistic, backtest result.
-
-### How to Run a Monte Carlo Test Today
-
-You don't need a degree in statistics to run these tests.
-
-The **FoldForge Studio** features a built-in Monte Carlo engine. Simply upload your EA, select your parameters, and FoldForge will run up to 10,000 iterations in the cloud, presenting the data in clear, actionable charts.
-
-If your strategy fails the Monte Carlo test, you must reduce your lot sizing or tighten your stop losses before deploying it on a funded account.
-
-Hope is not a risk management strategy. Mathematics is.
+Don't trade on hope. Trade on probability. Validate your risk with FoldForge.
     `
   },
   "best-prop-firms-for-ea-traders-in-2026": {
@@ -243,84 +235,133 @@ Hope is not a risk management strategy. Mathematics is.
     icon: Users,
     image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&q=80&w=1200",
     content: `
-The proprietary trading firm landscape has matured significantly by 2026. While there are dozens of firms offering capital, **not all prop firms are created equal for algorithmic traders.**
+The prop firm landscape has changed drastically in 2026. While many firms have closed, the remaining industry leaders have become more sophisticated—and more restrictive. For algorithmic traders, choosing the right firm is as important as the EA itself.
 
-Many firms have hidden rules specifically designed to fail EA traders: restrictive consistency rules, bans on high-frequency trading (HFT), or severe limitations on news trading.
+We've compared the top 6 prop firms based on their "EA Friendliness," execution quality, and compatibility with FoldForge validation.
 
-If you trade using Expert Advisors, you must choose a firm whose rules align with your algorithm's logic. Here is our definitive comparison of the top prop firms for EA traders in 2026.
+### 1. FTMO (The Gold Standard)
+FTMO remains the most trusted firm in the industry. They have no restrictions on EAs, provided you aren't using prohibited strategies like latency arbitrage.
+- **Best for:** High-capital traders who value reputation over low fees.
+- **EA Compatibility:** Excellent.
 
-### 1. FTMO
+### 2. The5ers (The Growth Leader)
+Known for their instant funding and scaling plans, The5ers are highly supportive of algorithmic traders.
+- **Best for:** Traders who want to scale from $10K to $4M.
+- **EA Compatibility:** High.
 
-FTMO remains the gold standard in the prop firm industry. Their infrastructure is robust, and their payouts are reliable.
+### 3. Topstep (The Futures King)
+If you trade futures via EAs, Topstep is the clear choice. Their rules are strict but fair, and their payouts are legendary.
+- **Best for:** Futures algorithmic traders.
+- **EA Compatibility:** Moderate (requires specific platform setups).
 
-- **EA Policy:** Fully allowed. No restrictions on the type of EA during the evaluation phase.
-- **Drawdown Limits:** 5% Daily / 10% Maximum (Static).
-- **News Trading:** Allowed on Swing accounts; restricted on standard accounts.
-- **Best For:** Swing trading EAs and trend-following systems.
-- **The Catch:** Their standard accounts restrict trading during high-impact news. If your EA cannot be paused automatically during news events, you must opt for the FTMO Swing account, which has lower leverage (1:30).
+### 4. Funded Engineer
+A newer firm that has gained massive traction due to its transparency and excellent broker conditions.
+- **Best for:** Scalpers and high-frequency EAs.
+- **EA Compatibility:** Excellent.
 
-### 2. The5ers
+### What to Look for in a Prop Firm for EAs
 
-The5ers offers unique funding models, including instant funding and bootcamp challenges.
+When choosing a firm, don't just look at the profit split. Check these three "Silent Killers":
 
-- **EA Policy:** Allowed, but must be your own strategy. They actively monitor for mass-market EAs used by hundreds of traders simultaneously.
-- **Drawdown Limits:** Varies by program (typically 4% Daily / 6% Max).
-- **News Trading:** Fully allowed.
-- **Best For:** Custom EA developers and news-trading algorithms.
-- **The Catch:** The drawdown limits are tighter than FTMO, requiring highly optimized risk management.
+1. **Execution Latency:** Does the firm use a "B-Book" broker with artificial delays? This will kill most scalping EAs.
+2. **IP Restrictions:** Does the firm allow multiple accounts from the same VPS IP?
+3. **Consistency Rules:** Does the firm have hidden "consistency" rules that penalize an EA for having one highly profitable day?
 
-### 3. E8 Funding
+### The FoldForge Recommendation
 
-E8 Funding has gained massive popularity due to their user-friendly dashboard and customizable challenge parameters.
+Regardless of the firm you choose, always sync their data to FoldForge before starting your challenge. Our **Prop Firm Database** contains the live spread and slippage profiles for all major firms, allowing you to "pre-test" your challenge before you pay the entry fee.
 
-- **EA Policy:** Fully allowed.
-- **Drawdown Limits:** 5% Daily / 8% Maximum (Initial balance based).
-- **News Trading:** Allowed.
-- **Best For:** Scalping EAs and high-frequency systems (within reason).
-- **The Catch:** They are strict about latency arbitrage and toxic order flow. Ensure your EA does not rely on feed delays.
-
-### 4. Topstep (Futures)
-
-While primarily focused on futures, Topstep is crucial for algorithmic traders moving away from CFDs.
-
-- **EA Policy:** Allowed via supported platforms (NinjaTrader, TradeStation).
-- **Drawdown Limits:** End-of-Day Drawdown (Trailing).
-- **News Trading:** Strict rules against trading during major economic releases.
-- **Best For:** Professional algorithmic traders using advanced platforms.
-- **The Catch:** The trailing drawdown model is notoriously difficult for EAs with wide stop losses or grid strategies.
-
-### The Ultimate Protection for Any Firm
-
-Regardless of which firm you choose, the primary reason EA traders fail is breaching the daily or maximum drawdown limits due to a sudden market spike or an EA malfunction.
-
-To survive, you must use a third-party risk manager.
-
-The **FoldForge Funded Account Guardian** connects to your prop firm account and monitors your equity in real-time. If your EA goes rogue and approaches the firm's daily loss limit, the Guardian automatically closes all positions and disables auto-trading—saving your account and your evaluation fee.
-
-Choose the right firm, validate your EA, and protect your capital.
+Choose wisely. Trade professionally. Stay funded with FoldForge.
     `
   }
 };
 
+function renderContent(content: string) {
+  return content.split("\n\n").map((block, i) => {
+    if (block.startsWith("###")) {
+      return <h3 key={i} className="text-2xl font-bold mt-8 mb-4 gold-text">{block.replace("###", "").trim()}</h3>;
+    }
+    if (block.startsWith(">")) {
+      return (
+        <blockquote key={i} className="border-l-4 border-primary bg-primary/5 p-6 my-8 italic text-lg rounded-r-xl">
+          {block.replace(">", "").trim()}
+        </blockquote>
+      );
+    }
+    if (block.startsWith("|")) {
+      const rows = block.trim().split("\n");
+      const headers = rows[0].split("|").filter(Boolean).map(h => h.trim());
+      const dataRows = rows.slice(2).map(row => row.split("|").filter(Boolean).map(d => d.trim()));
+      
+      return (
+        <div key={i} className="my-8 overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-secondary/50 text-foreground uppercase text-xs">
+              <tr>
+                {headers.map((h, j) => <th key={j} className="px-6 py-4 font-bold">{h}</th>)}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {dataRows.map((row, j) => (
+                <tr key={j} className="hover:bg-secondary/30 transition-colors">
+                  {row.map((cell, k) => <td key={k} className="px-6 py-4">{cell}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (block.startsWith("*") || block.startsWith("-")) {
+      return (
+        <ul key={i} className="space-y-3 my-6 list-disc list-inside text-muted-foreground">
+          {block.split("\n").map((li, j) => <li key={j}>{li.replace(/^[*-]/, "").trim()}</li>)}
+        </ul>
+      );
+    }
+    if (block.match(/^\d+\./)) {
+      return (
+        <ol key={i} className="space-y-3 my-6 list-decimal list-inside text-muted-foreground">
+          {block.split("\n").map((li, j) => <li key={j}>{li.replace(/^\d+\./, "").trim()}</li>)}
+        </ol>
+      );
+    }
+    
+    // Handle bold text
+    const parts = block.split(/(\*\*.*?\*\*)/g);
+    return (
+      <p key={i} className="text-muted-foreground leading-relaxed mb-6">
+        {parts.map((part, j) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return <strong key={j} className="text-foreground font-bold">{part.slice(2, -2)}</strong>;
+          }
+          return part;
+        })}
+      </p>
+    );
+  });
+}
+
 export default function BlogPost() {
-  const [match, params] = useRoute("/blog/:slug");
+  const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug;
   const post = slug ? BLOG_POSTS[slug] : null;
 
-  // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <div className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center flex-col gap-6">
-          <h1 className="text-4xl font-bold font-['Playfair_Display']">Post Not Found</h1>
-          <p className="text-muted-foreground">The article you're looking for doesn't exist.</p>
+        <div className="container pt-40 pb-20 text-center">
+          <h1 className="text-4xl font-bold mb-6">Post Not Found</h1>
+          <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist or has been moved.</p>
           <Link href="/blog">
-            <Button className="bg-primary text-primary-foreground">Return to Blog</Button>
+            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+              Back to Blog
+            </Button>
           </Link>
         </div>
         <Footer />
@@ -328,125 +369,51 @@ export default function BlogPost() {
     );
   }
 
-  // Simple markdown parser for the content
-  const renderContent = (content: string) => {
-    const blocks = content.split('\\n\\n').filter(b => b.trim() !== '');
-    
-    return blocks.map((block, i) => {
-      // Headers
-      if (block.startsWith('### ')) {
-        return <h3 key={i} className="text-2xl font-bold font-['Playfair_Display'] mt-10 mb-4 text-foreground">{block.replace('### ', '')}</h3>;
-      }
-      if (block.startsWith('## ')) {
-        return <h2 key={i} className="text-3xl font-bold font-['Playfair_Display'] mt-12 mb-6 text-foreground">{block.replace('## ', '')}</h2>;
-      }
-      
-      // Blockquotes
-      if (block.startsWith('> ')) {
-        return (
-          <blockquote key={i} className="border-l-4 border-primary pl-6 py-2 my-8 text-xl italic text-muted-foreground bg-primary/5 rounded-r-lg">
-            {block.replace('> ', '')}
-          </blockquote>
-        );
-      }
-
-      // Tables (very basic parsing)
-      if (block.includes('|') && block.includes('---')) {
-        const rows = block.split('\\n').filter(r => r.trim() !== '' && !r.includes('---'));
-        return (
-          <div key={i} className="overflow-x-auto my-8 rounded-xl border border-border">
-            <table className="w-full text-sm text-left">
-              <thead className="bg-secondary/50 text-foreground font-semibold">
-                <tr>
-                  {rows[0].split('|').filter(c => c.trim() !== '').map((cell, j) => (
-                    <th key={j} className="px-6 py-4 border-b border-border">{cell.trim()}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.slice(1).map((row, j) => (
-                  <tr key={j} className="border-b border-border/50 last:border-0 hover:bg-secondary/20 transition-colors">
-                    {row.split('|').filter(c => c.trim() !== '').map((cell, k) => (
-                      <td key={k} className="px-6 py-4 text-muted-foreground">{cell.trim()}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
-      }
-
-      // Lists
-      if (block.startsWith('- ') || block.startsWith('1. ')) {
-        const items = block.split('\\n').filter(i => i.trim() !== '');
-        const isOrdered = block.startsWith('1. ');
-        const ListTag = isOrdered ? 'ol' : 'ul';
-        return (
-          <ListTag key={i} className={'my-6 pl-6 space-y-3 text-muted-foreground leading-relaxed ' + (isOrdered ? 'list-decimal' : 'list-disc')}>
-            {items.map((item, j) => {
-              const text = item.replace(/^(-\\s|\\d+\\.\\s)/, '');
-              // Handle bold text in list items
-              const parts = text.split(/\\*\\*(.*?)\\*\\*/g);
-              return (
-                <li key={j} className="pl-2">
-                  {parts.map((part, k) => k % 2 === 1 ? <strong key={k} className="text-foreground font-semibold">{part}</strong> : part)}
-                </li>
-              );
-            })}
-          </ListTag>
-        );
-      }
-
-      // Paragraphs with bold text
-      const parts = block.split(/\\*\\*(.*?)\\*\\*/g);
-      return (
-        <p key={i} className="mb-6 text-muted-foreground leading-relaxed text-lg">
-          {parts.map((part, j) => j % 2 === 1 ? <strong key={j} className="text-foreground font-semibold">{part}</strong> : part)}
-        </p>
-      );
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       
       <article className="pt-28 pb-20">
-        {/* Hero Section */}
-        <header className="container max-w-4xl mx-auto text-center mb-16">
+        {/* Header */}
+        <div className="container max-w-3xl mx-auto mb-12">
           <Link href="/blog">
-            <Button variant="ghost" className="mb-8 text-muted-foreground hover:text-primary -ml-4">
-              <ArrowLeft size={16} className="mr-2" /> Back to Blog
-            </Button>
+            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
+              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Articles
+            </button>
           </Link>
           
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wide uppercase">
               {post.category}
             </span>
-            <span className="text-muted-foreground text-sm flex items-center gap-1.5">
-              <Calendar size={14} /> {post.date}
-            </span>
-            <span className="text-muted-foreground text-sm flex items-center gap-1.5">
-              <Clock size={14} /> {post.readTime}
+            <span className="text-muted-foreground text-xs flex items-center gap-1">
+              <Clock size={12} /> {post.readTime}
             </span>
           </div>
-          
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-['Playfair_Display'] leading-tight mb-8">
+
+          <h1 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] leading-tight mb-8">
             {post.title}
           </h1>
-          
-          <div className="flex items-center justify-center gap-4 text-sm">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
-              FE
+
+          <div className="flex items-center justify-between py-6 border-y border-border">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-xs font-bold text-primary">
+                FF
+              </div>
+              <div>
+                <div className="text-sm font-bold">{post.author}</div>
+                <div className="text-[10px] text-muted-foreground flex items-center gap-1 uppercase tracking-wider">
+                  <Calendar size={10} /> {post.date}
+                </div>
+              </div>
             </div>
-            <div className="text-left">
-              <div className="font-semibold text-foreground">{post.author}</div>
-              <div className="text-muted-foreground text-xs">Institutional Trading Insights</div>
+            <div className="flex gap-2">
+              <button className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
+                <Share2 size={16} />
+              </button>
             </div>
           </div>
-        </header>
+        </div>
 
         {/* Featured Image */}
         <div className="container max-w-5xl mx-auto mb-16">
