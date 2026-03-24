@@ -8,6 +8,18 @@ import { useState } from "react";
 
 const posts = [
   {
+    slug: "the-science-of-ea-stress-testing",
+    title: "The Science of EA Stress Testing: Why Your Backtests Fail and How to Fix Them in 2026",
+    excerpt: "Uncover the scientific methods behind effective EA validation. Learn why traditional backtests often fail and how advanced stress testing, Monte Carlo simulations, and broker data synchronization provide the solution.",
+    date: "March 24, 2026",
+    author: "FoldForge Editorial",
+    category: "EA Testing",
+    readTime: "10 min read",
+    featured: true,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    icon: BarChart3,
+  },
+  {
     slug: "how-to-pass-prop-firm-challenges-with-eas-in-2026",
     title: "How to Pass Prop Firm Challenges with EAs in 2026: The Ultimate Risk Management Guide",
     excerpt: "Master prop firm challenges in 2026 with Expert Advisors. This ultimate guide covers advanced risk management, broker-specific data, Monte Carlo simulations, and automated drawdown protection for EA traders.",
