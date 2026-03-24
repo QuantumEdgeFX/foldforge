@@ -63,6 +63,17 @@ const posts = [
     image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&q=80&w=800",
     icon: Users,
   },
+  {
+    slug: "optimizing-ea-performance-beyond-backtesting",
+    title: "Optimizing EA Performance: Beyond Backtesting",
+    excerpt: "Discover advanced strategies to optimize your EA's performance beyond basic backtesting, including Walk-Forward Analysis, Monte Carlo simulations, and broker-specific data integration.",
+    date: "March 24, 2026",
+    author: "FoldForge Editorial",
+    category: "EA Testing",
+    readTime: "9 min read",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    icon: BarChart3,
+  },
 ];
 
 const categories = ["All", "Prop Firm", "EA Testing", "Risk Management", "Data Sync"];

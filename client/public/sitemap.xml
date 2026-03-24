@@ -119,6 +119,14 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://foldforge.app/blog/optimizing-ea-performance-beyond-backtesting</loc>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Auth Pages -->
+  <url>
     <loc>https://foldforge.app/login</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>monthly</changefreq>
