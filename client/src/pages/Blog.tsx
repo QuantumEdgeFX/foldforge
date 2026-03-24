@@ -8,6 +8,18 @@ import { useState } from "react";
 
 const posts = [
   {
+    slug: "how-to-pass-prop-firm-challenges-with-eas-in-2026",
+    title: "How to Pass Prop Firm Challenges with EAs in 2026: The Ultimate Risk Management Guide",
+    excerpt: "Master prop firm challenges in 2026 with Expert Advisors. This ultimate guide covers advanced risk management, broker-specific data, Monte Carlo simulations, and automated drawdown protection for EA traders.",
+    date: "March 24, 2026",
+    author: "FoldForge Editorial",
+    category: "Prop Firm",
+    readTime: "11 min read",
+    featured: true,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    icon: Shield,
+  },
+  {
     slug: "why-90-percent-of-funded-accounts-fail",
     title: "Why 90% of Funded Accounts Fail (And How to Be the 10%)",
     excerpt: "The prop firm industry is booming, yet over 90% of traders fail their challenges. Discover the three primary reasons funded accounts are blown and the exact framework the top 10% use to stay funded.",
