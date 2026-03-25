@@ -72,6 +72,7 @@ export default function Footer() {
               <Link href="/aureus-prime/showcase" className="text-sm text-muted-foreground hover:text-primary transition-colors">Live Showcase</Link>
               <Link href="/docs" className="text-sm text-muted-foreground hover:text-primary transition-colors">Documentation</Link>
               <Link href="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+              <Link href="/downloads/Prop-Firm-EA-Mastery-Checklist-2026.md" className="text-sm text-primary font-semibold hover:underline transition-colors">2026 Mastery Checklist</Link>
             </div>
           </div>
 

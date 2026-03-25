@@ -26,7 +26,8 @@ const PAIN_POINTS = [
 const FEATURES = [
   { icon: Zap, title: "EA Stress Testing Studio", desc: "Run Monte Carlo simulations, parameter sweeps, and walk-forward analysis on any Expert Advisor. Find the breaking point before the market does." },
   { icon: Database, title: "Broker Data Pipeline", desc: "Sync your broker's exact symbol specs, spreads, and OHLC history via our MT4/MT5 uploader EA. Real data. Real results." },
-  { icon: Shield, title: "Funded Account Guardian", desc: "Real-time drawdown monitoring with automatic position sizing to protect your prop firm capital. Never blow a challenge again." },
+      { icon: Shield, title: "Funded Account Guardian", desc: "Real-time drawdown monitoring with automatic position sizing to protect your prop firm capital. Never blow a challenge again." },
+      { icon: Star, title: "Institutional Trust", desc: "Trusted by 1,200+ elite traders and 15+ global prop firms. 256-bit encrypted data security and 99.9% uptime SLA." },
   { icon: BarChart3, title: "172+ Symbol Reference Hub", desc: "Pre-loaded reference data across forex, metals, indices, crypto, commodities, and bonds. The most comprehensive dataset available." },
   { icon: Lock, title: "License-Gated Access", desc: "Hardware-bound license keys with activation limits, grace periods, and instant provisioning. Secure and scalable for any operation." },
   { icon: TrendingUp, title: "Performance Analytics", desc: "Equity curves, Sharpe ratios, profit factors, monthly returns, and exportable PDF reports. Institutional-grade reporting." },
@@ -112,6 +113,18 @@ export default function Home() {
   const [leadEmail, setLeadEmail] = useState("");
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+  const [showExitIntent, setShowExitIntent] = useState(false);
+
+  useEffect(() => {
+    const handleMouseOut = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !leadSubmitted && !localStorage.getItem("exit_intent_shown")) {
+        setShowExitIntent(true);
+        localStorage.setItem("exit_intent_shown", "true");
+      }
+    };
+    document.addEventListener("mouseleave", handleMouseOut);
+    return () => document.removeEventListener("mouseleave", handleMouseOut);
+  }, [leadSubmitted]);
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,16 +134,16 @@ export default function Home() {
       const res = await fetch("/api/leads/collect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: leadEmail, source: "home_lead_magnet" }),
+        body: JSON.stringify({ email: leadEmail, source: "home_mastery_checklist" }),
       });
       if (res.ok) {
         const data = await res.json();
         setLeadSubmitted(true);
         // Trigger immediate PDF download
-        const downloadUrl = data.downloadUrl || "/downloads/EA-Risk-Checklist.pdf";
+        const downloadUrl = "/downloads/Prop-Firm-EA-Mastery-Checklist-2026.md";
         const link = document.createElement("a");
         link.href = downloadUrl;
-        link.download = "EA-Risk-Checklist.pdf";
+        link.download = "Prop-Firm-EA-Mastery-Checklist-2026.md";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -168,6 +181,51 @@ export default function Home() {
       </div>
 
       <Navbar />
+
+      {/* Exit Intent Modal */}
+      {showExitIntent && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="relative w-full max-w-lg glass-card rounded-2xl p-8 border-primary/30 shadow-2xl animate-in zoom-in-95 duration-300">
+            <button 
+              onClick={() => setShowExitIntent(false)}
+              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ChevronDown className="rotate-45" size={24} />
+            </button>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-6">
+                <Shield size={32} className="text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold font-['Playfair_Display'] mb-4">Wait! Don't Risk Your Funded Account</h2>
+              <p className="text-muted-foreground mb-8">
+                Before you go, download our <strong>Prop Firm EA Mastery Checklist 2026</strong>. It's the exact framework used by institutional traders to pass challenges.
+              </p>
+              {leadSubmitted ? (
+                <div className="text-green-500 font-bold flex items-center justify-center gap-2">
+                  <CheckCircle2 size={20} /> Checklist Sent!
+                </div>
+              ) : (
+                <form onSubmit={handleLeadSubmit} className="space-y-4">
+                  <input 
+                    type="email" 
+                    required
+                    placeholder="Enter your best email address"
+                    value={leadEmail}
+                    onChange={(e) => setLeadEmail(e.target.value)}
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors text-sm"
+                  />
+                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 font-bold shadow-lg shadow-primary/20">
+                    Get Free Checklist <ArrowRight size={18} className="ml-2" />
+                  </Button>
+                </form>
+              )}
+              <p className="text-[10px] text-muted-foreground mt-6 italic">
+                *Trusted by 1,200+ traders. No credit card required.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hero */}
       <section className="relative pt-28 pb-20 overflow-hidden">
@@ -299,7 +357,7 @@ export default function Home() {
                 <Activity size={14} className="text-primary" />
                 <span className="text-xs font-medium text-primary">Interactive Tool</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">Calculate Your <span className="gold-text">Blow-Up Risk</span></h2>
+              <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">Prop Firm <span className="gold-text">Profit & Risk Calculator</span></h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Most traders underestimate the probability of a catastrophic drawdown. Use our simplified Monte Carlo calculator to see how likely your strategy is to breach prop firm limits.
               </p>
@@ -697,18 +755,19 @@ export default function Home() {
               <Shield size={14} className="text-primary" />
               <span className="text-xs font-medium text-primary">Free Resource</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Get the <span className="gold-text">EA Risk Checklist</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Get the <span className="gold-text">Prop Firm EA Mastery Checklist 2026</span></h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              The 5-step validation checklist that separates traders who blow accounts from traders who stay funded. Download free—no credit card required.
+              The definitive 6-phase validation framework used by institutional traders to pass challenges and keep funded accounts. Download free today.
             </p>
             <div className="glass-card rounded-2xl p-8 border-primary/20 bg-primary/[0.03] mb-8">
-              <div className="grid md:grid-cols-5 gap-4 mb-8">
+              <div className="grid md:grid-cols-6 gap-4 mb-8">
                 {[
-                  { num: "1", label: "Baseline Test" },
-                  { num: "2", label: "Walk-Forward" },
-                  { num: "3", label: "Stress Test" },
-                  { num: "4", label: "Monte Carlo" },
-                  { num: "5", label: "Live Proof" },
+                  { num: "1", label: "Alignment" },
+                  { num: "2", label: "Edge" },
+                  { num: "3", label: "WFE" },
+                  { num: "4", label: "Broker Gap" },
+                  { num: "5", label: "Monte Carlo" },
+                  { num: "6", label: "Guardian" },
                 ].map((step, i) => (
                   <div key={i} className="text-center">
                     <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center mx-auto mb-2 text-sm font-bold text-primary">{step.num}</div>
@@ -747,8 +806,8 @@ export default function Home() {
                     className="mt-4 text-primary font-bold"
                     onClick={() => {
                       const link = document.createElement("a");
-                      link.href = "/downloads/EA-Risk-Checklist.pdf";
-                      link.download = "EA-Risk-Checklist.pdf";
+                      link.href = "/downloads/Prop-Firm-EA-Mastery-Checklist-2026.md";
+                      link.download = "Prop-Firm-EA-Mastery-Checklist-2026.md";
                       document.body.appendChild(link);
                       link.click();
                       document.body.removeChild(link);
