@@ -1,36 +1,56 @@
 /**
- * tRPC router for AI observation engine
+ * FoldForge AI Router
+ * Provides AI-powered strategy analysis, code review, and optimization insights
  */
 
 import { z } from "zod";
 import { protectedProcedure, router } from "./_core/trpc";
 import { AIObservationEngine } from "./observation";
-import { BacktestResult } from "./core";
 
-const aiEngine = new AIObservationEngine();
+const engine = new AIObservationEngine();
 
 export const aiRouter = router({
   /**
-   * Analyze strategy and generate comprehensive insights
+   * Comprehensive strategy analysis from backtest results
    */
   analyzeStrategy: protectedProcedure
-    .input(
-      z.object({
-        backtest: z.any(), // BacktestResult
-      })
-    )
+    .input(z.object({
+      metrics: z.any(),
+      stressResults: z.any().optional(),
+      monteCarloResults: z.any().optional(),
+      walkForwardResults: z.any().optional(),
+      eaMetadata: z.any().optional(),
+    }))
     .mutation(async ({ input }) => {
       try {
-        const result = await aiEngine.analyzeStrategy(input.backtest as BacktestResult);
-        return {
-          success: true,
-          data: result,
-        };
+        const analysis = await engine.analyzeStrategy(
+          input.metrics,
+          input.stressResults,
+          input.monteCarloResults,
+          input.walkForwardResults,
+          input.eaMetadata
+        );
+        return { success: true, data: analysis };
       } catch (error) {
-        return {
-          success: false,
-          error: error instanceof Error ? error.message : "Analysis failed",
-        };
+        return { success: false, error: error instanceof Error ? error.message : "Analysis failed" };
+      }
+    }),
+
+  /**
+   * Deep EA code review with MQ5-specific suggestions
+   */
+  reviewCode: protectedProcedure
+    .input(z.object({
+      eaCode: z.string(),
+      metadata: z.any(),
+      metrics: z.any().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      try {
+        const review = await engine.reviewEACode(input.eaCode, input.metadata, input.metrics);
+        return { success: true, data: review };
+      } catch (error) {
+        return { success: false, error: error instanceof Error ? error.message : "Code review failed" };
       }
     }),
 
@@ -38,59 +58,45 @@ export const aiRouter = router({
    * Compare two strategies
    */
   compareStrategies: protectedProcedure
-    .input(
-      z.object({
-        backtest1: z.any(),
-        backtest2: z.any(),
-        name1: z.string().default("Strategy 1"),
-        name2: z.string().default("Strategy 2"),
-      })
-    )
+    .input(z.object({
+      metrics1: z.any(),
+      metrics2: z.any(),
+      name1: z.string().optional(),
+      name2: z.string().optional(),
+    }))
     .mutation(async ({ input }) => {
       try {
-        const comparison = await aiEngine.compareStrategies(
-          input.backtest1 as BacktestResult,
-          input.backtest2 as BacktestResult,
+        const comparison = await engine.compareStrategies(
+          input.metrics1,
+          input.metrics2,
           input.name1,
           input.name2
         );
-        return {
-          success: true,
-          data: comparison,
-        };
+        return { success: true, data: comparison };
       } catch (error) {
-        return {
-          success: false,
-          error: error instanceof Error ? error.message : "Comparison failed",
-        };
+        return { success: false, error: error instanceof Error ? error.message : "Comparison failed" };
       }
     }),
 
   /**
-   * Generate code improvement suggestions
+   * Get specific MQ5 code improvement suggestions
    */
   suggestCodeImprovements: protectedProcedure
-    .input(
-      z.object({
-        backtest: z.any(),
-        eaCode: z.string(),
-      })
-    )
+    .input(z.object({
+      metrics: z.any(),
+      eaCode: z.string(),
+      metadata: z.any().optional(),
+    }))
     .mutation(async ({ input }) => {
       try {
-        const suggestions = await aiEngine.suggestCodeImprovements(
-          input.backtest as BacktestResult,
-          input.eaCode
+        const suggestions = await engine.suggestCodeImprovements(
+          input.metrics,
+          input.eaCode,
+          input.metadata
         );
-        return {
-          success: true,
-          data: suggestions,
-        };
+        return { success: true, data: suggestions };
       } catch (error) {
-        return {
-          success: false,
-          error: error instanceof Error ? error.message : "Code analysis failed",
-        };
+        return { success: false, error: error instanceof Error ? error.message : "Suggestions failed" };
       }
     }),
 });

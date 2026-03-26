@@ -80,11 +80,15 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4">Solutions</h4>
             <div className="flex flex-col gap-2.5">
+              <Link href="/ea-stress-testing" className="text-sm text-muted-foreground hover:text-primary transition-colors">EA Stress Testing</Link>
+              <Link href="/monte-carlo-simulation-ea" className="text-sm text-muted-foreground hover:text-primary transition-colors">Monte Carlo Simulation</Link>
+              <Link href="/walk-forward-analysis-mt5" className="text-sm text-muted-foreground hover:text-primary transition-colors">Walk-Forward Analysis</Link>
+              <Link href="/mq5-code-review" className="text-sm text-muted-foreground hover:text-primary transition-colors">MQ5 Code Review</Link>
+              <Link href="/ea-parameter-optimization" className="text-sm text-muted-foreground hover:text-primary transition-colors">Parameter Optimization</Link>
+              <Link href="/best-ea-for-funded-accounts" className="text-sm text-muted-foreground hover:text-primary transition-colors">Best EA for Funded Accounts</Link>
               <Link href="/funded-account-risk-management" className="text-sm text-muted-foreground hover:text-primary transition-colors">Funded Account Risk Management</Link>
               <Link href="/automated-trading-platform" className="text-sm text-muted-foreground hover:text-primary transition-colors">Automated Trading Platform</Link>
-              <Link href="/expert-advisor-builder" className="text-sm text-muted-foreground hover:text-primary transition-colors">Expert Advisor Builder</Link>
               <Link href="/metatrader-risk-management-tool" className="text-sm text-muted-foreground hover:text-primary transition-colors">MetaTrader Risk Management</Link>
-              <Link href="/ea-stress-testing" className="text-sm text-muted-foreground hover:text-primary transition-colors">EA Stress Testing</Link>
               <Link href="/support" className="text-sm text-muted-foreground hover:text-primary transition-colors">Support</Link>
             </div>
           </div>

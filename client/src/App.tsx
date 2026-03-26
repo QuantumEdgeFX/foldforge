@@ -29,6 +29,11 @@ const AutomatedTradingPlatform = lazyRetry(() => import("./pages/AutomatedTradin
 const ExpertAdvisorBuilder = lazyRetry(() => import("./pages/ExpertAdvisorBuilder"), "ExpertAdvisorBuilder");
 const MetatraderRiskManagementTool = lazyRetry(() => import("./pages/MetatraderRiskManagementTool"), "MetatraderRiskManagementTool");
 const EAStressTesting = lazyRetry(() => import("./pages/EAStressTesting"), "EAStressTesting");
+const MonteCarloSimulationEA = lazyRetry(() => import("./pages/MonteCarloSimulationEA"), "MonteCarloSimulationEA");
+const WalkForwardAnalysisMT5 = lazyRetry(() => import("./pages/WalkForwardAnalysisMT5"), "WalkForwardAnalysisMT5");
+const BestEAForFundedAccounts = lazyRetry(() => import("./pages/BestEAForFundedAccounts"), "BestEAForFundedAccounts");
+const MQ5CodeReview = lazyRetry(() => import("./pages/MQ5CodeReview"), "MQ5CodeReview");
+const EAParameterOptimization = lazyRetry(() => import("./pages/EAParameterOptimization"), "EAParameterOptimization");
 const Support = lazyRetry(() => import("./pages/Support"), "Support");
 const Success = lazyRetry(() => import("./pages/Success"), "Success");
 const NotFound = lazyRetry(() => import("./pages/NotFound"), "NotFound");
@@ -70,6 +75,11 @@ function Router() {
         <Route path="/expert-advisor-builder" component={ExpertAdvisorBuilder} />
         <Route path="/metatrader-risk-management-tool" component={MetatraderRiskManagementTool} />
         <Route path="/ea-stress-testing" component={EAStressTesting} />
+        <Route path="/monte-carlo-simulation-ea" component={MonteCarloSimulationEA} />
+        <Route path="/walk-forward-analysis-mt5" component={WalkForwardAnalysisMT5} />
+        <Route path="/best-ea-for-funded-accounts" component={BestEAForFundedAccounts} />
+        <Route path="/mq5-code-review" component={MQ5CodeReview} />
+        <Route path="/ea-parameter-optimization" component={EAParameterOptimization} />
         <Route path="/support" component={Support} />
         <Route path="/success" component={Success} />
         <Route path="/404" component={NotFound} />
@@ -84,9 +94,9 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
-<Toaster />
-	          <Router />
-	          <StickyCTA />
+          <Toaster />
+          <Router />
+          <StickyCTA />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

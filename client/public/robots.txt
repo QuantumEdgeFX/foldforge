@@ -1,14 +1,51 @@
+# FoldForge — #1 EA Stress Testing Studio
+# https://foldforge.app
+
 User-agent: *
 Allow: /
+Allow: /studio
+Allow: /pricing
+Allow: /blog
+Allow: /docs
+Allow: /ea-stress-testing
+Allow: /funded-account-risk-management
+Allow: /automated-trading-platform
+Allow: /expert-advisor-builder
+Allow: /metatrader-risk-management-tool
+Allow: /monte-carlo-simulation-ea
+Allow: /walk-forward-analysis-mt5
+Allow: /best-ea-for-funded-accounts
+Allow: /mq5-code-review
+Allow: /ea-parameter-optimization
 
-# Disallow private/app routes
-Disallow: /dashboard
-Disallow: /studio
 Disallow: /admin
+Disallow: /dashboard
 Disallow: /api/
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /success
 
-# Sitemap
+# Sitemaps
 Sitemap: https://foldforge.app/sitemap.xml
 
-# Crawl-delay for bots
+# Crawl-delay
 Crawl-delay: 1
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /signup

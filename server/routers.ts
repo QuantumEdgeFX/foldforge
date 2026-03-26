@@ -5,7 +5,7 @@ import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_
 import { z } from "zod";
 import * as db from "./db";
 import { storageGet } from "./storage";
-import { generateRealisticTrades, calculateMetrics, monteCarloSimulation } from "./testingEngine";
+import { generateRealisticTrades, calculateMetrics, monteCarloSimulation, walkForwardAnalysis, stressTest } from "./testingEngine";
 import { backtestingRouter } from "./backtesting";
 import { eaRouter } from "./ea";
 import { aiRouter } from "./ai";
@@ -128,49 +128,102 @@ export const appRouter = router({
           const run = await db.getStudioRunById(input.id);
           if (!run || run.status !== "running") return;
           
-          const initialBalance = 10000;
-          const trades = generateRealisticTrades(200, initialBalance);
+          const params = (run as any).parameters || {};
+          const initialBalance = params.initialBalance || 10000;
+          const numTrades = params.numTrades || 500;
+          const runType = params.runType || "quick_analysis";
+          
+          // Generate realistic trades using the real engine
+          const trades = generateRealisticTrades(numTrades, initialBalance, {
+            winRate: params.winRate,
+            avgWinPips: params.avgWinPips,
+            avgLossPips: params.avgLossPips,
+            lotSize: params.lotSize,
+            spread: params.spread,
+            commission: params.commission,
+            symbol: run.symbol || "EURUSD",
+            startDate: params.startDate,
+            endDate: params.endDate,
+          });
+          
+          // Calculate comprehensive metrics (40+)
           const metrics = calculateMetrics(trades, initialBalance);
           
-          const equityCurve: { trade: number; equity: number }[] = [];
+          // Build equity curve
+          const equityCurve: { trade: number; equity: number; balance: number }[] = [];
           let equity = initialBalance;
           for (let i = 0; i < trades.length; i++) {
-            equity += trades[i].profit;
-            equityCurve.push({ trade: i + 1, equity: Math.round(equity * 100) / 100 });
+            equity += trades[i].netProfit;
+            equityCurve.push({ trade: i + 1, equity: Math.round(equity * 100) / 100, balance: Math.round(equity * 100) / 100 });
           }
           
-          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-          const monthlyReturns = months.map(m => ({ month: m, return: Math.round((Math.random() * 20 - 5) * 100) / 100 }));
-          
-          const drawdownCurve: { trade: number; drawdown: number }[] = [];
+          // Build drawdown curve
+          const drawdownCurve: { trade: number; drawdown: number; drawdownPercent: number }[] = [];
           let peak = initialBalance;
-          for (let i = 0; i < equityCurve.length; i++) {
-            const eq = equityCurve[i].equity;
-            if (eq > peak) peak = eq;
-            const dd = ((peak - eq) / peak) * 100;
-            drawdownCurve.push({ trade: i + 1, drawdown: Math.round(dd * 100) / 100 });
+          equity = initialBalance;
+          for (let i = 0; i < trades.length; i++) {
+            equity += trades[i].netProfit;
+            if (equity > peak) peak = equity;
+            const dd = peak - equity;
+            const ddP = (dd / peak) * 100;
+            drawdownCurve.push({ trade: i + 1, drawdown: Math.round(dd * 100) / 100, drawdownPercent: Math.round(ddP * 100) / 100 });
           }
           
-          const tradeDistribution = [
-            { range: "-100 to -80", count: Math.floor(Math.random() * 3) },
-            { range: "-80 to -60", count: Math.floor(Math.random() * 5) },
-            { range: "-60 to -40", count: Math.floor(Math.random() * 10) },
-            { range: "-40 to -20", count: Math.floor(Math.random() * 20) + 5 },
-            { range: "-20 to 0", count: Math.floor(Math.random() * 30) + 10 },
-            { range: "0 to 20", count: Math.floor(Math.random() * 35) + 15 },
-            { range: "20 to 40", count: Math.floor(Math.random() * 25) + 5 },
-            { range: "40 to 60", count: Math.floor(Math.random() * 15) },
-            { range: "60 to 80", count: Math.floor(Math.random() * 8) },
-            { range: "80 to 100", count: Math.floor(Math.random() * 3) },
-          ];
+          // Build monthly returns
+          const monthlyMap = new Map<string, number>();
+          for (const t of trades) {
+            const d = t.closeTime instanceof Date ? t.closeTime : new Date(t.closeTime);
+            const key = d.toISOString().substring(0, 7);
+            monthlyMap.set(key, (monthlyMap.get(key) || 0) + t.netProfit);
+          }
+          const monthlyReturns = Array.from(monthlyMap.entries()).sort(([a],[b]) => a.localeCompare(b)).map(([month, pnl]) => ({ month, return: Math.round(pnl * 100) / 100, positive: pnl > 0 }));
           
-          const results = { equityCurve, monthlyReturns, drawdownCurve, tradeDistribution };
+          // Build trade distribution
+          const profits = trades.map(t => t.netProfit);
+          const minP = Math.min(...profits);
+          const maxP = Math.max(...profits);
+          const bucketSize = (maxP - minP) / 20 || 1;
+          const tradeDistribution = Array.from({ length: 20 }, (_, i) => {
+            const start = minP + i * bucketSize;
+            const end = start + bucketSize;
+            const count = profits.filter(p => p >= start && (i === 19 ? p <= end : p < end)).length;
+            return { range: `${Math.round(start)} to ${Math.round(end)}`, count, isPositive: (start + end) / 2 > 0 };
+          });
+          
+          // Run additional analyses based on type
+          let stressResults = null;
+          let monteCarloResults = null;
+          let walkForwardResults = null;
+          
+          if (runType === "stress_test" || runType === "quick_analysis") {
+            stressResults = stressTest(trades, initialBalance, {
+              maxDrawdownLimit: params.maxDrawdownLimit,
+              dailyDrawdownLimit: params.dailyDrawdownLimit,
+            });
+          }
+          if (runType === "monte_carlo" || runType === "quick_analysis") {
+            monteCarloResults = monteCarloSimulation(trades, initialBalance, params.numSimulations || 1000);
+          }
+          if (runType === "walk_forward" || runType === "quick_analysis") {
+            walkForwardResults = walkForwardAnalysis(trades, initialBalance, params.numWindows || 6, params.inSampleRatio || 0.7);
+          }
+          
+          const results = {
+            equityCurve,
+            drawdownCurve,
+            monthlyReturns,
+            tradeDistribution,
+            stressResults,
+            monteCarloResults,
+            walkForwardResults,
+          };
+          
           await db.updateStudioRun(input.id, { status: "completed", results, metrics, completedAt: new Date() });
         } catch (error) {
           console.error("Run failed:", error);
           await db.updateStudioRun(input.id, { status: "failed", completedAt: new Date() });
         }
-      }, 3000 + Math.random() * 5000);
+      }, 2000 + Math.random() * 3000);
       return { success: true };
     }),
   }),
