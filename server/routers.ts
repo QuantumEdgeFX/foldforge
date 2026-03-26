@@ -6,9 +6,15 @@ import { z } from "zod";
 import * as db from "./db";
 import { storageGet } from "./storage";
 import { generateRealisticTrades, calculateMetrics, monteCarloSimulation } from "./testingEngine";
+import { backtestingRouter } from "./backtesting";
+import { eaRouter } from "./ea";
+import { aiRouter } from "./ai";
 
 export const appRouter = router({
   system: systemRouter,
+  backtesting: backtestingRouter,
+  ea: eaRouter,
+  ai: aiRouter,
 
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
