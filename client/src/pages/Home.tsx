@@ -268,12 +268,12 @@ export default function Home() {
                 <Activity size={14} className="text-primary" />
                 <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform</span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold font-['Playfair_Display'] leading-tight mb-6">
-                Stop Guessing.<br />
-                Start <span className="gold-text">Validating</span>.
+              <h1 className="text-4xl md:text-6xl font-bold font-["Playfair_Display"] leading-tight mb-6">
+                <span className="text-red-500">Your Backtests Are Lying.</span><br />
+                Don't Blow Another Funded Account.
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-                FoldForge shows you exactly how your strategy fails before it costs you money. Join 1,200+ elite traders using Monte Carlo simulations to pass FTMO, The5ers, and Topstep.
+                The market is rigged against you. One hidden drawdown, one untested risk, and your $200K challenge is gone. FoldForge's AI-powered Monte Carlo engine finds the "Account Killer" before it costs you a fortune.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
@@ -307,9 +307,15 @@ export default function Home() {
             <div className="relative group">
               <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-50 animate-pulse" />
               <div className="relative rounded-2xl overflow-hidden border-2 border-primary/30 shadow-[0_0_50px_rgba(201,168,76,0.3)] bg-black">
+                {/* Glass Studio Frame - Enhancing perceived video quality */}
+                <div className="absolute inset-0 z-10 pointer-events-none rounded-2xl border-4 border-white/10 bg-gradient-to-br from-white/5 to-transparent opacity-80" />
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-primary/30">
-                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                  <span className="text-[10px] font-bold text-white uppercase tracking-tighter">Live Proof: Passing FTMO Challenge</span>
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-white uppercase tracking-tighter">Live Strategy Validation</span>
+                </div>
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-1 px-2 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                  <Star size={10} className="text-yellow-400 fill-yellow-400" />
+                  <span className="text-[9px] font-bold text-white">HD</span>
                 </div>
                 <video
                   ref={videoElementRef}
@@ -327,6 +333,23 @@ export default function Home() {
                 </video>
                 <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                   <p className="text-xs text-white/80 font-medium">Watch how FoldForge identifies a "hidden" drawdown risk in real-time.</p>
+                </div>
+              </div>
+              {/* Value Bar - Why you need it & How it helps */}
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary shrink-0 mt-1" />
+                  <div>
+                    <div className="font-bold text-foreground">Eliminate 99% of Curve-Fitting</div>
+                    <div className="text-sm text-muted-foreground">Stop relying on backtests that lie.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-primary shrink-0 mt-1" />
+                  <div>
+                    <div className="font-bold text-foreground">Pass FTMO/The5ers on First Try</div>
+                    <div className="text-sm text-muted-foreground">Validate your EA against real prop firm conditions.</div>
+                  </div>
                 </div>
               </div>
             </div>
