@@ -314,65 +314,340 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof Section - Refined */}
-      <section className="py-12 border-y border-white/5 bg-secondary/5">
+      {/* Trust Bar - Compact Proof */}
+      <section className="py-10 border-y border-border/50 bg-secondary/10">
         <div className="container">
-          <p className="text-center text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] mb-10">Supporting Traders at Major Prop Firms</p>
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all">
             {PROP_FIRMS.map((firm, i) => (
-              <span key={i} className="text-2xl font-black tracking-tighter text-foreground/80 hover:text-primary transition-colors cursor-default">{firm}</span>
+              <span key={i} className="text-xl font-black tracking-tighter text-foreground/80">{firm}</span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Rest of the sections... */}
-      {/* Comparison Table */}
-      <section className="py-24 border-b border-white/5 bg-black relative">
+      {/* Comparison Table - Moved Higher for Better Conversion */}
+      <section className="py-20 border-b border-border/50 bg-secondary/[0.02]">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] mb-6 italic">Why <span className="gold-text">FoldForge</span>?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Traditional backtesting is a silent killer. We provide the institutional toolset to validate your edge with statistical certainty.</p>
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Why Choose <span className="gold-text">FoldForge</span>?</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Traditional backtesting is a silent killer. See how FoldForge protects your capital.</p>
           </div>
-          <div className="max-w-5xl mx-auto glass-card rounded-3xl border-white/5 overflow-hidden shadow-2xl">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-white/5">
-                    <th className="text-left py-6 px-8 font-bold text-foreground uppercase tracking-widest text-xs">Capability</th>
-                    <th className="text-center py-6 px-8 font-bold text-primary uppercase tracking-widest text-xs bg-primary/5">FoldForge</th>
-                    <th className="text-center py-6 px-8 font-bold text-muted-foreground uppercase tracking-widest text-xs">Generic MT4/5</th>
-                    <th className="text-center py-6 px-8 font-bold text-muted-foreground uppercase tracking-widest text-xs">Manual</th>
+          <div className="max-w-5xl mx-auto overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border/50">
+                  <th className="text-left py-3 px-4 font-semibold text-foreground">Feature</th>
+                  <th className="text-center py-3 px-4 font-semibold text-primary">FoldForge</th>
+                  <th className="text-center py-3 px-4 font-semibold text-muted-foreground">Generic Backtesting</th>
+                  <th className="text-center py-3 px-4 font-semibold text-muted-foreground">Manual Testing</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: "Real Broker Data Sync", foldforge: true, generic: false, manual: false },
+                  { feature: "Monte Carlo Simulation", foldforge: true, generic: false, manual: false },
+                  { feature: "Walk-Forward Analysis", foldforge: true, generic: false, manual: false },
+                  { feature: "Real-Time Drawdown Guardian", foldforge: true, generic: false, manual: false },
+                  { feature: "Prop Firm Safe Mode", foldforge: true, generic: false, manual: false },
+                  { feature: "Stress Testing Suite", foldforge: true, generic: false, manual: false },
+                  { feature: "Setup Time", foldforge: true, generic: true, manual: false },
+                  { feature: "Cost", foldforge: true, generic: false, manual: true },
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-border/30 hover:bg-primary/[0.02] transition-colors">
+                    <td className="py-3 px-4 font-medium text-foreground">{row.feature}</td>
+                    <td className="text-center py-3 px-4">{row.foldforge ? <CheckCircle2 size={18} className="text-primary mx-auto" /> : <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30 mx-auto" />}</td>
+                    <td className="text-center py-3 px-4">{row.generic ? <CheckCircle2 size={18} className="text-primary mx-auto" /> : <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30 mx-auto" />}</td>
+                    <td className="text-center py-3 px-4">{row.manual ? <CheckCircle2 size={18} className="text-primary mx-auto" /> : <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30 mx-auto" />}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {[
-                    { feature: "Real Broker Data Sync", foldforge: true, generic: false, manual: false },
-                    { feature: "Monte Carlo Simulation", foldforge: true, generic: false, manual: false },
-                    { feature: "Walk-Forward Analysis", foldforge: true, generic: false, manual: false },
-                    { feature: "Real-Time Drawdown Guardian", foldforge: true, generic: false, manual: false },
-                    { feature: "Prop Firm Safe Mode", foldforge: true, generic: false, manual: false },
-                    { feature: "Stress Testing Suite", foldforge: true, generic: false, manual: false },
-                    { feature: "Institutional Reporting", foldforge: true, generic: false, manual: false },
-                  ].map((row, i) => (
-                    <tr key={i} className="hover:bg-white/5 transition-colors">
-                      <td className="py-5 px-8 font-semibold text-foreground/90">{row.feature}</td>
-                      <td className="text-center py-5 px-8 bg-primary/5">
-                        <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center mx-auto">
-                          <CheckCircle2 size={14} className="text-primary" />
-                        </div>
-                      </td>
-                      <td className="text-center py-5 px-8">
-                        <div className="w-2 h-2 rounded-full bg-white/10 mx-auto" />
-                      </td>
-                      <td className="text-center py-5 px-8">
-                        <div className="w-2 h-2 rounded-full bg-white/10 mx-auto" />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Calculator Section */}
+      <section className="py-20 border-b border-border/50 bg-black relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 blur-[120px] -z-10" />
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">Prop Firm <span className="gold-text">Profit & Risk</span> Calculator</h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">Most traders fail because they don't understand the statistical probability of a losing streak. Use this tool to see the "Account Killer" risk in your current strategy.</p>
+              
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <div className="flex justify-between text-sm font-medium">
+                    <span>Strategy Win Rate</span>
+                    <span className="text-primary">{winRate}%</span>
+                  </div>
+                  <input 
+                    type="range" min="30" max="80" value={winRate} 
+                    onChange={(e) => setWinRate(parseInt(e.target.value))}
+                    className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex justify-between text-sm font-medium">
+                    <span>Risk Per Trade</span>
+                    <span className="text-primary">{riskPerTrade}%</span>
+                  </div>
+                  <input 
+                    type="range" min="0.1" max="5" step="0.1" value={riskPerTrade} 
+                    onChange={(e) => setRiskPerTrade(parseFloat(e.target.value))}
+                    className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                </div>
+              </div>
             </div>
+
+            <div className="relative">
+              <div className="glass-card rounded-2xl p-8 border-primary/30 shadow-2xl shadow-primary/5">
+                <div className="text-center mb-8">
+                  <div className="text-sm text-muted-foreground uppercase tracking-widest mb-2">Probability of 10 Consecutive Losses</div>
+                  <div className={`text-5xl font-black mb-2 ${parseFloat(blowUpRisk) > 30 ? 'text-red-500' : 'gold-text'}`}>
+                    {blowUpRisk}%
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">
+                    {parseFloat(blowUpRisk) > 30 ? '⚠️ HIGH ACCOUNT BLOWUP RISK' : '✅ STATISTICALLY STABLE'}
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center p-4 rounded-xl bg-secondary/50 border border-border/50">
+                    <span className="text-sm text-muted-foreground">Max Drawdown Potential</span>
+                    <span className="font-bold text-foreground">{parseFloat(blowUpRisk) > 30 ? 'CRITICAL' : 'MINIMAL'}</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden">
+                    <div 
+                      className={`h-2.5 rounded-full transition-all duration-500 ${parseFloat(blowUpRisk) > 30 ? 'bg-destructive' : 'bg-green-500'}`} 
+                      style={{ width: `${blowUpRisk}%` }}
+                    ></div>
+                  </div>
+                  <Link href="/pricing">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 font-bold">
+                      Get Full Stress Test Report <ArrowRight size={18} className="ml-2" />
+                    </Button>
+                  </Link>
+                  <p className="text-[10px] text-center text-muted-foreground mt-4 italic">
+                    *Simplified calculation based on 1,000 simulated trades. For accurate results, use the FoldForge Studio.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Video Section - Optimized Placement and Size */}
+      <section ref={videoRef} className="py-24 border-b border-border/50 bg-primary/[0.03]">
+        <div className="container">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
+              <Play size={14} className="text-primary" />
+              <span className="text-xs font-medium text-primary">Full Studio Walkthrough</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] mb-6">Watch <span className="gold-text">FoldForge Studio</span> in Action</h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">See the EA Stress Testing Studio, Monte Carlo simulations, Broker Data Pipeline, and Funded Account Guardian — all running live in one powerful environment.</p>
+            
+            <div className="relative rounded-3xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/20 bg-black group max-w-6xl mx-auto">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 blur-2xl opacity-60 pointer-events-none" />
+              <video
+                ref={videoElementRef}
+                className="relative w-full aspect-video scale-[1.01]"
+                controls
+                autoPlay
+                muted
+                loop
+                preload="metadata"
+                poster="/aureus-prime-trade-1.webp"
+                playsInline
+              >
+                <source src="/foldforge_demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+              {[
+                { icon: BarChart3, label: "EA Stress Testing", desc: "Monte Carlo & Walk-Forward" },
+                { icon: Shield, label: "Funded Guardian", desc: "Real-time DD protection" },
+                { icon: Activity, label: "Broker Data Sync", desc: "Your exact spreads & swaps" },
+                { icon: TrendingUp, label: "Performance Analytics", desc: "Sharpe, PF, equity curves" },
+              ].map((item, i) => (
+                <div key={i} className="glass-card rounded-2xl p-6 text-center border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                  <item.icon size={24} className="text-primary mx-auto mb-3" />
+                  <div className="text-base font-bold mb-1">{item.label}</div>
+                  <div className="text-xs text-muted-foreground">{item.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Prop Firm Guardian */}
+      <section className="py-20 border-b border-border/50">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
+                <Shield size={14} className="text-primary" />
+                <span className="text-xs font-medium text-primary">Funded Account Protection</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">The <span className="gold-text">Prop Firm Guardian</span></h2>
+              <p className="text-muted-foreground mb-6 leading-relaxed">Never blow a funded account again. The Prop Firm Guardian monitors your account in real-time, enforcing the exact drawdown limits and risk parameters set by your prop firm — automatically, without emotion.</p>
+              <div className="space-y-3 mb-8">
+                {["Real-time drawdown monitoring", "Automatic lot-size enforcement", "Daily loss limit protection", "Instant alerts on rule violations", "Compatible with all major prop firms", "Works with MT4 and MT5"].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 size={18} className="text-primary shrink-0" />
+                    <span className="text-sm text-foreground">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/pricing">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+                  Protect My Account <ArrowRight size={16} className="ml-2" />
+                </Button>
+              </Link>
+            </div>
+            <div className="glass-card rounded-2xl p-8 border-primary/20">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-bold text-sm text-muted-foreground uppercase tracking-wider">Guardian Dashboard</h3>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs text-green-400 font-medium">Live</span>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Account Balance</span><span className="text-lg font-bold text-foreground">$200,000.00</span></div>
+                <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Daily Drawdown Limit</span><span className="text-sm font-medium text-primary">5% ($10,000)</span></div>
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs text-muted-foreground"><span>Current Drawdown</span><span className="text-green-400 font-medium">1.15% — Safe Zone</span></div>
+                  <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-green-500 to-primary rounded-full" style={{ width: "23%" }} /></div>
+                </div>
+                <div className="border-t border-border pt-4 grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 rounded-lg bg-secondary/50">
+                    <div className="text-xs text-muted-foreground mb-1">Open Positions</div>
+                    <div className="text-lg font-bold">3</div>
+                  </div>
+                  <div className="text-center p-3 rounded-lg bg-secondary/50">
+                    <div className="text-xs text-muted-foreground mb-1">Today's P&L</div>
+                    <div className="text-lg font-bold text-green-400">+$2,300</div>
+                  </div>
+                </div>
+                <div className="border-t border-border pt-4 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs text-green-400 font-medium">Guardian Active — All Rules Passing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing - Optimized with Plan Fit */}
+      <section className="py-20 border-b border-border/50 bg-primary/[0.02]" id="pricing">
+        <div className="container">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Simple, Transparent <span className="gold-text">Pricing</span></h2>
+            <p className="text-muted-foreground max-w-xl mx-auto mb-4">7-day free trial. No credit card required. Cancel anytime.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {PLANS.map((plan, i) => (
+              <div key={i} className={`rounded-xl p-6 border relative transition-all hover:shadow-xl ${plan.popular ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" : "border-border glass-card hover:border-primary/30"}`}>
+                {plan.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-lg">
+                    ⭐ Most Popular
+                  </div>
+                )}
+                <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
+                <p className="text-xs text-primary font-medium mb-2">{plan.description}</p>
+                <p className="text-[10px] text-muted-foreground mb-4">{plan.note}</p>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-bold gold-text">${plan.price}</span>
+                  <span className="text-muted-foreground text-sm">/month</span>
+                </div>
+                <div className="space-y-3 mb-8">
+                  {plan.features.map((f, j) => (
+                    <div key={j} className="flex items-center gap-2.5">
+                      <CheckCircle2 size={16} className="text-primary shrink-0" />
+                      <span className="text-sm text-foreground">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <a href={plan.link} target="_blank" rel="noopener noreferrer" className="block">
+                  <Button className={`w-full font-bold h-11 ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
+                    {plan.cta}
+                  </Button>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials - Enhanced with Specificity */}
+      <section className="py-20 border-b border-border/50">
+        <div className="container">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Real Results from <span className="gold-text">Real Traders</span></h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Specific metrics. Real outcomes. Here's what 1,200+ traders have achieved with FoldForge.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="glass-card rounded-xl p-6 border-border/50 hover:border-primary/30 transition-all">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1">
+                    {[...Array(t.rating)].map((_, i) => (
+                      <Star key={i} size={14} className="text-yellow-500 fill-yellow-500" />
+                    ))}
+                  </div>
+                  <div className="px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary">
+                    {t.metric}
+                  </div>
+                </div>
+                <p className="text-foreground/90 italic mb-6 leading-relaxed">"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-xs font-bold text-primary">
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">{t.name}</div>
+                    <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 border-b border-border/50 bg-primary/[0.01]" id="faq">
+        <div className="container max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Frequently Asked <span className="gold-text">Questions</span></h2>
+            <p className="text-muted-foreground">Everything you need to know about the FoldForge platform.</p>
+          </div>
+          <div className="space-y-4">
+            {FAQS.map((faq, i) => (
+              <div key={i} className="glass-card rounded-xl border border-border/50 overflow-hidden transition-all hover:border-primary/20">
+                <button 
+                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span>{faq.q}</span>
+                  {openFaq === i ? <ChevronUp size={20} className="text-primary" /> : <ChevronDown size={20} className="text-muted-foreground" />}
+                </button>
+                {openFaq === i && (
+                  <div className="px-6 pb-6 text-sm text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-top-2 duration-300">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -397,7 +672,7 @@ export default function Home() {
       <Footer />
       
       {/* Audit Modal */}
-      <StrategyAuditModal open={showAuditModal} onOpenChange={setShowAuditModal} />
+      <StrategyAuditModal isOpen={showAuditModal} onClose={() => setShowAuditModal(false)} />
     </div>
   );
 }
