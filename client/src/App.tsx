@@ -37,6 +37,7 @@ const EAParameterOptimization = lazyRetry(() => import("./pages/EAParameterOptim
 const Support = lazyRetry(() => import("./pages/Support"), "Support");
 const Success = lazyRetry(() => import("./pages/Success"), "Success");
 const NotFound = lazyRetry(() => import("./pages/NotFound"), "NotFound");
+const Founder = lazyRetry(() => import("./pages/Founder"), "Founder");
 
 function PageLoader() {
   return (
@@ -82,6 +83,7 @@ function Router() {
         <Route path="/ea-parameter-optimization" component={EAParameterOptimization} />
         <Route path="/support" component={Support} />
         <Route path="/success" component={Success} />
+        <Route path="/founder" component={Founder} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>
