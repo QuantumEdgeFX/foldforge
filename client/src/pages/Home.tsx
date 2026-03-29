@@ -238,7 +238,7 @@ export default function Home() {
               <div className="relative glass-card rounded-2xl border-primary/20 overflow-hidden shadow-2xl">
                 <img 
                   src="/og-image.png" 
-                  alt="FoldForge Studio Dashboard" 
+                  alt="FoldForge Studio Dashboard - EA Stress Testing and Risk Management" 
                   className="w-full h-auto opacity-90"
                 />
                 {/* Benefit Callouts on Visual */}
@@ -386,71 +386,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pain Points */}
-      <section className="py-20 border-b border-border/50">
+      {/* Demo Video Section - Optimized Placement and Size */}
+      <section ref={videoRef} className="py-24 border-b border-border/50 bg-primary/[0.03]">
         <div className="container">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Why Traders <span className="gold-text">Blow Accounts</span></h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">It's not the strategy. It's the risk. Here's what kills funded accounts every single day:</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {PAIN_POINTS.map((p, i) => (
-              <div key={i} className="glass-card rounded-xl p-6 border-destructive/20 hover:border-destructive/40 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
-                  <p.icon size={22} className="text-destructive" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Demo Video Section */}
-      <section ref={videoRef} className="py-20 border-b border-border/50 bg-primary/[0.03]">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
               <Play size={14} className="text-primary" />
               <span className="text-xs font-medium text-primary">Full Studio Walkthrough</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-4">Watch <span className="gold-text">FoldForge Studio</span> in Action</h2>
-            <p className="text-muted-foreground mb-10 max-w-2xl mx-auto">See the EA Stress Testing Studio, Monte Carlo simulations, Broker Data Pipeline, and Funded Account Guardian — all running live.</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] mb-6">Watch <span className="gold-text">FoldForge Studio</span> in Action</h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">See the EA Stress Testing Studio, Monte Carlo simulations, Broker Data Pipeline, and Funded Account Guardian — all running live in one powerful environment.</p>
             
-            <div className="max-w-5xl mx-auto">
-              <div className="relative rounded-2xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/10 bg-black group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 blur-xl opacity-60 pointer-events-none" />
-                <video
-                  ref={videoElementRef}
-                  className="relative w-full aspect-video"
-                  controls
-                  autoPlay
-                  muted
-                  loop
-                  preload="metadata"
-                  poster="/og-image.png"
-                  playsInline
-                >
-                  <source src="/foldforge_demo.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
+            <div className="relative rounded-3xl overflow-hidden border border-primary/30 shadow-2xl shadow-primary/20 bg-black group max-w-6xl mx-auto">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/5 to-primary/20 blur-2xl opacity-60 pointer-events-none" />
+              <video
+                ref={videoElementRef}
+                className="relative w-full aspect-video scale-[1.01]"
+                controls
+                autoPlay
+                muted
+                loop
+                preload="metadata"
+                poster="/og-image.png"
+                playsInline
+              >
+                <source src="/foldforge_demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                {[
-                  { icon: BarChart3, label: "EA Stress Testing", desc: "Monte Carlo & Walk-Forward" },
-                  { icon: Shield, label: "Funded Guardian", desc: "Real-time DD protection" },
-                  { icon: Activity, label: "Broker Data Sync", desc: "Your exact spreads & swaps" },
-                  { icon: TrendingUp, label: "Performance Analytics", desc: "Sharpe, PF, equity curves" },
-                ].map((item, i) => (
-                  <div key={i} className="glass-card rounded-xl p-4 text-center border border-border/50 hover:border-primary/30 transition-colors">
-                    <item.icon size={20} className="text-primary mx-auto mb-2" />
-                    <div className="text-sm font-semibold mb-0.5">{item.label}</div>
-                    <div className="text-xs text-muted-foreground">{item.desc}</div>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+              {[
+                { icon: BarChart3, label: "EA Stress Testing", desc: "Monte Carlo & Walk-Forward" },
+                { icon: Shield, label: "Funded Guardian", desc: "Real-time DD protection" },
+                { icon: Activity, label: "Broker Data Sync", desc: "Your exact spreads & swaps" },
+                { icon: TrendingUp, label: "Performance Analytics", desc: "Sharpe, PF, equity curves" },
+              ].map((item, i) => (
+                <div key={i} className="glass-card rounded-2xl p-6 text-center border border-border/50 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                  <item.icon size={24} className="text-primary mx-auto mb-3" />
+                  <div className="text-base font-bold mb-1">{item.label}</div>
+                  <div className="text-xs text-muted-foreground">{item.desc}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
