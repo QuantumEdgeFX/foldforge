@@ -17,7 +17,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "15 min read",
     featured: true,
-    image: "/images/blog-pass-ftmo-7-days.png",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_1_ecc1034f.png",
     icon: Shield,
   },
   {
@@ -29,7 +29,7 @@ const posts = [
     category: "AI Trading",
     readTime: "12 min read",
     featured: true,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_2_cb91f398.png",
     icon: TrendingUp,
   },
   {
@@ -41,7 +41,7 @@ const posts = [
     category: "EA Testing",
     readTime: "10 min read",
     featured: true,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_3_ed55b62e.png",
     icon: BarChart3,
   },
   {
@@ -53,7 +53,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "11 min read",
     featured: true,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_4_ea69e99b.png",
     icon: Shield,
   },
   {
@@ -65,7 +65,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "8 min read",
     featured: true,
-    image: "/images/blog/funded-account-risk.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_5_d2776aa5.png",
     icon: Shield,
   },
   {
@@ -76,7 +76,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Data Sync",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_6_a2abf46d.png",
     icon: Database,
   },
   {
@@ -87,7 +87,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "EA Testing",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_7_ea0dc9aa.png",
     icon: BarChart3,
   },
   {
@@ -98,7 +98,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Risk Management",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_8_5fc6224d.png",
     icon: TrendingUp,
   },
   {
@@ -109,7 +109,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Prop Firm",
     readTime: "12 min read",
-    image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_9_2bd1ef5e.png",
     icon: Users,
   },
   {
@@ -120,7 +120,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "EA Testing",
     readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_10_46605e41.png",
     icon: BarChart3,
   },
 ];
@@ -236,38 +236,19 @@ export default function Blog() {
                   <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between pt-2">
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
                       <Calendar size={10} /> {post.date}
                     </span>
                     <Link href={`/blog/${post.slug}`}>
-                      <Button variant="link" className="p-0 h-auto text-primary font-semibold text-sm group/btn">
-                        Read More <ArrowRight size={14} className="ml-1 group-hover/btn:translate-x-1 transition-transform" />
+                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+                        Read <ArrowRight size={12} className="ml-1" />
                       </Button>
                     </Link>
                   </div>
                 </CardContent>
               </Card>
             ))}
-          </div>
-
-          {/* Newsletter CTA */}
-          <div className="mt-20 glass-card rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto border-primary/20 bg-primary/[0.03]">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 mb-6">
-              <TrendingUp size={14} className="text-primary" />
-              <span className="text-xs font-medium text-primary">Weekly Newsletter</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold font-['Playfair_Display'] mb-4">Get the <span className="gold-text">Edge</span> in Your Inbox</h2>
-            <p className="text-muted-foreground mb-8 max-w-md mx-auto">Join 1,200+ serious traders receiving our weekly deep dives into EA validation, risk management, and prop firm strategies.</p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 bg-background border border-border rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors text-sm"
-              />
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-6">Subscribe Free</Button>
-            </div>
-            <p className="text-xs text-muted-foreground mt-3">No spam. Unsubscribe anytime. Read by 1,200+ traders.</p>
           </div>
         </div>
       </div>
