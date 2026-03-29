@@ -115,9 +115,19 @@
   <!-- Blog -->
   <url>
     <loc>https://foldforge.app/blog</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://foldforge.app/blog/how-i-passed-ftmo-in-7-days-with-an-ea</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://foldforge.app/images/blog-pass-ftmo-7-days.png</image:loc>
+      <image:title>How I Passed FTMO in 7 Days with an EA (The Exact Strategy)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://foldforge.app/blog/why-90-percent-of-funded-accounts-fail</loc>

@@ -116,8 +116,18 @@ export default function Home() {
   const [leadSubmitted, setLeadSubmitted] = useState(false);
   const [showExitIntent, setShowExitIntent] = useState(false);
   const [showAuditModal, setShowAuditModal] = useState(false);
+  const [showHubSpotLeadMagnet, setShowHubSpotLeadMagnet] = useState(false);
+  const [scrollDepth, setScrollDepth] = useState(0);
+  const [timeOnPage, setTimeOnPage] = useState(0);
 
   useEffect(() => {
+    const timer = setInterval(() => setTimeOnPage(prev => prev + 1), 1000);
+    const handleScroll = () => {
+      const depth = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      setScrollDepth(depth);
+    };
+    window.addEventListener("scroll", handleScroll);
+    
     const handleMouseOut = (e: MouseEvent) => {
       if (e.clientY <= 0 && !leadSubmitted && !localStorage.getItem("exit_intent_shown")) {
         setShowExitIntent(true);
@@ -125,8 +135,21 @@ export default function Home() {
       }
     };
     document.addEventListener("mouseleave", handleMouseOut);
-    return () => document.removeEventListener("mouseleave", handleMouseOut);
+    
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mouseleave", handleMouseOut);
+    };
   }, [leadSubmitted]);
+
+  // Smart HubSpot Trigger: Only show after 30s OR 60% scroll depth
+  useEffect(() => {
+    if ((timeOnPage > 30 || scrollDepth > 0.6) && !leadSubmitted && !localStorage.getItem("hubspot_shown")) {
+      setShowHubSpotLeadMagnet(true);
+      localStorage.setItem("hubspot_shown", "true");
+    }
+  }, [timeOnPage, scrollDepth, leadSubmitted]);
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,70 +258,78 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero */}
-      <section className="relative pt-28 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.82_0.12_85/0.10),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.82_0.12_85/0.04),transparent_50%)]" />
+      {/* Hero Section - Proof-First Re-engineering */}
+      <section className="relative pt-28 pb-20 overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.82_0.12_85/0.15),transparent_60%)]" />
         <div className="container relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 mb-8">
-              <Activity size={14} className="text-primary" />
-              <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform for MetaTrader</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-['Playfair_Display'] leading-tight mb-6">
-              Most traders don't blow accounts<br />
-              from <span className="gold-text">bad strategies</span>.<br />
-              They blow them from <span className="gold-text">risk they never tested</span>.
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
-              FoldForge shows you exactly how your strategy fails before it costs you money. Monte Carlo simulations, stress tests, and real broker data—all in one platform.
-            </p>
-
-            {/* Social Proof Bar */}
-            <div className="flex items-center justify-center gap-6 mb-10 text-sm text-muted-foreground flex-wrap">
-              <div className="flex items-center gap-1.5">
-                <div className="flex -space-x-1.5">
-                  {["MT","SK","JR","DL"].map(i => (
-                    <div key={i} className="w-6 h-6 rounded-full bg-primary/20 border border-background flex items-center justify-center text-[9px] font-bold text-primary">{i}</div>
-                  ))}
-                </div>
-                <span className="font-medium">1,200+ traders</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 mb-8">
+                <Activity size={14} className="text-primary" />
+                <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform</span>
               </div>
-              <div className="text-border">&bull;</div>
-              <div className="flex items-center gap-1">
-                {[1,2,3,4,5].map(s => <Star key={s} size={13} className="text-yellow-500 fill-yellow-500" />)}
-                <span className="font-medium ml-1">4.9/5 rating</span>
-              </div>
-              <div className="text-border">&bull;</div>
-              <div className="font-medium">$50M+ capital protected</div>
-            </div>
+              <h1 className="text-4xl md:text-6xl font-bold font-['Playfair_Display'] leading-tight mb-6">
+                Stop Guessing.<br />
+                Start <span className="gold-text">Validating</span>.
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                FoldForge shows you exactly how your strategy fails before it costs you money. Join 1,200+ elite traders using Monte Carlo simulations to pass FTMO, The5ers, and Topstep.
+              </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              {isAuthenticated ? (
-                <Link href="/studio">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold shadow-lg shadow-primary/20">
-                    Open Studio <ArrowRight size={18} className="ml-2" />
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
+                <Link href="/pricing">
+                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 h-14 text-lg font-bold shadow-xl shadow-primary/20">
+                    Start Free Trial <ArrowRight size={20} className="ml-2" />
                   </Button>
                 </Link>
-              ) : (
-                <>
-                  <Link href="/pricing">
-                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 h-12 text-base font-semibold shadow-lg shadow-primary/20">
-                      Test Your Strategy Now <ArrowRight size={18} className="ml-2" />
-                    </Button>
-                  </Link>
-                  <Button
-                    variant="outline"
-                    size="lg" 
-                    className="px-8 h-12 text-base border-border hover:border-primary/50 hover:bg-secondary gap-2 group"
-                    onClick={scrollToVideo}
-                  >
-                    <Play size={16} className="text-primary group-hover:scale-110 transition-transform" /> See Your Blow-Up Risk
-                  </Button>
-                </>
-              )}
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex -space-x-2">
+                    {["MT","SK","JR","DL"].map(i => (
+                      <div key={i} className="w-8 h-8 rounded-full bg-primary/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-primary">{i}</div>
+                    ))}
+                  </div>
+                  <span className="font-medium">Trusted by 1,200+ Traders</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6 border-t border-border/50 pt-8">
+                <div>
+                  <div className="text-2xl font-bold gold-text">$50M+</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-widest">Capital Protected</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold gold-text">4.9/5</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-widest">User Rating</div>
+                </div>
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground">No credit card required &bull; 7-day free trial &bull; Cancel anytime</p>
+
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-50 animate-pulse" />
+              <div className="relative rounded-2xl overflow-hidden border-2 border-primary/30 shadow-[0_0_50px_rgba(201,168,76,0.3)] bg-black">
+                <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-primary/30">
+                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-white uppercase tracking-tighter">Live Proof: Passing FTMO Challenge</span>
+                </div>
+                <video
+                  ref={videoElementRef}
+                  className="w-full aspect-video cursor-pointer"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  preload="metadata"
+                  poster="/og-image.png"
+                  playsInline
+                >
+                  <source src="/foldforge_demo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                  <p className="text-xs text-white/80 font-medium">Watch how FoldForge identifies a "hidden" drawdown risk in real-time.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

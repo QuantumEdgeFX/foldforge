@@ -9,6 +9,18 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 
 const posts = [
   {
+    slug: "how-i-passed-ftmo-in-7-days-with-an-ea",
+    title: "How I Passed FTMO in 7 Days with an EA (The Exact Strategy)",
+    excerpt: "Discover the exact step-by-step workflow used to pass a $200K FTMO challenge in just 7 trading days using institutional-grade validation and real-time risk management.",
+    date: "March 29, 2026",
+    author: "Marcus T.",
+    category: "Prop Firm",
+    readTime: "15 min read",
+    featured: true,
+    image: "/images/blog-pass-ftmo-7-days.png",
+    icon: Shield,
+  },
+  {
     slug: "the-future-of-algorithmic-trading-in-2026",
     title: "The Future of Algorithmic Trading in 2026: AI, Prop Firms, and the New Era of Risk Management",
     excerpt: "Explore how AI, prop firms, and advanced risk management are reshaping algorithmic trading in 2026. Discover opportunities and challenges for EA developers and traders.",
