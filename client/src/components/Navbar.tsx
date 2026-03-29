@@ -150,6 +150,15 @@ export default function Navbar() {
           </Link>
 
           <Link
+            href="/resources"
+            className={`text-sm font-medium transition-colors hover:text-primary ${
+              location === "/resources" ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            Resources
+          </Link>
+
+          <Link
             href="/support"
             className={`text-sm font-medium transition-colors hover:text-primary ${
               location === "/support" ? "text-primary" : "text-muted-foreground"
@@ -249,6 +258,14 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               Blog
+            </Link>
+
+            <Link
+              href="/resources"
+              className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              Resources
             </Link>
 
             <Link

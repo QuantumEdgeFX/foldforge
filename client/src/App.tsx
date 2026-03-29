@@ -38,6 +38,7 @@ const Support = lazyRetry(() => import("./pages/Support"), "Support");
 const Success = lazyRetry(() => import("./pages/Success"), "Success");
 const NotFound = lazyRetry(() => import("./pages/NotFound"), "NotFound");
 const Founder = lazyRetry(() => import("./pages/Founder"), "Founder");
+const ResourceHub = lazyRetry(() => import("./pages/ResourceHub"), "ResourceHub");
 
 function PageLoader() {
   return (
@@ -82,8 +83,9 @@ function Router() {
         <Route path="/mq5-code-review" component={MQ5CodeReview} />
         <Route path="/ea-parameter-optimization" component={EAParameterOptimization} />
         <Route path="/support" component={Support} />
+        <Route path="/resources" component={ResourceHub} />
         <Route path="/success" component={Success} />
-        <Route path="/founder" component={Founder} />
+        <Route path="*" component={NotFound} />er} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>

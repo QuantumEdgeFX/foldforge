@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { motion } from "framer-motion";
 import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
   CheckCircle2, ArrowRight, Star,
