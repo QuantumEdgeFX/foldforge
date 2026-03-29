@@ -268,7 +268,7 @@ export default function Home() {
                 <Activity size={14} className="text-primary" />
                 <span className="text-xs font-medium text-primary">Institutional-Grade EA Testing Platform</span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold font-["Playfair_Display"] leading-tight mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold font-['Playfair_Display'] leading-tight mb-6">
                 <span className="text-red-500">Your Backtests Are Lying.</span><br />
                 Don't Blow Another Funded Account.
               </h1>
