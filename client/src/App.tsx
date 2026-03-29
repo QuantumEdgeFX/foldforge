@@ -85,7 +85,7 @@ function Router() {
         <Route path="/support" component={Support} />
         <Route path="/resources" component={ResourceHub} />
         <Route path="/success" component={Success} />
-        <Route path="*" component={NotFound} />er} />
+        <Route path="*" component={NotFound} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>

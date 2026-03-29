@@ -3,7 +3,7 @@ services:
     name: foldforge
     runtime: node
     plan: starter
-    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    buildCommand: pnpm install --frozen-lockfile && pnpm rebuild better-sqlite3 && pnpm run build
     startCommand: node dist/index.js
     healthCheckPath: /api/health
 
