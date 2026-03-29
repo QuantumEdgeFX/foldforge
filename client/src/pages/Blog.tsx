@@ -17,7 +17,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "15 min read",
     featured: true,
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_1_ecc1034f.png",
+    image: "/images/blog/blog_post_1.png",
     icon: Shield,
   },
   {
@@ -29,7 +29,7 @@ const posts = [
     category: "AI Trading",
     readTime: "12 min read",
     featured: true,
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_2_cb91f398.png",
+    image: "/images/blog/blog_post_2.png",
     icon: TrendingUp,
   },
   {
@@ -41,7 +41,7 @@ const posts = [
     category: "EA Testing",
     readTime: "10 min read",
     featured: true,
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_3_ed55b62e.png",
+    image: "/images/blog/blog_post_3.png",
     icon: BarChart3,
   },
   {
@@ -53,7 +53,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "11 min read",
     featured: true,
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_4_ea69e99b.png",
+    image: "/images/blog/blog_post_4.png",
     icon: Shield,
   },
   {
@@ -65,7 +65,7 @@ const posts = [
     category: "Prop Firm",
     readTime: "8 min read",
     featured: true,
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_5_d2776aa5.png",
+    image: "/images/blog/blog_post_5.png",
     icon: Shield,
   },
   {
@@ -76,7 +76,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Data Sync",
     readTime: "7 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_6_a2abf46d.png",
+    image: "/images/blog/blog_post_6.png",
     icon: Database,
   },
   {
@@ -87,7 +87,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "EA Testing",
     readTime: "10 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_7_ea0dc9aa.png",
+    image: "/images/blog/blog_post_7.png",
     icon: BarChart3,
   },
   {
@@ -98,7 +98,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Risk Management",
     readTime: "9 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_8_5fc6224d.png",
+    image: "/images/blog/blog_post_8.png",
     icon: TrendingUp,
   },
   {
@@ -109,7 +109,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "Prop Firm",
     readTime: "12 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_9_2bd1ef5e.png",
+    image: "/images/blog/blog_post_9.png",
     icon: Users,
   },
   {
@@ -120,7 +120,7 @@ const posts = [
     author: "FoldForge Editorial",
     category: "EA Testing",
     readTime: "9 min read",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663484050871/ZmJ2VYnx29ooopjsBBTEme/blog_post_10_46605e41.png",
+    image: "/images/blog/blog_post_10.png",
     icon: BarChart3,
   },
 ];
