@@ -81,6 +81,65 @@ export default function Pricing() {
             ))}
           </div>
 
+          {/* Detailed Comparison Table */}
+          <div className="mt-24">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-['Playfair_Display'] mb-4">Compare <span className="gold-text">Plans</span></h2>
+              <p className="text-muted-foreground">Find the perfect fit for your trading operation.</p>
+            </div>
+            <div className="max-w-5xl mx-auto overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-border/50">
+                    <th className="text-left py-4 px-6 font-semibold text-foreground">Feature</th>
+                    <th className="text-center py-4 px-6 font-semibold text-foreground">Starter</th>
+                    <th className="text-center py-4 px-6 font-semibold text-primary">Pro</th>
+                    <th className="text-center py-4 px-6 font-semibold text-foreground">Funded</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/30">
+                  {[
+                    { f: "EA License Keys", s: "1", p: "5", f: "25" },
+                    { f: "Studio Runs / Month", s: "5", p: "Unlimited", f: "Unlimited" },
+                    { f: "Broker Data Sync", s: "❌", p: "✅", f: "✅" },
+                    { f: "Monte Carlo Simulation", s: "❌", p: "✅", f: "✅" },
+                    { f: "Walk-Forward Analysis", s: "❌", p: "✅", f: "✅" },
+                    { f: "Funded Account Guardian", s: "❌", p: "✅", f: "✅" },
+                    { f: "White-Label Reports", s: "❌", p: "❌", f: "✅" },
+                    { f: "API Access", s: "❌", p: "❌", f: "✅" },
+                    { f: "Support Level", s: "Email", p: "Priority", f: "Dedicated" },
+                  ].map((row, i) => (
+                    <tr key={i} className="hover:bg-primary/5 transition-colors">
+                      <td className="py-4 px-6 text-muted-foreground">{row.f}</td>
+                      <td className="py-4 px-6 text-center font-medium">{row.s}</td>
+                      <td className="py-4 px-6 text-center font-bold text-primary">{row.p}</td>
+                      <td className="py-4 px-6 text-center font-medium">{row.f}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pricing FAQ */}
+          <div className="mt-24 max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-['Playfair_Display'] mb-4">Pricing <span className="gold-text">FAQ</span></h2>
+            </div>
+            <div className="space-y-6">
+              {[
+                { q: "Can I change plans later?", a: "Yes, you can upgrade or downgrade your plan at any time from your dashboard. Changes take effect immediately." },
+                { q: "What happens after the 7-day trial?", a: "If you don't cancel during the trial period, your selected plan will automatically begin. We'll send you a reminder 2 days before the trial ends." },
+                { q: "Do you offer refunds?", a: "We offer a 14-day money-back guarantee on all initial subscriptions if you're not satisfied with the platform." },
+              ].map((faq, i) => (
+                <div key={i} className="glass-card rounded-xl p-6 border-border/50">
+                  <h4 className="font-bold mb-2">{faq.q}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="mt-16 text-center space-y-2">
             <p className="text-muted-foreground text-sm">
               All prices in USD. Subscriptions are billed monthly. You can upgrade, downgrade, or cancel at any time.

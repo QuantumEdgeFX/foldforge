@@ -46,6 +46,31 @@ export default function Navbar() {
             Pricing
           </Link>
 
+          {/* Studio Dropdown */}
+          <div className="relative group">
+            <button
+              className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                location.startsWith("/studio") || location.includes("testing") ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              Studio
+              <ChevronDown size={13} className="transition-transform duration-200 group-hover:rotate-180" />
+            </button>
+            <div className="absolute top-full left-0 mt-3 w-64 rounded-xl border border-border/60 bg-background/95 backdrop-blur-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+              {[
+                { title: "EA Stress Testing", href: "/ea-stress-testing", desc: "Monte Carlo & Stress Scenarios" },
+                { title: "Monte Carlo Simulation", href: "/monte-carlo-simulation-ea", desc: "Statistical Edge Validation" },
+                { title: "Walk-Forward Analysis", href: "/walk-forward-analysis-mt5", desc: "Overfitting Detection" },
+                { title: "MQ5 Code Review", href: "/mq5-code-review", desc: "AI-Powered Risk Audit" },
+              ].map((item, i) => (
+                <Link key={i} href={item.href} className="flex flex-col px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors">
+                  <span className="text-sm font-bold text-foreground">{item.title}</span>
+                  <span className="text-[10px] text-muted-foreground">{item.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Aureus Prime dropdown */}
           <div className="relative" ref={ddRef}>
             <button
