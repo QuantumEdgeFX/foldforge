@@ -107,9 +107,16 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Giddings Capital Management LLC. All rights reserved. Registered in New Mexico, USA.
-          </p>
+          <div className="flex flex-col gap-2">
+            <p className="text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} Giddings Capital Management LLC. All rights reserved. Registered in New Mexico, USA.
+            </p>
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary/50">
+              <span className="h-px w-4 bg-primary/30" />
+              God-Mode Optimized v2.6
+              <span className="h-px w-4 bg-primary/30" />
+            </div>
+          </div>
           <p className="text-xs text-muted-foreground text-center md:text-right max-w-md">
             Trading involves substantial risk of loss. Past performance is not indicative of future results. FoldForge is a software tool and does not provide financial advice.
           </p>
