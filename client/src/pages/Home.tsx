@@ -184,6 +184,11 @@ export default function Home() {
   
   // Calculate probability of recovery
   const recoveryProbability = ((1 - Math.pow(lossRate, 5)) * 100).toFixed(1);
+  
+  // Advanced metrics for deeper engagement
+  const expectedValue = ((winRate / 100) * 2 - (1 - winRate / 100)).toFixed(2); // Assuming 1:2 Risk/Reward
+  const kellyCriterion = (winRate / 100 - (1 - winRate / 100) / 2).toFixed(2); // Suggested fractional Kelly
+  const ruinProbability = (Math.pow((1 - (winRate / 100)) / (winRate / 100), 10) * 100).toFixed(1);
 
   return (
     <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
@@ -431,6 +436,16 @@ export default function Home() {
                   <div className="flex justify-between items-center p-4 rounded-xl bg-secondary/50 border border-border/50">
                     <span className="text-sm text-muted-foreground">Recovery Probability (5 Losses)</span>
                     <span className="font-bold text-green-500">{recoveryProbability}%</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl bg-secondary/50 border border-border/50">
+                      <div className="text-[10px] text-muted-foreground uppercase mb-1">Expected Value (1:2 RR)</div>
+                      <div className="text-lg font-bold text-primary">{expectedValue}</div>
+                    </div>
+                    <div className="p-4 rounded-xl bg-secondary/50 border border-border/50">
+                      <div className="text-[10px] text-muted-foreground uppercase mb-1">Kelly Criterion</div>
+                      <div className="text-lg font-bold text-primary">{kellyCriterion}</div>
+                    </div>
                   </div>
                   <div className="w-full h-2.5 bg-secondary rounded-full overflow-hidden">
                     <div 
