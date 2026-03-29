@@ -235,24 +235,25 @@ export default function Home() {
 
             <div className="relative">
               <div className="absolute -inset-4 bg-primary/10 blur-3xl rounded-full opacity-50" />
-              <div className="relative glass-card rounded-2xl border-primary/20 overflow-hidden shadow-2xl">
+              <div className="relative glass-card rounded-2xl border-primary/20 overflow-hidden shadow-2xl min-h-[500px] flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
                 <img 
-                  src="/og-image.png" 
+                  src="/aureus-prime-trade-1.webp" 
                   alt="FoldForge Studio Dashboard - EA Stress Testing and Risk Management" 
-                  className="w-full h-auto opacity-90"
+                  className="w-full h-auto opacity-90 object-cover"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
                 {/* Benefit Callouts on Visual */}
-                <div className="absolute top-4 right-4 bg-black/80 border border-red-500/50 rounded-lg p-2 backdrop-blur-sm animate-pulse">
-                  <div className="text-[10px] font-bold text-red-500 uppercase">Daily Drawdown Risk</div>
-                  <div className="text-xs font-bold">CRITICAL ALERT</div>
+                <div className="absolute top-4 right-4 bg-black/80 border border-red-500/50 rounded-lg p-3 backdrop-blur-sm animate-pulse shadow-lg">
+                  <div className="text-[10px] font-bold text-red-500 uppercase tracking-wide">Daily Drawdown Risk</div>
+                  <div className="text-xs font-bold text-white">CRITICAL ALERT</div>
                 </div>
-                <div className="absolute bottom-1/4 left-4 bg-black/80 border border-primary/50 rounded-lg p-2 backdrop-blur-sm">
-                  <div className="text-[10px] font-bold text-primary uppercase">Monte Carlo Failure Rate</div>
-                  <div className="text-xs font-bold">12.4% Probability</div>
+                <div className="absolute bottom-1/4 left-4 bg-black/80 border border-primary/50 rounded-lg p-3 backdrop-blur-sm shadow-lg">
+                  <div className="text-[10px] font-bold text-primary uppercase tracking-wide">Monte Carlo Failure Rate</div>
+                  <div className="text-xs font-bold text-white">12.4% Probability</div>
                 </div>
-                <div className="absolute top-1/3 left-1/4 bg-black/80 border border-blue-500/50 rounded-lg p-2 backdrop-blur-sm">
-                  <div className="text-[10px] font-bold text-blue-400 uppercase">Broker Spread Mismatch</div>
-                  <div className="text-xs font-bold">Detected: 1.2 Pips</div>
+                <div className="absolute top-1/3 left-1/4 bg-black/80 border border-blue-500/50 rounded-lg p-3 backdrop-blur-sm shadow-lg">
+                  <div className="text-[10px] font-bold text-blue-400 uppercase tracking-wide">Broker Spread Mismatch</div>
+                  <div className="text-xs font-bold text-white">Detected: 1.2 Pips</div>
                 </div>
               </div>
             </div>
