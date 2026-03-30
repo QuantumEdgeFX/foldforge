@@ -44,6 +44,19 @@ const SHOWCASE_ITEMS = [
     ],
     badge: "Live — In Progress",
   },
+  {
+    id: 3,
+    src: "/aureus-prime-showcase-3.png",
+    alt: "Aureus Prime EA – Professional Trade Showcase: XAUUSD, +186.5 Pips Profit, Adaptive Volatility Engine, Verified",
+    title: "High-Performance Result — XAUUSD",
+    subtitle: "Validated on FoldForge",
+    metrics: [
+      { label: "Profit", value: "+186.5 Pips", color: "text-emerald-400" },
+      { label: "Asset", value: "XAUUSD", color: "text-primary" },
+      { label: "Strategy", value: "Adaptive", color: "text-emerald-400" },
+    ],
+    badge: "Verified Showcase",
+  },
 ];
 
 const STATS = [
