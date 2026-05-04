@@ -84,6 +84,7 @@ function Router() {
         <Route path="/ea-parameter-optimization" component={EAParameterOptimization} />
         <Route path="/support" component={Support} />
         <Route path="/resources" component={ResourceHub} />
+        <Route path="/founder" component={Founder} />
         <Route path="/success" component={Success} />
         <Route path="*" component={NotFound} />
         <Route path="/404" component={NotFound} />

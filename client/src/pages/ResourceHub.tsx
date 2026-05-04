@@ -9,25 +9,25 @@ const RESOURCES = [
   {
     category: "EA Validation",
     items: [
-      { title: "The Complete Guide to Monte Carlo Simulation for EAs", desc: "Learn how Monte Carlo simulations reveal hidden risks in your trading strategies.", link: "#", icon: BarChart3 },
-      { title: "Walk-Forward Analysis: Detecting Overfitting in Expert Advisors", desc: "Understand why backtests fail and how walk-forward analysis prevents curve-fitting.", link: "#", icon: TrendingUp },
-      { title: "20 Stress Test Scenarios Every EA Must Pass", desc: "The definitive checklist for stress testing before deploying to prop firms.", link: "#", icon: Shield },
+      { title: "The Complete Guide to Monte Carlo Simulation for EAs", desc: "Learn how Monte Carlo simulations reveal hidden risks in your trading strategies.", link: "/pricing", icon: BarChart3 },
+      { title: "Walk-Forward Analysis: Detecting Overfitting in Expert Advisors", desc: "Understand why backtests fail and how walk-forward analysis prevents curve-fitting.", link: "/pricing", icon: TrendingUp },
+      { title: "20 Stress Test Scenarios Every EA Must Pass", desc: "The definitive checklist for stress testing before deploying to prop firms.", link: "/pricing", icon: Shield },
     ]
   },
   {
     category: "Prop Firm Mastery",
     items: [
-      { title: "How to Pass FTMO, The5ers, and Topstep Challenges", desc: "Step-by-step guide to passing prop firm challenges with automated strategies.", link: "#", icon: Award },
-      { title: "Prop Firm Risk Rules Decoded: A Trader's Handbook", desc: "Complete breakdown of drawdown limits, daily loss limits, and profit targets.", link: "#", icon: Shield },
-      { title: "The Psychology of Funded Account Failure", desc: "Why 73% of funded traders fail and how to avoid the pitfalls.", link: "#", icon: Zap },
+      { title: "How to Pass FTMO, The5ers, and Topstep Challenges", desc: "Step-by-step guide to passing prop firm challenges with automated strategies.", link: "/pricing", icon: Award },
+      { title: "Prop Firm Risk Rules Decoded: A Trader's Handbook", desc: "Complete breakdown of drawdown limits, daily loss limits, and profit targets.", link: "/pricing", icon: Shield },
+      { title: "The Psychology of Funded Account Failure", desc: "Why 73% of funded traders fail and how to avoid the pitfalls.", link: "/pricing", icon: Zap },
     ]
   },
   {
     category: "Advanced Trading",
     items: [
-      { title: "Kelly Criterion for Position Sizing: The Math Behind Optimal Risk", desc: "Master the mathematical foundation of professional risk management.", link: "#", icon: BarChart3 },
-      { title: "Sharpe Ratio, Sortino Ratio, and Beyond: Performance Metrics Explained", desc: "Understand the metrics that separate elite traders from the rest.", link: "#", icon: TrendingUp },
-      { title: "Building Robust EAs: Parameter Sensitivity and Robustness Testing", desc: "Learn how to build EAs that survive real-world market conditions.", link: "#", icon: Zap },
+      { title: "Kelly Criterion for Position Sizing: The Math Behind Optimal Risk", desc: "Master the mathematical foundation of professional risk management.", link: "/pricing", icon: BarChart3 },
+      { title: "Sharpe Ratio, Sortino Ratio, and Beyond: Performance Metrics Explained", desc: "Understand the metrics that separate elite traders from the rest.", link: "/pricing", icon: TrendingUp },
+      { title: "Building Robust EAs: Parameter Sensitivity and Robustness Testing", desc: "Learn how to build EAs that survive real-world market conditions.", link: "/pricing", icon: Zap },
     ]
   },
 ];
