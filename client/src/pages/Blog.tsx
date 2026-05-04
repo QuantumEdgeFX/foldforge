@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Calendar, ArrowRight, Tag, Clock, TrendingUp, Shield, Database, BarChart3, Users } from "lucide-react";
+import { Calendar, ArrowRight, Tag, Clock, TrendingUp, Shield, Database, BarChart3, Users, Award } from "lucide-react";
 import { useState } from "react";
 import NewsletterPopup from "@/components/NewsletterPopup";
 

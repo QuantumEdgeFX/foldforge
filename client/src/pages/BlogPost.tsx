@@ -2,7 +2,7 @@ import { useRoute, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Twitter, Linkedin, Facebook, TrendingUp, Shield, Database, BarChart3, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Twitter, Linkedin, Facebook, TrendingUp, Shield, Database, BarChart3, Users, Award } from "lucide-react";
 import { useEffect } from "react";
 
 const BLOG_POSTS: Record<string, any> = {
