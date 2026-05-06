@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, BarChart3 } from "lucide-react";
+import { Menu, X, ChevronDown, BarChart3, GraduationCap } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 const LOGO_URL = "/logo.webp";
@@ -37,6 +37,16 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
+          <Link
+            href="/academy"
+            className={`flex items-center gap-1.5 text-sm font-bold transition-colors hover:text-primary ${
+              location === "/academy" ? "text-primary" : "text-foreground"
+            }`}
+          >
+            <GraduationCap size={16} className="text-primary" />
+            Academy
+          </Link>
+
           <Link
             href="/pricing"
             className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -150,15 +160,6 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/resources"
-            className={`text-sm font-medium transition-colors hover:text-primary ${
-              location === "/resources" ? "text-primary" : "text-muted-foreground"
-            }`}
-          >
-            Resources
-          </Link>
-
-          <Link
             href="/support"
             className={`text-sm font-medium transition-colors hover:text-primary ${
               location === "/support" ? "text-primary" : "text-muted-foreground"
@@ -213,6 +214,17 @@ export default function Navbar() {
         <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
           <div className="container py-4 flex flex-col gap-3">
             <Link
+              href="/academy"
+              className={`text-sm font-bold py-2 flex items-center gap-2 ${
+                location === "/academy" ? "text-primary" : "text-foreground"
+              }`}
+              onClick={() => setMobileOpen(false)}
+            >
+              <GraduationCap size={16} className="text-primary" />
+              Academy
+            </Link>
+
+            <Link
               href="/pricing"
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
@@ -258,14 +270,6 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               Blog
-            </Link>
-
-            <Link
-              href="/resources"
-              className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
-              onClick={() => setMobileOpen(false)}
-            >
-              Resources
             </Link>
 
             <Link
