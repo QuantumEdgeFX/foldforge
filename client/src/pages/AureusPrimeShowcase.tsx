@@ -59,16 +59,16 @@ const SHOWCASE_ITEMS = [
   },
   {
     id: 4,
-    src: "/aureus-prime-showcase-4.png",
-    alt: "Aureus Prime EA – Institutional Trade Result: XAUUSD, High-Frequency Validation, Verified on FoldForge",
-    title: "Institutional Result — XAUUSD",
+    src: "/aureus-prime-showcase-4.webp",
+    alt: "Aureus Prime EA – Dual Strategy Performance: Precision Trading Systems (XAUUSD +18.5%, 3.1% Drawdown) & Adaptive FX Strategies (GBPJPY +12.2%, Volatility Mitigation)",
+    title: "Dual Strategy Performance — XAUUSD & GBPJPY",
     subtitle: "Validated on FoldForge",
     metrics: [
-      { label: "Profit", value: "Pending", color: "text-emerald-400" },
-      { label: "Drawdown", value: "Pending", color: "text-primary" },
-      { label: "Status", value: "New Result", color: "text-emerald-400" },
+      { label: "Gold Profit", value: "+18.5%", color: "text-emerald-400" },
+      { label: "FX Performance", value: "+12.2%", color: "text-primary" },
+      { label: "Max Drawdown", value: "3.1%", color: "text-emerald-400" },
     ],
-    badge: "Latest Update",
+    badge: "Verified Live Trade",
   },
 ];
 
