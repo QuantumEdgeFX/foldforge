@@ -563,26 +563,30 @@ export default function BlogPost() {
         <div className="container">
           <h2 className="text-3xl font-bold font-['Playfair_Display'] mb-12 text-center">Related <span className="gold-text">Articles</span></h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {Object.keys(BLOG_POSTS).filter(s => s !== slug).slice(0, 3).map(s => {
-              const p = BLOG_POSTS[s];
-              return (
-                <Link key={s} href={`/blog/${s}`}>
-                  <div className="glass-card rounded-xl overflow-hidden border-border/50 hover:border-primary/30 transition-all group cursor-pointer">
-                    <div className="aspect-video overflow-hidden">
-                      <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6">
-                      <div className="text-xs text-primary font-bold uppercase tracking-wider mb-2">{p.category}</div>
-                      <h3 className="font-bold group-hover:text-primary transition-colors line-clamp-2 mb-4">{p.title}</h3>
-                      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-                        <span>{p.date}</span>
-                        <span>{p.readTime}</span>
+            {Object.keys(BLOG_POSTS)
+              .filter(s => s !== slug && BLOG_POSTS[s].category === post.category)
+              .concat(Object.keys(BLOG_POSTS).filter(s => s !== slug && BLOG_POSTS[s].category !== post.category))
+              .slice(0, 3)
+              .map(s => {
+                const p = BLOG_POSTS[s];
+                return (
+                  <Link key={s} href={`/blog/${s}`}>
+                    <div className="glass-card rounded-xl overflow-hidden border-border/50 hover:border-primary/30 transition-all group cursor-pointer h-full flex flex-col">
+                      <div className="aspect-video overflow-hidden">
+                        <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <div className="text-xs text-primary font-bold uppercase tracking-wider mb-2">{p.category}</div>
+                        <h3 className="font-bold group-hover:text-primary transition-colors line-clamp-2 mb-4 flex-grow">{p.title}</h3>
+                        <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-4 border-t border-border/50">
+                          <span>{p.date}</span>
+                          <span>{p.readTime}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
+                  </Link>
+                );
+              })}
           </div>
         </div>
       </section>

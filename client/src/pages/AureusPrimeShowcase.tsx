@@ -57,6 +57,19 @@ const SHOWCASE_ITEMS = [
     ],
     badge: "Verified Showcase",
   },
+  {
+    id: 4,
+    src: "/aureus-prime-showcase-4.png",
+    alt: "Aureus Prime EA – Institutional Trade Result: XAUUSD, High-Frequency Validation, Verified on FoldForge",
+    title: "Institutional Result — XAUUSD",
+    subtitle: "Validated on FoldForge",
+    metrics: [
+      { label: "Profit", value: "Pending", color: "text-emerald-400" },
+      { label: "Drawdown", value: "Pending", color: "text-primary" },
+      { label: "Status", value: "New Result", color: "text-emerald-400" },
+    ],
+    badge: "Latest Update",
+  },
 ];
 
 const STATS = [
