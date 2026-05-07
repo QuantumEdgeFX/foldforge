@@ -70,6 +70,19 @@ const SHOWCASE_ITEMS = [
     ],
     badge: "Verified Live Trade",
   },
+  {
+    id: 5,
+    src: "/aureus-prime-showcase-5.png",
+    alt: "Aureus Prime EA – Institutional Grade Gold Trading: XAUUSD M15, Professional Trade Execution, High Precision",
+    title: "Institutional Execution — XAUUSD",
+    subtitle: "Validated on FoldForge",
+    metrics: [
+      { label: "Precision", value: "High", color: "text-emerald-400" },
+      { label: "Strategy", value: "Institutional", color: "text-primary" },
+      { label: "Asset", value: "XAUUSD", color: "text-emerald-400" },
+    ],
+    badge: "Premium Showcase",
+  },
 ];
 
 const STATS = [
