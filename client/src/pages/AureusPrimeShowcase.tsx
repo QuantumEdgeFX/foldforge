@@ -57,6 +57,32 @@ const SHOWCASE_ITEMS = [
     ],
     badge: "Verified Showcase",
   },
+  {
+    id: 4,
+    src: "/aureus-prime-showcase-4.webp",
+    alt: "Aureus Prime EA – Dual Strategy Performance: Precision Trading Systems (XAUUSD +18.5%, 3.1% Drawdown) & Adaptive FX Strategies (GBPJPY +12.2%, Volatility Mitigation)",
+    title: "Dual Strategy Performance — XAUUSD & GBPJPY",
+    subtitle: "Validated on FoldForge",
+    metrics: [
+      { label: "Gold Profit", value: "+18.5%", color: "text-emerald-400" },
+      { label: "FX Performance", value: "+12.2%", color: "text-primary" },
+      { label: "Max Drawdown", value: "3.1%", color: "text-emerald-400" },
+    ],
+    badge: "Verified Live Trade",
+  },
+  {
+    id: 5,
+    src: "/aureus-prime-showcase-5.png",
+    alt: "Aureus Prime EA – Institutional Grade Gold Trading: XAUUSD M15, Professional Trade Execution, High Precision",
+    title: "Institutional Execution — XAUUSD",
+    subtitle: "Validated on FoldForge",
+    metrics: [
+      { label: "Precision", value: "High", color: "text-emerald-400" },
+      { label: "Strategy", value: "Institutional", color: "text-primary" },
+      { label: "Asset", value: "XAUUSD", color: "text-emerald-400" },
+    ],
+    badge: "Premium Showcase",
+  },
 ];
 
 const STATS = [

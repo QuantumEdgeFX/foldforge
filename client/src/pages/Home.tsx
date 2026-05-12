@@ -8,7 +8,7 @@ import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
   CheckCircle2, ArrowRight, Star,
   Activity, AlertTriangle, Target, Play, Users, Clock, ChevronUp, ChevronDown,
-  MousePointer2, ExternalLink
+  MousePointer2, ExternalLink, GraduationCap
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
@@ -336,6 +336,77 @@ export default function Home() {
             {PROP_FIRMS.map((firm, i) => (
               <span key={i} className="text-xl font-black tracking-tighter text-foreground/80">{firm}</span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Academy Section - Prominent Placement */}
+      <section className="py-24 bg-black relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,oklch(0.82_0.12_85/0.05),transparent_70%)]" />
+        <div className="container relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 mb-6">
+                <GraduationCap size={14} className="text-primary" />
+                <span className="text-[10px] font-bold text-primary uppercase tracking-widest">FoldForge Academy</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] leading-tight mb-6">
+                Don't Just Trade. <br />
+                <span className="gold-text">Master the Edge.</span>
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Access our comprehensive learning center designed for serious algorithmic traders. From EA validation frameworks to prop firm risk management, we provide the institutional knowledge you need to stay funded.
+              </p>
+              <div className="space-y-4 mb-10">
+                {[
+                  "EA Stress Testing Masterclass",
+                  "Prop Firm Risk Management Framework",
+                  "Monte Carlo & Statistical Edge Validation",
+                  "Walk-Forward Analysis Deep Dive"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <CheckCircle2 size={12} className="text-primary" />
+                    </div>
+                    <span className="text-sm font-medium text-foreground/80">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/academy">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 font-bold">
+                  Explore Academy <ArrowRight size={18} className="ml-2" />
+                </Button>
+              </Link>
+            </div>
+            <div className="relative">
+              <div className="glass-card rounded-3xl border-white/10 p-8 bg-secondary/5 relative z-10">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-4">
+                    <div className="aspect-square rounded-2xl bg-primary/10 flex flex-col items-center justify-center p-4 text-center group hover:bg-primary/20 transition-all cursor-pointer">
+                      <Zap size={32} className="text-primary mb-3" />
+                      <span className="text-xs font-bold">EA Testing</span>
+                    </div>
+                    <div className="aspect-[4/5] rounded-2xl bg-secondary/20 flex flex-col items-center justify-center p-4 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+                      <Shield size={32} className="text-primary/60 mb-3" />
+                      <span className="text-xs font-bold">Risk Rules</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4 pt-8">
+                    <div className="aspect-[4/5] rounded-2xl bg-secondary/20 flex flex-col items-center justify-center p-4 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+                      <BarChart3 size={32} className="text-primary/60 mb-3" />
+                      <span className="text-xs font-bold">Statistics</span>
+                    </div>
+                    <div className="aspect-square rounded-2xl bg-primary/10 flex flex-col items-center justify-center p-4 text-center group hover:bg-primary/20 transition-all cursor-pointer">
+                      <TrendingUp size={32} className="text-primary mb-3" />
+                      <span className="text-xs font-bold">Optimization</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Decorative background elements */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl" />
+            </div>
           </div>
         </div>
       </section>

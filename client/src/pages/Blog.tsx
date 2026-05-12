@@ -9,6 +9,18 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 
 const posts = [
   {
+    slug: "prop-firm-ea-detection-ip-fingerprinting-2026",
+    title: "The Hidden Reason Your EA Passed but You Got Banned: Prop Firm IP & Device Fingerprinting in 2026",
+    excerpt: "Prop firms are using advanced AI, IP tracking, and device fingerprinting to detect EA arbitrage and account management. Learn how they track you and how to stay compliant.",
+    date: "May 12, 2026",
+    author: "FoldForge Editorial",
+    category: "Prop Firm",
+    readTime: "14 min read",
+    featured: true,
+    image: "/images/blog/blog_post_11.png",
+    icon: Shield,
+  },
+  {
     slug: "how-i-passed-ftmo-in-7-days-with-an-ea",
     title: "How I Passed FTMO in 7 Days with an EA (The Exact Strategy)",
     excerpt: "Discover the exact step-by-step workflow used to pass a $200K FTMO challenge in just 7 trading days using institutional-grade validation and real-time risk management.",
@@ -135,7 +147,9 @@ export default function Blog() {
     : posts.filter(p => p.category === activeCategory);
 
   const featuredPost = posts[0];
-  const regularPosts = filteredPosts.filter(p => !p.featured || activeCategory !== "All");
+  const regularPosts = activeCategory === "All" 
+    ? posts.filter(p => p.slug !== featuredPost.slug)
+    : filteredPosts;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -212,42 +226,44 @@ export default function Blog() {
 
           {/* Post Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {(activeCategory === "All" ? posts.slice(1) : filteredPosts).map((post) => (
-              <Card key={post.slug} className="bg-card border-border overflow-hidden hover:border-primary/30 transition-all group hover:shadow-xl hover:shadow-primary/5">
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <CardHeader className="space-y-2 pb-2">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-                      <Tag size={10} /> {post.category}
-                    </span>
-                    <span className="flex items-center gap-1"><Clock size={10} /> {post.readTime}</span>
+            {regularPosts.map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`}>
+                <Card className="bg-card border-border overflow-hidden hover:border-primary/30 transition-all group hover:shadow-xl hover:shadow-primary/5 cursor-pointer h-full flex flex-col">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <CardTitle className="text-lg font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                    {post.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 pt-0">
-                  <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between pt-2">
-                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Calendar size={10} /> {post.date}
-                    </span>
-                    <Link href={`/blog/${post.slug}`}>
-                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
-                        Read <ArrowRight size={12} className="ml-1" />
-                      </Button>
-                    </Link>
+                  <CardHeader className="space-y-2 pb-2">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                        {post.icon ? <post.icon size={10} /> : <Tag size={10} />} {post.category}
+                      </span>
+                      <span className="flex items-center gap-1"><Clock size={10} /> {post.readTime}</span>
+                    </div>
+                    <CardTitle className="text-lg font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4 pt-0 flex-grow">
+                    <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  </CardContent>
+                  <div className="px-6 pb-6 mt-auto">
+                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar size={10} /> {post.date}
+                      </span>
+                      <span className="text-primary text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read <ArrowRight size={12} />
+                      </span>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
