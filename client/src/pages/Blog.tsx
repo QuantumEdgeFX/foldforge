@@ -9,6 +9,18 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 
 const posts = [
   {
+    slug: "prop-firm-ea-detection-ip-fingerprinting-2026",
+    title: "The Hidden Reason Your EA Passed but You Got Banned: Prop Firm IP & Device Fingerprinting in 2026",
+    excerpt: "Prop firms are using advanced AI, IP tracking, and device fingerprinting to detect EA arbitrage and account management. Learn how they track you and how to stay compliant.",
+    date: "May 12, 2026",
+    author: "FoldForge Editorial",
+    category: "Prop Firm",
+    readTime: "14 min read",
+    featured: true,
+    image: "/images/blog/blog_post_11.png",
+    icon: Shield,
+  },
+  {
     slug: "how-i-passed-ftmo-in-7-days-with-an-ea",
     title: "How I Passed FTMO in 7 Days with an EA (The Exact Strategy)",
     excerpt: "Discover the exact step-by-step workflow used to pass a $200K FTMO challenge in just 7 trading days using institutional-grade validation and real-time risk management.",
