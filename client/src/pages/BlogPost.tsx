@@ -639,7 +639,7 @@ export default function BlogPost() {
               <div>
                 <h4 className="text-lg font-bold mb-2">About {post.author}</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Expert in algorithmic trading and prop firm risk management. Dedicated to helping traders validate their edge and protect their capital through data-driven insights.
+                  Founder & CIO of Giddings Capital Management with over 15 years of experience in quantitative trading. Warren is dedicated to democratizing institutional-grade risk management tools for the global trading community.
                 </p>
               </div>
             </div>

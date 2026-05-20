@@ -19,12 +19,12 @@ export default function Founder() {
                 <Award size={14} /> Meet the Founder
               </div>
               <h1 className="text-4xl md:text-6xl font-bold font-['Playfair_Display'] mb-6 leading-tight">
-                Quant Warren: <br />
+                Warren Giddings: <br />
                 <span className="gold-text">Institutional Precision</span> <br />
                 Meets Personal Vision
               </h1>
               <p className="text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed">
-                At 34, Quant Warren has spent over 15 years mastering the quantitative trading landscape, 
+                At 34, Warren Giddings has spent over 15 years mastering the quantitative trading landscape, 
                 bridging the gap between complex data and actionable market edges.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -47,11 +47,11 @@ export default function Founder() {
                 <div className="relative rounded-2xl overflow-hidden border border-border/50 bg-card aspect-[4/5] w-full max-w-[400px] shadow-2xl">
                   <img 
                     src="/images/quant-warren-founder.webp" 
-                    alt="Quant Warren - Founder of FoldForge" 
+                    alt="Warren Giddings - Founder of FoldForge" 
                     className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition duration-700"
                   />
                   <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-background via-background/60 to-transparent">
-                    <p className="text-2xl font-bold font-['Playfair_Display'] text-white">Quant Warren</p>
+                    <p className="text-2xl font-bold font-['Playfair_Display'] text-white">Warren Giddings</p>
                     <p className="text-primary font-medium text-sm">Founder & CIO, Giddings Capital Management</p>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ export default function Founder() {
             <h2 className="text-3xl md:text-4xl font-bold font-['Playfair_Display'] mb-6">The Origin of <span className="gold-text">FoldForge</span></h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
               FoldForge wasn't born in a marketing lab—it was forged in the high-stakes environment of Giddings Capital Management. 
-              As a quantitative hedge fund owner, Quant recognized a critical flaw in the trading industry: 
+              As a quantitative hedge fund owner, Warren recognized a critical flaw in the trading industry: 
               most traders were flying blind, deploying strategies without rigorous, broker-specific stress testing.
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function Founder() {
               </div>
               <h3 className="text-xl font-bold mb-4">Risk Management First</h3>
               <p className="text-muted-foreground">
-                Quant's mission is to provide every trader with the same level of Monte Carlo simulation and walk-forward analysis used by the world's most sophisticated institutions.
+                Warren's mission is to provide every trader with the same level of Monte Carlo simulation and walk-forward analysis used by the world's most sophisticated institutions.
               </p>
             </div>
             
@@ -117,7 +117,7 @@ export default function Founder() {
               FoldForge is my way of empowering the trading community with the infrastructure they need to survive and thrive in any market condition.
             </blockquote>
             <div className="w-12 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="font-bold text-lg">Quant Warren</p>
+            <p className="font-bold text-lg">Warren Giddings</p>
             <p className="text-muted-foreground text-sm uppercase tracking-widest">Founder & Chief Investment Officer</p>
           </div>
         </div>

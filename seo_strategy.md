@@ -14,7 +14,7 @@
 - **Schema Markup**: 
   - `SoftwareApplication` for the main studio.
   - `FAQPage` for the home page.
-  - `Article` for blog posts.
+  - `Article` for blog posts with author authority (Warren Giddings).
 - **Image Alt Text**: Descriptive, keyword-rich alt text for all visual assets.
 
 ## Conversion Optimizations (CRO)
