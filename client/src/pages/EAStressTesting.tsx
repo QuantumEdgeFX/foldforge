@@ -323,7 +323,7 @@ export default function EAStressTesting() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: "Marcus T.", role: "Prop Firm Trader", text: "FoldForge's stress testing caught a critical flaw in my EA that would have blown my $250K funded account. The Monte Carlo analysis showed a 40% probability of hitting the daily drawdown limit — something a simple backtest never revealed.", metric: "Saved $250K", rating: 5 },
+              { name: "Warren Mathew Giddings", role: "Prop Firm Trader", text: "FoldForge's stress testing caught a critical flaw in my EA that would have blown my $250K funded account. The Monte Carlo analysis showed a 40% probability of hitting the daily drawdown limit — something a simple backtest never revealed.", metric: "Saved $250K", rating: 5 },
               { name: "Sarah K.", role: "EA Developer", text: "I use FoldForge to validate every EA before selling it. The walk-forward analysis and AI code review give my customers confidence that my products actually work. My refund rate dropped from 15% to 2%.", metric: "2% refund rate", rating: 5 },
               { name: "James R.", role: "Fund Manager", text: "We run every strategy through FoldForge before deploying to client accounts. The 40+ metrics and stress testing suite replaced our entire in-house validation process. ROI on subscription: 400%+.", metric: "400% ROI", rating: 5 },
             ].map((t, i) => (

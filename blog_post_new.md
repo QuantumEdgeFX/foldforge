@@ -1,6 +1,6 @@
 # Optimizing EA Performance: Beyond Backtesting
 
-**By FoldForge Editorial Team** | **March 24, 2026**
+**By Warren Mathew Giddings** | **March 24, 2026**
 
 The journey to profitable algorithmic trading doesn't end with a successful backtest. In fact, for many, that's where the real challenges begin. An Expert Advisor (EA) that performs flawlessly on historical data can quickly falter in live market conditions. This discrepancy often leads to frustration, blown accounts, and a questioning of the entire automated trading premise.
 

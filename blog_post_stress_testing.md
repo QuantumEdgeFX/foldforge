@@ -1,6 +1,6 @@
 # The Science of EA Stress Testing: Why Your Backtests Fail and How to Fix Them in 2026
 
-**By FoldForge Editorial Team** | **March 24, 2026**
+**By Warren Mathew Giddings** | **March 24, 2026**
 
 In the competitive world of algorithmic trading, an Expert Advisor (EA) is only as good as its validation. Many traders experience the disheartening reality of an EA that performs brilliantly in backtests but collapses in live trading. This phenomenon, often termed "backtest overfitting" or "curve fitting," is a critical challenge that can lead to significant financial losses and erode confidence in automated strategies. In 2026, with markets becoming increasingly complex and prop firm rules more stringent, understanding and implementing robust EA stress testing is paramount. This article delves into the scientific methods behind effective EA validation, explaining why traditional backtests often fail and how FoldForge's advanced tools provide the solution.
 

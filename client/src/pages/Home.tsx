@@ -68,7 +68,7 @@ const PLANS = [
 ];
 
 const TESTIMONIALS = [
-  { name: "Marcus T.", role: "FTMO Funded Trader", text: "FoldForge saved my $250K funded account. Monte Carlo testing caught a 7.2% hidden drawdown issue that would've blown everything in week one. Now I'm consistently profitable.", rating: 5, avatar: "MT", metric: "Saved $250K Account" },
+  { name: "Warren Mathew Giddings", role: "FTMO Funded Trader", text: "FoldForge saved my $250K funded account. Monte Carlo testing caught a 7.2% hidden drawdown issue that would've blown everything in week one. Now I'm consistently profitable.", rating: 5, avatar: "WG", metric: "Saved $250K Account" },
   { name: "Sarah K.", role: "EA Developer", text: "My backtests now match live results within 2%. Passed 3 FTMO challenges in a row. The broker data sync eliminated the spread gap that was killing my strategies.", rating: 5, avatar: "SK", metric: "3 Challenges Passed" },
   { name: "James R.", role: "Quant Analyst", text: "Reduced strategy validation time from 14 days to 2 days. The stress testing suite caught edge cases my manual testing missed. ROI on subscription: 400%+.", rating: 5, avatar: "JR", metric: "10x Faster Validation" },
   { name: "David L.", role: "Fund Manager", text: "We validate every EA through FoldForge before deploying to client accounts. Drawdown protection has prevented 7 account blowups this year. Invaluable.", rating: 5, avatar: "DL", metric: "7 Accounts Protected" },

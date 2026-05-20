@@ -1,6 +1,6 @@
 # Why 90% of Funded Accounts Fail (And How to Be the 10%)
 
-**By FoldForge Editorial Team** | **March 21, 2026**
+**By Warren Mathew Giddings** | **March 21, 2026**
 
 The prop firm industry is booming. In 2026, there are more $100K, $200K, and even $1M funded accounts available than ever before. Yet, the statistics remain brutal: **over 90% of traders fail their challenges, and of those who pass, less than 5% keep their accounts for more than three months.**
 

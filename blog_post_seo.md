@@ -1,6 +1,6 @@
 # How to Pass Prop Firm Challenges with EAs in 2026: The Ultimate Risk Management Guide
 
-**By FoldForge Editorial Team** | **March 24, 2026**
+**By Warren Mathew Giddings** | **March 24, 2026**
 
 Passing proprietary trading firm (prop firm) challenges in 2026 requires more than just a profitable Expert Advisor (EA). With increasingly stringent rules and sophisticated market conditions, traders need an ironclad risk management strategy to navigate evaluations successfully. This guide provides an ultimate framework for EA traders to conquer prop firm challenges, focusing on the critical role of advanced risk management and validation tools.
 

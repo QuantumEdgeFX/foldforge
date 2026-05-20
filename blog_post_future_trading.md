@@ -1,6 +1,6 @@
 # The Future of Algorithmic Trading in 2026: AI, Prop Firms, and the New Era of Risk Management
 
-**By FoldForge Editorial Team** | **March 25, 2026**
+**By Warren Mathew Giddings** | **March 25, 2026**
 
 The landscape of algorithmic trading is undergoing a profound transformation. As we navigate 2026, the convergence of artificial intelligence (AI), the proliferation of proprietary trading firms (prop firms), and an intensified focus on robust risk management are reshaping how traders interact with financial markets. This article explores the key trends defining the future of automated trading, highlighting how these forces are creating both unprecedented opportunities and new challenges for Expert Advisor (EA) developers and traders.
 
