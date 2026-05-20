@@ -9,6 +9,18 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 
 const posts = [
   {
+    slug: "walk-forward-optimization-why-your-backtest-is-lying-to-you",
+    title: "Walk-Forward Optimization: Why Your Backtest is Lying to You",
+    excerpt: "Discover why traditional backtesting often leads to curve-fitting and how Walk-Forward Optimization provides a more realistic validation of your trading strategies.",
+    date: "May 20, 2026",
+    author: "Warren Mathew Giddings",
+    category: "EA Testing",
+    readTime: "10 min read",
+    featured: true,
+    image: "/images/blog/blog_post_walk_forward.png",
+    icon: Award,
+  },
+  {
     slug: "how-i-passed-ftmo-in-7-days-with-an-ea",
     title: "How I Passed FTMO in 7 Days with an EA (The Exact Strategy)",
     excerpt: "Discover the exact step-by-step workflow used to pass a $200K FTMO challenge in just 7 trading days using institutional-grade validation and real-time risk management.",
