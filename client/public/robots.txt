@@ -1,8 +1,15 @@
 # FoldForge — #1 EA Stress Testing Studio
 # https://foldforge.app
+# International SEO Configuration with Multi-Language Support
 
 User-agent: *
 Allow: /
+Allow: /es/
+Allow: /fr/
+Allow: /de/
+Allow: /pt/
+Allow: /ar/
+Allow: /ja/
 Allow: /studio
 Allow: /pricing
 Allow: /blog
@@ -28,9 +35,10 @@ Disallow: /success
 
 # Sitemaps
 Sitemap: https://foldforge.app/sitemap.xml
+Sitemap: https://foldforge.app/sitemap-news.xml
 
 # Crawl-delay
-Crawl-delay: 1
+Crawl-delay: 0
 
 # Google
 User-agent: Googlebot
@@ -49,3 +57,34 @@ Disallow: /dashboard
 Disallow: /api/
 Disallow: /login
 Disallow: /signup
+Crawl-delay: 1
+
+# Yandex (Russia/Eastern Europe)
+User-agent: YandexBot
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+Crawl-delay: 0
+
+# Baidu (China)
+User-agent: Baiduspider
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+Crawl-delay: 1
+
+# Naver (South Korea)
+User-agent: Naver
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+Crawl-delay: 0
