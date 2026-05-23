@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown, BarChart3, GraduationCap } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const LOGO_URL = "/logo.webp";
 
@@ -170,6 +171,7 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
+          <LanguageSwitcher />
           {isAuthenticated ? (
             <>
               {user?.role === "admin" && (
@@ -281,6 +283,9 @@ export default function Navbar() {
             </Link>
 
             <div className="border-t border-border pt-3 flex flex-col gap-2">
+              <div className="px-2 py-2">
+                <LanguageSwitcher />
+              </div>
               {isAuthenticated ? (
                 <>
                   <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
