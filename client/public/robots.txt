@@ -14,6 +14,8 @@ Allow: /studio
 Allow: /pricing
 Allow: /blog
 Allow: /docs
+Allow: /academy
+Allow: /founder
 Allow: /ea-stress-testing
 Allow: /funded-account-risk-management
 Allow: /automated-trading-platform

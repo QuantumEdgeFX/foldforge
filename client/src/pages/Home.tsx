@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -193,6 +194,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
+      <SEO 
+        title="FoldForge — Pass Any Prop Firm Challenge with #1 EA Stress Testing Studio"
+        description="Stop blowing funded accounts. FoldForge is the #1 EA stress testing studio for MT4/MT5. Pass FTMO, The5ers, and Topstep with Monte Carlo simulations and AI risk management."
+      />
       <Navbar />
       
       {/* Hero Section - Ultra Professional Redesign */}

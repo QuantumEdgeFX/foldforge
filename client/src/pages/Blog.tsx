@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -8,6 +9,18 @@ import { useState } from "react";
 import NewsletterPopup from "@/components/NewsletterPopup";
 
 const posts = [
+  {
+    slug: "how-to-survive-your-first-payout-cycle-2026",
+    title: "Beyond the Challenge: How to Survive Your First Payout Cycle in 2026",
+    excerpt: "Passing the challenge is the easy part. Keeping the account is where 90% of traders fail. Discover the institutional-grade consistency rules of 2026 and how to stay funded.",
+    date: "May 30, 2026",
+    author: "Warren Giddings",
+    category: "Prop Firm",
+    readTime: "12 min read",
+    featured: true,
+    image: "/images/blog/funded-account-risk.webp",
+    icon: Award,
+  },
   {
     slug: "prop-firm-ea-detection-ip-fingerprinting-2026",
     title: "The Hidden Reason Your EA Passed but You Got Banned: Prop Firm IP & Device Fingerprinting in 2026",
@@ -153,6 +166,10 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO 
+        title="FoldForge Blog — Institutional Trading Insights & EA Testing"
+        description="Expert insights on prop firm trading, EA stress testing, and risk management. Learn how to stay funded and optimize your Expert Advisors for consistent payouts."
+      />
       <Navbar />
       <NewsletterPopup />
       <div className="pt-28 pb-20">

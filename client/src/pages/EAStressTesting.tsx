@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Activity, Zap, Shield, BarChart3, TrendingUp, Database, ArrowRight, CheckCircle2, Target, Brain, AlertTriangle, Gauge, Settings, Code, Award, Star, Users, Clock, FileCode } from "lucide-react";
@@ -42,6 +43,10 @@ const METRICS = [
 export default function EAStressTesting() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO 
+        title="EA Stress Testing — Institutional-Grade MT5 EA Validation"
+        description="The world's most advanced EA stress testing studio. Run Monte Carlo simulations, walk-forward analysis, and 20+ stress scenarios on any MQ5 Expert Advisor."
+      />
       <Navbar />
 
       {/* Hero */}

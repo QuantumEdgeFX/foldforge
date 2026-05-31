@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { CheckCircle2, ArrowRight } from "lucide-react";
@@ -37,6 +38,10 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO 
+        title="Pricing — Choose Your Trading Edge"
+        description="Flexible pricing plans for every trader. From individual EA validation to institutional-grade prop firm workflows. All plans include a 7-day free trial."
+      />
       <Navbar />
       <div className="pt-28 pb-20">
         <div className="container">

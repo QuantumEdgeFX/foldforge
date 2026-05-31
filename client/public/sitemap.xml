@@ -115,6 +115,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://foldforge.app/support" />
   </url>
 
+  <url>
+    <loc>https://foldforge.app/academy</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foldforge.app/academy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foldforge.app/academy" />
+  </url>
+
+  <url>
+    <loc>https://foldforge.app/founder</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foldforge.app/founder" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foldforge.app/founder" />
+  </url>
+
   <!-- SEO Landing Pages — High Priority -->
   <url>
     <loc>https://foldforge.app/ea-stress-testing</loc>
@@ -267,6 +285,24 @@
   </url>
 
   <!-- Blog -->
+  <url>
+    <loc>https://foldforge.app/blog/how-to-survive-your-first-payout-cycle-2026</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foldforge.app/blog/how-to-survive-your-first-payout-cycle-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foldforge.app/blog/how-to-survive-your-first-payout-cycle-2026" />
+  </url>
+
+  <url>
+    <loc>https://foldforge.app/blog/prop-firm-ea-detection-ip-fingerprinting-2026</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foldforge.app/blog/prop-firm-ea-detection-ip-fingerprinting-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://foldforge.app/blog/prop-firm-ea-detection-ip-fingerprinting-2026" />
+  </url>
+
   <url>
     <loc>https://foldforge.app/blog</loc>
     <lastmod>2026-05-23</lastmod>
