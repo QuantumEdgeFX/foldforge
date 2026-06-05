@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPath } from "@/lib/i18n";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -35,6 +37,8 @@ const PLANS = [
 
 export default function Pricing() {
   const { isAuthenticated } = useAuth();
+  const { currentLanguage } = useLanguage();
+  const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -149,12 +153,12 @@ export default function Pricing() {
             <p className="text-muted-foreground text-sm">
               All prices in USD. Subscriptions are billed monthly. You can upgrade, downgrade, or cancel at any time.
             </p>
-            {!isAuthenticated && (
-              <p className="text-muted-foreground text-sm">
-                Don't have an account yet?{" "}
-                <Link href="/signup" className="text-primary hover:underline font-medium">Create one first</Link>, then subscribe.
-              </p>
-            )}
+                {!isAuthenticated && (
+                  <p className="text-muted-foreground text-sm">
+                    Don't have an account yet?{" "}
+                    <Link href={getLink("/signup")} className="text-primary hover:underline font-medium">Create one first</Link>, then subscribe.
+                  </p>
+                )}
           </div>
         </div>
       </div>

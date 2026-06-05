@@ -14,6 +14,8 @@ import {
 import { useState, useRef, useEffect } from "react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import StrategyAuditModal from "@/components/StrategyAuditModal";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPath } from "@/lib/i18n";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -99,6 +101,8 @@ const PROP_FIRMS = ["FTMO", "MyForexFunds", "The5ers", "Topstep", "E8 Funding", 
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
+  const { currentLanguage } = useLanguage();
+  const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
@@ -239,7 +243,7 @@ export default function Home() {
 
               {/* CTA Group */}
               <div className="flex flex-col sm:flex-row items-center gap-5 mb-12 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-                <Link href="/pricing" className="w-full sm:w-auto">
+                <Link href={getLink("/pricing")} className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 h-16 px-10 text-xl font-bold shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
                     Start Free Trial <ArrowRight size={22} className="ml-2" />
                   </Button>

@@ -56,39 +56,8 @@ function Router() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
-        {/* Language-prefixed routes */}
-        <Route path="/:lang/" component={Home} />
-        <Route path="/:lang/blog" component={Blog} />
-        <Route path="/:lang/blog/:slug" component={BlogPost} />
-        <Route path="/:lang/login" component={Login} />
-        <Route path="/:lang/signup" component={Signup} />
-        <Route path="/:lang/forgot-password" component={ForgotPassword} />
-        <Route path="/:lang/dashboard" component={Dashboard} />
-        <Route path="/:lang/studio" component={Studio} />
-        <Route path="/:lang/admin" component={Admin} />
-        <Route path="/:lang/pricing" component={Pricing} />
-        <Route path="/:lang/aureus-prime/showcase" component={AureusPrimeShowcase} />
-        <Route path="/:lang/aureus-prime" component={AureusPrime} />
-        <Route path="/:lang/terms" component={Terms} />
-        <Route path="/:lang/privacy" component={Privacy} />
-        <Route path="/:lang/refund-policy" component={RefundPolicy} />
-        <Route path="/:lang/disclaimer" component={Disclaimer} />
-        <Route path="/:lang/docs" component={Docs} />
-        <Route path="/:lang/funded-account-risk-management" component={FundedAccountRiskManagement} />
-        <Route path="/:lang/automated-trading-platform" component={AutomatedTradingPlatform} />
-        <Route path="/:lang/expert-advisor-builder" component={ExpertAdvisorBuilder} />
-        <Route path="/:lang/metatrader-risk-management-tool" component={MetatraderRiskManagementTool} />
-        <Route path="/:lang/ea-stress-testing" component={EAStressTesting} />
-        <Route path="/:lang/monte-carlo-simulation-ea" component={MonteCarloSimulationEA} />
-        <Route path="/:lang/walk-forward-analysis-mt5" component={WalkForwardAnalysisMT5} />
-        <Route path="/:lang/best-ea-for-funded-accounts" component={BestEAForFundedAccounts} />
-        <Route path="/:lang/mq5-code-review" component={MQ5CodeReview} />
-        <Route path="/:lang/ea-parameter-optimization" component={EAParameterOptimization} />
-        <Route path="/:lang/support" component={Support} />
-        <Route path="/:lang/academy" component={Academy} />
-        <Route path="/:lang/founder" component={Founder} />
-        <Route path="/:lang/success" component={Success} />
-
+        {/* Specific paths MUST come before generic patterns */}
+        
         {/* Default English routes (no language prefix) */}
         <Route path="/" component={Home} />
         <Route path="/blog" component={Blog} />
@@ -122,10 +91,42 @@ function Router() {
         <Route path="/founder" component={Founder} />
         <Route path="/success" component={Success} />
 
+        {/* Language-prefixed routes */}
+        <Route path="/:lang/blog" component={Blog} />
+        <Route path="/:lang/blog/:slug" component={BlogPost} />
+        <Route path="/:lang/login" component={Login} />
+        <Route path="/:lang/signup" component={Signup} />
+        <Route path="/:lang/forgot-password" component={ForgotPassword} />
+        <Route path="/:lang/dashboard" component={Dashboard} />
+        <Route path="/:lang/studio" component={Studio} />
+        <Route path="/:lang/admin" component={Admin} />
+        <Route path="/:lang/pricing" component={Pricing} />
+        <Route path="/:lang/aureus-prime/showcase" component={AureusPrimeShowcase} />
+        <Route path="/:lang/aureus-prime" component={AureusPrime} />
+        <Route path="/:lang/terms" component={Terms} />
+        <Route path="/:lang/privacy" component={Privacy} />
+        <Route path="/:lang/refund-policy" component={RefundPolicy} />
+        <Route path="/:lang/disclaimer" component={Disclaimer} />
+        <Route path="/:lang/docs" component={Docs} />
+        <Route path="/:lang/funded-account-risk-management" component={FundedAccountRiskManagement} />
+        <Route path="/:lang/automated-trading-platform" component={AutomatedTradingPlatform} />
+        <Route path="/:lang/expert-advisor-builder" component={ExpertAdvisorBuilder} />
+        <Route path="/:lang/metatrader-risk-management-tool" component={MetatraderRiskManagementTool} />
+        <Route path="/:lang/ea-stress-testing" component={EAStressTesting} />
+        <Route path="/:lang/monte-carlo-simulation-ea" component={MonteCarloSimulationEA} />
+        <Route path="/:lang/walk-forward-analysis-mt5" component={WalkForwardAnalysisMT5} />
+        <Route path="/:lang/best-ea-for-funded-accounts" component={BestEAForFundedAccounts} />
+        <Route path="/:lang/mq5-code-review" component={MQ5CodeReview} />
+        <Route path="/:lang/ea-parameter-optimization" component={EAParameterOptimization} />
+        <Route path="/:lang/support" component={Support} />
+        <Route path="/:lang/academy" component={Academy} />
+        <Route path="/:lang/founder" component={Founder} />
+        <Route path="/:lang/success" component={Success} />
+        <Route path="/:lang/" component={Home} />
+
         {/* Catch-all for 404 */}
-        <Route path="*" component={NotFound} />
         <Route path="/404" component={NotFound} />
-        <Route component={NotFound} />
+        <Route path="*" component={NotFound} />
       </Switch>
     </Suspense>
   );
