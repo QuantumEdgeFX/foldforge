@@ -4,6 +4,8 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, ChevronDown, BarChart3, GraduationCap } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPath } from "@/lib/i18n";
 
 const LOGO_URL = "/logo.webp";
 
@@ -13,6 +15,10 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [aureusDdOpen, setAureusDdOpen] = useState(false);
   const ddRef = useRef<HTMLDivElement>(null);
+  const { currentLanguage } = useLanguage();
+
+  // Helper to get localized paths
+  const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -39,9 +45,9 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
           <Link
-            href="/academy"
+            href={getLink("/academy")}
             className={`flex items-center gap-1.5 text-sm font-bold transition-colors hover:text-primary ${
-              location === "/academy" ? "text-primary" : "text-foreground"
+              location === "/academy" || location === getLink("/academy") ? "text-primary" : "text-foreground"
             }`}
           >
             <GraduationCap size={16} className="text-primary" />
@@ -49,9 +55,9 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/pricing"
+            href={getLink("/pricing")}
             className={`text-sm font-medium transition-colors hover:text-primary ${
-              location === "/pricing" ? "text-primary" : "text-muted-foreground"
+              location === "/pricing" || location === getLink("/pricing") ? "text-primary" : "text-muted-foreground"
             }`}
           >
             Pricing
@@ -74,7 +80,7 @@ export default function Navbar() {
                 { title: "Walk-Forward Analysis", href: "/walk-forward-analysis-mt5", desc: "Overfitting Detection" },
                 { title: "MQ5 Code Review", href: "/mq5-code-review", desc: "AI-Powered Risk Audit" },
               ].map((item, i) => (
-                <Link key={i} href={item.href} className="flex flex-col px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors">
+                <Link key={i} href={getLink(item.href)} className="flex flex-col px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors">
                   <span className="text-sm font-bold text-foreground">{item.title}</span>
                   <span className="text-[10px] text-muted-foreground">{item.desc}</span>
                 </Link>
@@ -103,9 +109,9 @@ export default function Navbar() {
                 <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-background/95 border-l border-t border-border/60" />
 
                 <Link
-                  href="/aureus-prime"
+                  href={getLink("/aureus-prime")}
                   className={`flex items-center gap-3 px-4 py-3 text-sm hover:bg-primary/10 transition-colors border-b border-border/40 ${
-                    location === "/aureus-prime" ? "text-primary" : "text-foreground/80"
+                    location === "/aureus-prime" || location === getLink("/aureus-prime") ? "text-primary" : "text-foreground/80"
                   }`}
                   onClick={() => setAureusDdOpen(false)}
                 >
@@ -119,9 +125,9 @@ export default function Navbar() {
                 </Link>
 
                 <Link
-                  href="/aureus-prime/showcase"
+                  href={getLink("/aureus-prime/showcase")}
                   className={`flex items-center gap-3 px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${
-                    location === "/aureus-prime/showcase" ? "text-primary" : "text-foreground/80"
+                    location === "/aureus-prime/showcase" || location === getLink("/aureus-prime/showcase") ? "text-primary" : "text-foreground/80"
                   }`}
                   onClick={() => setAureusDdOpen(false)}
                 >
@@ -143,27 +149,27 @@ export default function Navbar() {
           </div>
 
           <Link
-            href="/docs"
+            href={getLink("/docs")}
             className={`text-sm font-medium transition-colors hover:text-primary ${
-              location === "/docs" ? "text-primary" : "text-muted-foreground"
+              location === "/docs" || location === getLink("/docs") ? "text-primary" : "text-muted-foreground"
             }`}
           >
             Docs
           </Link>
 
           <Link
-            href="/blog"
+            href={getLink("/blog")}
             className={`text-sm font-medium transition-colors hover:text-primary ${
-              location === "/blog" ? "text-primary" : "text-muted-foreground"
+              location === "/blog" || location === getLink("/blog") ? "text-primary" : "text-muted-foreground"
             }`}
           >
             Blog
           </Link>
 
           <Link
-            href="/support"
+            href={getLink("/support")}
             className={`text-sm font-medium transition-colors hover:text-primary ${
-              location === "/support" ? "text-primary" : "text-muted-foreground"
+              location === "/support" || location === getLink("/support") ? "text-primary" : "text-muted-foreground"
             }`}
           >
             Support
@@ -175,14 +181,14 @@ export default function Navbar() {
           {isAuthenticated ? (
             <>
               {user?.role === "admin" && (
-                <Link href="/admin">
+                <Link href={getLink("/admin")}>
                   <Button variant="ghost" size="sm">Admin</Button>
                 </Link>
               )}
-              <Link href="/dashboard">
+              <Link href={getLink("/dashboard")}>
                 <Button variant="ghost" size="sm">Dashboard</Button>
               </Link>
-              <Link href="/studio">
+              <Link href={getLink("/studio")}>
                 <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Open Studio
                 </Button>
@@ -190,10 +196,10 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login">
+              <Link href={getLink("/login")}>
                 <Button variant="ghost" size="sm">Sign In</Button>
               </Link>
-              <Link href="/pricing">
+              <Link href={getLink("/pricing")}>
                 <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Get Started
                 </Button>
@@ -213,12 +219,12 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
+          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
           <div className="container py-4 flex flex-col gap-3">
             <Link
-              href="/academy"
+              href={getLink("/academy")}
               className={`text-sm font-bold py-2 flex items-center gap-2 ${
-                location === "/academy" ? "text-primary" : "text-foreground"
+                location === "/academy" || location === getLink("/academy") ? "text-primary" : "text-foreground"
               }`}
               onClick={() => setMobileOpen(false)}
             >
@@ -227,7 +233,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/pricing"
+              href={getLink("/pricing")}
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
             >
@@ -235,7 +241,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/aureus-prime"
+              href={getLink("/aureus-prime")}
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
             >
@@ -243,9 +249,9 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/aureus-prime/showcase"
+              href={getLink("/aureus-prime/showcase")}
               className={`text-sm font-medium py-2 flex items-center gap-2 ${
-                location === "/aureus-prime/showcase"
+                location === "/aureus-prime/showcase" || location === getLink("/aureus-prime/showcase")
                   ? "text-primary"
                   : "text-muted-foreground hover:text-primary"
               }`}
@@ -259,7 +265,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/docs"
+              href={getLink("/docs")}
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
             >
@@ -267,7 +273,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/blog"
+              href={getLink("/blog")}
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
             >
@@ -275,32 +281,32 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/support"
+              href={getLink("/support")}
               className="text-sm font-medium text-muted-foreground hover:text-primary py-2"
               onClick={() => setMobileOpen(false)}
             >
               Support
             </Link>
 
-            <div className="border-t border-border pt-3 flex flex-col gap-2">
+              <div className="border-t border-border pt-3 flex flex-col gap-2">
               <div className="px-2 py-2">
                 <LanguageSwitcher />
               </div>
               {isAuthenticated ? (
                 <>
-                  <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <Link href={getLink("/dashboard")} onClick={() => setMobileOpen(false)}>
                     <Button variant="ghost" size="sm" className="w-full justify-start">Dashboard</Button>
                   </Link>
-                  <Link href="/studio" onClick={() => setMobileOpen(false)}>
+                  <Link href={getLink("/studio")} onClick={() => setMobileOpen(false)}>
                     <Button size="sm" className="w-full bg-primary text-primary-foreground">Open Studio</Button>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                  <Link href={getLink("/login")} onClick={() => setMobileOpen(false)}>
                     <Button variant="ghost" size="sm" className="w-full justify-start">Sign In</Button>
                   </Link>
-                  <Link href="/pricing" onClick={() => setMobileOpen(false)}>
+                  <Link href={getLink("/pricing")} onClick={() => setMobileOpen(false)}>
                     <Button size="sm" className="w-full bg-primary text-primary-foreground">Get Started</Button>
                   </Link>
                 </>

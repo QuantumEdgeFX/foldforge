@@ -1,9 +1,14 @@
 import { Link } from "wouter";
 import { Twitter, Youtube, Linkedin, Mail, Phone, MapPin, Shield, Lock } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPath } from "@/lib/i18n";
 
 const LOGO_URL = "/logo.webp";
 
 export default function Footer() {
+  const { currentLanguage } = useLanguage();
+  const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="container py-14">
@@ -65,15 +70,15 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4">Product</h4>
             <div className="flex flex-col gap-2.5">
-              <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</Link>
-              <Link href="/pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
-              <Link href="/studio" className="text-sm text-muted-foreground hover:text-primary transition-colors">Studio</Link>
-              <Link href="/aureus-prime" className="text-sm text-muted-foreground hover:text-primary transition-colors">Aureus Prime EA</Link>
-              <Link href="/aureus-prime/showcase" className="text-sm text-muted-foreground hover:text-primary transition-colors">Live Showcase</Link>
-              <Link href="/academy" className="text-sm text-primary font-bold hover:text-primary transition-colors">Academy</Link>
-              <Link href="/docs" className="text-sm text-muted-foreground hover:text-primary transition-colors">Documentation</Link>
-              <Link href="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
-              <Link href="/founder" className="text-sm text-muted-foreground hover:text-primary transition-colors">Founder</Link>
+              <Link href={getLink("/")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</Link>
+              <Link href={getLink("/pricing")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</Link>
+              <Link href={getLink("/studio")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Studio</Link>
+              <Link href={getLink("/aureus-prime")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Aureus Prime EA</Link>
+              <Link href={getLink("/aureus-prime/showcase")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Live Showcase</Link>
+              <Link href={getLink("/academy")} className="text-sm text-primary font-bold hover:text-primary transition-colors">Academy</Link>
+              <Link href={getLink("/docs")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Documentation</Link>
+              <Link href={getLink("/blog")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</Link>
+              <Link href={getLink("/founder")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Founder</Link>
             </div>
           </div>
 
@@ -81,16 +86,16 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4">Solutions</h4>
             <div className="flex flex-col gap-2.5">
-              <Link href="/ea-stress-testing" className="text-sm text-muted-foreground hover:text-primary transition-colors">EA Stress Testing</Link>
-              <Link href="/monte-carlo-simulation-ea" className="text-sm text-muted-foreground hover:text-primary transition-colors">Monte Carlo Simulation</Link>
-              <Link href="/walk-forward-analysis-mt5" className="text-sm text-muted-foreground hover:text-primary transition-colors">Walk-Forward Analysis</Link>
-              <Link href="/mq5-code-review" className="text-sm text-muted-foreground hover:text-primary transition-colors">MQ5 Code Review</Link>
-              <Link href="/ea-parameter-optimization" className="text-sm text-muted-foreground hover:text-primary transition-colors">Parameter Optimization</Link>
-              <Link href="/best-ea-for-funded-accounts" className="text-sm text-muted-foreground hover:text-primary transition-colors">Best EA for Funded Accounts</Link>
-              <Link href="/funded-account-risk-management" className="text-sm text-muted-foreground hover:text-primary transition-colors">Funded Account Risk Management</Link>
-              <Link href="/automated-trading-platform" className="text-sm text-muted-foreground hover:text-primary transition-colors">Automated Trading Platform</Link>
-              <Link href="/metatrader-risk-management-tool" className="text-sm text-muted-foreground hover:text-primary transition-colors">MetaTrader Risk Management</Link>
-              <Link href="/support" className="text-sm text-muted-foreground hover:text-primary transition-colors">Support</Link>
+              <Link href={getLink("/ea-stress-testing")} className="text-sm text-muted-foreground hover:text-primary transition-colors">EA Stress Testing</Link>
+              <Link href={getLink("/monte-carlo-simulation-ea")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Monte Carlo Simulation</Link>
+              <Link href={getLink("/walk-forward-analysis-mt5")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Walk-Forward Analysis</Link>
+              <Link href={getLink("/mq5-code-review")} className="text-sm text-muted-foreground hover:text-primary transition-colors">MQ5 Code Review</Link>
+              <Link href={getLink("/ea-parameter-optimization")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Parameter Optimization</Link>
+              <Link href={getLink("/best-ea-for-funded-accounts")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Best EA for Funded Accounts</Link>
+              <Link href={getLink("/funded-account-risk-management")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Funded Account Risk Management</Link>
+              <Link href={getLink("/automated-trading-platform")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Automated Trading Platform</Link>
+              <Link href={getLink("/metatrader-risk-management-tool")} className="text-sm text-muted-foreground hover:text-primary transition-colors">MetaTrader Risk Management</Link>
+              <Link href={getLink("/support")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Support</Link>
             </div>
           </div>
 
@@ -98,10 +103,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-foreground mb-4">Legal</h4>
             <div className="flex flex-col gap-2.5">
-              <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link>
-              <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link>
-              <Link href="/disclaimer" className="text-sm text-muted-foreground hover:text-primary transition-colors">Risk Disclaimer</Link>
+              <Link href={getLink("/terms")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link>
+              <Link href={getLink("/privacy")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link href={getLink("/refund-policy")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link>
+              <Link href={getLink("/disclaimer")} className="text-sm text-muted-foreground hover:text-primary transition-colors">Risk Disclaimer</Link>
             </div>
           </div>
         </div>
