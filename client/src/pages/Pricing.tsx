@@ -104,18 +104,18 @@ export default function Pricing() {
                 </thead>
                 <tbody className="divide-y divide-border/30">
                   {[
-                    { f: "EA License Keys", s: "1", p: "5", f: "25" },
-                    { f: "Studio Runs / Month", s: "5", p: "Unlimited", f: "Unlimited" },
-                    { f: "Broker Data Sync", s: "❌", p: "✅", f: "✅" },
-                    { f: "Monte Carlo Simulation", s: "❌", p: "✅", f: "✅" },
-                    { f: "Walk-Forward Analysis", s: "❌", p: "✅", f: "✅" },
-                    { f: "Funded Account Guardian", s: "❌", p: "✅", f: "✅" },
-                    { f: "White-Label Reports", s: "❌", p: "❌", f: "✅" },
-                    { f: "API Access", s: "❌", p: "❌", f: "✅" },
-                    { f: "Support Level", s: "Email", p: "Priority", f: "Dedicated" },
+                    { name: "EA License Keys", s: "1", p: "5", f: "25" },
+                    { name: "Studio Runs / Month", s: "5", p: "Unlimited", f: "Unlimited" },
+                    { name: "Broker Data Sync", s: "❌", p: "✅", f: "✅" },
+                    { name: "Monte Carlo Simulation", s: "❌", p: "✅", f: "✅" },
+                    { name: "Walk-Forward Analysis", s: "❌", p: "✅", f: "✅" },
+                    { name: "Funded Account Guardian", s: "❌", p: "✅", f: "✅" },
+                    { name: "White-Label Reports", s: "❌", p: "❌", f: "✅" },
+                    { name: "API Access", s: "❌", p: "❌", f: "✅" },
+                    { name: "Support Level", s: "Email", p: "Priority", f: "Dedicated" },
                   ].map((row, i) => (
                     <tr key={i} className="hover:bg-primary/5 transition-colors">
-                      <td className="py-4 px-6 text-muted-foreground">{row.f}</td>
+                      <td className="py-4 px-6 text-muted-foreground">{row.name}</td>
                       <td className="py-4 px-6 text-center font-medium">{row.s}</td>
                       <td className="py-4 px-6 text-center font-bold text-primary">{row.p}</td>
                       <td className="py-4 px-6 text-center font-medium">{row.f}</td>
