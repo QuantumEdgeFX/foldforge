@@ -7,6 +7,9 @@ interface SEOProps {
   author?: string;
   image?: string;
   type?: string;
+  noIndex?: boolean;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  schema?: Record<string, any>;
 }
 
 export default function SEO({ 
@@ -15,7 +18,10 @@ export default function SEO({
   canonical,
   author = "Warren Giddings",
   image = "https://foldforge.app/og-image.png",
-  type = "website"
+  type = "website",
+  noIndex = false,
+  breadcrumbs,
+  schema
 }: SEOProps) {
   useEffect(() => {
     // Update Title
@@ -39,6 +45,19 @@ export default function SEO({
       document.head.appendChild(metaAuthor);
     }
     metaAuthor.setAttribute('content', author);
+
+    // Update Robots Meta (noindex)
+    let metaRobots = document.querySelector('meta[name="robots"]');
+    if (noIndex) {
+      if (!metaRobots) {
+        metaRobots = document.createElement('meta');
+        metaRobots.setAttribute('name', 'robots');
+        document.head.appendChild(metaRobots);
+      }
+      metaRobots.setAttribute('content', 'noindex, nofollow');
+    } else if (metaRobots) {
+      metaRobots.remove();
+    }
 
     // Update Canonical
     let linkCanonical = document.querySelector('link[rel="canonical"]');
@@ -82,7 +101,54 @@ export default function SEO({
     let twitterImage = document.querySelector('meta[name="twitter:image"]');
     if (twitterImage) twitterImage.setAttribute('content', image);
 
-  }, [title, description, canonical, author, image, type]);
+    // Handle JSON-LD Schema
+    if (schema || breadcrumbs) {
+      // Remove existing schema script if present
+      const existingSchema = document.querySelector('script[type="application/ld+json"][data-seo-schema="true"]');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+
+      // Build combined schema
+      const schemaToAdd: Record<string, any> = {
+        "@context": "https://schema.org",
+        "@graph": []
+      };
+
+      // Add breadcrumb schema if provided
+      if (breadcrumbs && breadcrumbs.length > 0) {
+        const breadcrumbSchema = {
+          "@type": "BreadcrumbList",
+          "itemListElement": breadcrumbs.map((crumb, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": crumb.name,
+            "item": crumb.url
+          }))
+        };
+        schemaToAdd["@graph"].push(breadcrumbSchema);
+      }
+
+      // Add custom schema if provided
+      if (schema) {
+        if (Array.isArray(schema)) {
+          schemaToAdd["@graph"].push(...schema);
+        } else {
+          schemaToAdd["@graph"].push(schema);
+        }
+      }
+
+      // Only add script if there's actual schema to add
+      if (schemaToAdd["@graph"].length > 0) {
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.setAttribute('data-seo-schema', 'true');
+        schemaScript.textContent = JSON.stringify(schemaToAdd);
+        document.head.appendChild(schemaScript);
+      }
+    }
+
+  }, [title, description, canonical, author, image, type, noIndex, breadcrumbs, schema]);
 
   return null;
 }

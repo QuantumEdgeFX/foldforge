@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { BookOpen, TrendingUp, Shield, Zap, BarChart3, Award, ArrowRight, Search, Filter, GraduationCap, PlayCircle, FileText, MessageSquare } from "lucide-react";
@@ -41,8 +42,32 @@ const ACADEMY_SECTIONS = [
 export default function Academy() {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Academy", url: "https://foldforge.app/academy" }
+  ];
+
+  const schema = {
+    "@type": "EducationEvent",
+    "name": "FoldForge Academy - Master Algorithmic Trading",
+    "description": "Comprehensive educational platform for Expert Advisor validation, prop firm mastery, and algorithmic trading strategies.",
+    "url": "https://foldforge.app/academy",
+    "organizer": {
+      "@type": "Organization",
+      "name": "FoldForge",
+      "url": "https://foldforge.app"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="FoldForge Academy - Master Algorithmic Trading & EA Validation"
+        description="Learn Expert Advisor stress testing, prop firm risk management, Monte Carlo analysis, and algorithmic trading from industry experts. Comprehensive courses and guides."
+        canonical="https://foldforge.app/academy"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
 
       {/* Hero */}

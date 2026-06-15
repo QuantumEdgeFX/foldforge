@@ -1,12 +1,36 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Shield, Zap, BarChart3, TrendingUp, ArrowRight, CheckCircle2, Activity, Target, Brain, AlertTriangle, Award, Gauge } from "lucide-react";
 
 export default function BestEAForFundedAccounts() {
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Best EA for Funded Accounts", url: "https://foldforge.app/best-ea-for-funded-accounts" }
+  ];
+
+  const schema = {
+    "@type": "Guide",
+    "name": "Best EA for Funded Accounts - Readiness Score",
+    "description": "Complete guide to finding and validating the best Expert Advisors for funded trading accounts. Includes readiness scoring and prop firm compatibility.",
+    "url": "https://foldforge.app/best-ea-for-funded-accounts",
+    "author": {
+      "@type": "Organization",
+      "name": "FoldForge"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Best EA for Funded Accounts - FoldForge Readiness Score"
+        description="Find the best Expert Advisors for FTMO, The5ers, and Topstep. Get a Funded Account Readiness Score. Validate your EA against real prop firm rules and stress tests."
+        canonical="https://foldforge.app/best-ea-for-funded-accounts"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
 
       {/* Hero */}

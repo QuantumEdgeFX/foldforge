@@ -1,12 +1,36 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Shield, CheckCircle2, ArrowRight, Activity, Lock, TrendingUp, BarChart3, Zap } from "lucide-react";
 
 export default function FundedAccountRiskManagement() {
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Funded Account Risk Management", url: "https://foldforge.app/funded-account-risk-management" }
+  ];
+
+  const schema = {
+    "@type": "Guide",
+    "name": "Funded Account Risk Management Guide",
+    "description": "Complete guide to managing risk on prop firm funded accounts. Learn position sizing, drawdown limits, and real-time monitoring strategies.",
+    "url": "https://foldforge.app/funded-account-risk-management",
+    "author": {
+      "@type": "Organization",
+      "name": "FoldForge"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Funded Account Risk Management - FoldForge Guardian"
+        description="Master funded account risk management with real-time monitoring, position sizing, and drawdown protection. Protect your FTMO, The5ers, and Topstep accounts."
+        canonical="https://foldforge.app/funded-account-risk-management"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
 
       {/* Hero Section */}

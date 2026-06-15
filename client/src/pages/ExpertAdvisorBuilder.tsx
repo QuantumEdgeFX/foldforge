@@ -1,12 +1,33 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Zap, Activity, Shield, BarChart3, TrendingUp, Database, ArrowRight, CheckCircle2, Code } from "lucide-react";
 
 export default function ExpertAdvisorBuilder() {
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Expert Advisor Builder", url: "https://foldforge.app/expert-advisor-builder" }
+  ];
+
+  const schema = {
+    "@type": "SoftwareApplication",
+    "name": "FoldForge Expert Advisor Builder",
+    "description": "Professional Expert Advisor testing and validation platform. Monte Carlo simulations, walk-forward analysis, and parameter optimization for MetaTrader developers.",
+    "url": "https://foldforge.app/expert-advisor-builder",
+    "applicationCategory": "DeveloperApplication"
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Expert Advisor Builder - FoldForge EA Testing Studio"
+        description="Professional Expert Advisor testing platform for MetaTrader developers. Monte Carlo simulations, walk-forward analysis, and parameter optimization. Validate your EA before deployment."
+        canonical="https://foldforge.app/expert-advisor-builder"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
 
       {/* Hero Section */}

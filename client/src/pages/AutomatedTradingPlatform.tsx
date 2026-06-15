@@ -1,12 +1,38 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { Zap, Activity, Shield, BarChart3, TrendingUp, Database, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function AutomatedTradingPlatform() {
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Automated Trading Platform", url: "https://foldforge.app/automated-trading-platform" }
+  ];
+
+  const schema = {
+    "@type": "SoftwareApplication",
+    "name": "FoldForge - Automated Trading Platform",
+    "description": "Professional automated trading platform for Expert Advisor stress testing, Monte Carlo simulations, and broker-specific data synchronization.",
+    "url": "https://foldforge.app/automated-trading-platform",
+    "applicationCategory": "FinanceApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "19",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Automated Trading Platform - FoldForge EA Stress Testing"
+        description="Professional automated trading platform for Expert Advisors. Monte Carlo simulations, broker-specific data sync, and institutional-grade risk management for MT4/MT5 traders."
+        canonical="https://foldforge.app/automated-trading-platform"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
 
       {/* Hero Section */}

@@ -1,12 +1,39 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Zap, BarChart3, Award } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Founder() {
+  const breadcrumbs = [
+    { name: "Home", url: "https://foldforge.app" },
+    { name: "Founder", url: "https://foldforge.app/founder" }
+  ];
+
+  const schema = {
+    "@type": "Person",
+    "name": "Warren Giddings",
+    "title": "Founder & Chief Investment Officer",
+    "description": "Founder of FoldForge and Giddings Capital Management. 15+ years in quantitative trading and risk management.",
+    "url": "https://foldforge.app/founder",
+    "image": "https://foldforge.app/images/quant-warren-founder.webp",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Giddings Capital Management",
+      "url": "https://foldforge.app"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Warren Giddings - Founder of FoldForge | Quantitative Trading Expert"
+        description="Meet Warren Giddings, founder of FoldForge and Giddings Capital Management. 15+ years in quantitative trading, $50M+ AUM, empowering 1,200+ traders with institutional-grade EA validation tools."
+        canonical="https://foldforge.app/founder"
+        breadcrumbs={breadcrumbs}
+        schema={schema}
+      />
       <Navbar />
       
       {/* Hero Section */}
