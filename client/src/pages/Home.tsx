@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { motion } from "framer-motion";
+import { trackCTAClick, trackFreeTrialStart, trackPricingView, trackScrollDepth, trackTimeOnPage, trackCalculatorUsage, trackFAQInteraction, trackFormSubmission } from "@/lib/analytics";
 import {
   Shield, Zap, BarChart3, Database, Lock, TrendingUp,
   CheckCircle2, ArrowRight, Star,
@@ -166,16 +167,19 @@ export default function Home() {
     if (!leadEmail) return;
     setIsSubmittingLead(true);
     try {
+      trackFormSubmission("lead_magnet", false, ["email"]);
       const res = await fetch("/api/leads/collect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: leadEmail, source: "home_mastery_checklist" }),
       });
       if (res.ok) {
+        trackFormSubmission("lead_magnet", true, ["email"]);
         setLeadSubmitted(true);
       }
     } catch (err) {
       console.error(err);
+      trackFormSubmission("lead_magnet", false, ["email"]);
     } finally {
       setIsSubmittingLead(false);
     }
@@ -243,7 +247,7 @@ export default function Home() {
 
               {/* CTA Group */}
               <div className="flex flex-col sm:flex-row items-center gap-5 mb-12 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-                <Link href={getLink("/pricing")} className="w-full sm:w-auto">
+                <Link href={getLink("/pricing")} className="w-full sm:w-auto" onClick={() => trackCTAClick("Start 7-Day Free Trial", "hero_section", "all")}>
                   <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 h-16 px-10 text-xl font-bold shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
                     Start 7-Day Free Trial <ArrowRight size={22} className="ml-2" />
                   </Button>
@@ -478,7 +482,11 @@ export default function Home() {
                   </div>
                   <input 
                     type="range" min="30" max="80" value={winRate} 
-                    onChange={(e) => setWinRate(parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const newRate = parseInt(e.target.value);
+                      setWinRate(newRate);
+                      trackCalculatorUsage(newRate, riskPerTrade);
+                    }}
                     className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
                   />
                 </div>
@@ -490,7 +498,11 @@ export default function Home() {
                   </div>
                   <input 
                     type="range" min="0.1" max="5" step="0.1" value={riskPerTrade} 
-                    onChange={(e) => setRiskPerTrade(parseFloat(e.target.value))}
+                    onChange={(e) => {
+                      const newRisk = parseFloat(e.target.value);
+                      setRiskPerTrade(newRisk);
+                      trackCalculatorUsage(winRate, newRisk);
+                    }}
                     className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
                   />
                 </div>

@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getLocalizedPath } from "@/lib/i18n";
+import { trackCTAClick, trackPricingView } from "@/lib/analytics";
+import Navbar from "@/components/Navbar";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -41,6 +43,10 @@ export default function Pricing() {
   const { currentLanguage } = useLanguage();
   const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
   const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'annual'>('monthly');
+
+  React.useEffect(() => {
+    trackPricingView("pricing_page");
+  }, []);
 
   const getPrice = (monthlyPrice: number) => {
     if (billingCycle === 'annual') {
@@ -76,7 +82,10 @@ export default function Pricing() {
             {/* Billing Toggle */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
-                onClick={() => setBillingCycle('monthly')}
+                onClick={() => {
+                  trackCTAClick("Billing Cycle", "pricing_page", "monthly");
+                  setBillingCycle('monthly');
+                }}
                 className={`px-6 py-2 rounded-lg font-semibold transition-all ${
                   billingCycle === 'monthly'
                     ? 'bg-primary text-primary-foreground'
@@ -86,7 +95,10 @@ export default function Pricing() {
                 Billed Monthly
               </button>
               <button
-                onClick={() => setBillingCycle('annual')}
+                onClick={() => {
+                  trackCTAClick("Billing Cycle", "pricing_page", "annual");
+                  setBillingCycle('annual');
+                }}
                 className={`px-6 py-2 rounded-lg font-semibold transition-all relative ${
                   billingCycle === 'annual'
                     ? 'bg-primary text-primary-foreground'
