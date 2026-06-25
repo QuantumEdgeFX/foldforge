@@ -2,8 +2,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+  import { useAuth } from "@/_core/hooks/useAuth";
+  import { CheckCircle2, ArrowRight } from "lucide-react";
+  import React from "react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getLocalizedPath } from "@/lib/i18n";
@@ -16,19 +17,19 @@ const STRIPE_LINKS = {
 
 const PLANS = [
   {
-    name: "Starter", price: 19, desc: "For individual traders getting started with EA testing.",
+    name: "Starter", price: 19, desc: "For solo traders validating their first EA.",
     features: ["1 EA License Key", "Reference Data Access (172+ symbols)", "5 Studio Runs / Month", "Advanced Performance Metrics", "Email Support", "Community Forum Access", "7-Day Free Trial"],
     stripeLink: STRIPE_LINKS.starter,
     activations: "1 device",
   },
   {
-    name: "Pro", price: 39, popular: true, desc: "For serious traders who need broker-specific data and unlimited testing.",
+    name: "Pro", price: 39, popular: true, desc: "For serious traders passing prop firm challenges.",
     features: ["5 EA License Keys", "Full Broker Data Sync (MT4/MT5)", "Unlimited Studio Runs", "Advanced Analytics & Reports", "Monte Carlo Simulations", "Walk-Forward Analysis", "Priority Support", "Funded Account Guardian", "7-Day Free Trial"],
     stripeLink: STRIPE_LINKS.pro,
     activations: "5 devices",
   },
   {
-    name: "Funded", price: 79, desc: "For prop firm traders and fund managers who need everything.",
+    name: "Funded", price: 79, desc: "For trading teams and prop firm operations.",
     features: ["25 EA License Keys", "Full Broker Data Pipeline", "White-Label PDF Reports", "Parameter Sweep Optimization", "Dedicated Account Manager", "API Access", "Custom Integrations", "Prop Firm Dashboard", "Phone Support", "7-Day Free Trial"],
     stripeLink: STRIPE_LINKS.funded,
     activations: "25 devices",
@@ -39,6 +40,21 @@ export default function Pricing() {
   const { isAuthenticated } = useAuth();
   const { currentLanguage } = useLanguage();
   const getLink = (path: string) => getLocalizedPath(path, currentLanguage);
+  const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'annual'>('monthly');
+
+  const getPrice = (monthlyPrice: number) => {
+    if (billingCycle === 'annual') {
+      return Math.floor(monthlyPrice * 12 * 0.85); // 15% discount for annual
+    }
+    return monthlyPrice;
+  };
+
+  const getSavings = (monthlyPrice: number) => {
+    if (billingCycle === 'annual') {
+      return Math.floor(monthlyPrice * 12 * 0.15);
+    }
+    return 0;
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -53,9 +69,38 @@ export default function Pricing() {
             <h1 className="text-4xl md:text-5xl font-bold font-['Playfair_Display'] mb-4">
               Choose Your <span className="gold-text">Trading Edge</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               All plans include a 7-day free trial. Start your trial today and cancel anytime.
             </p>
+            
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <button
+                onClick={() => setBillingCycle('monthly')}
+                className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                  billingCycle === 'monthly'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-foreground hover:bg-secondary/80'
+                }`}
+              >
+                Billed Monthly
+              </button>
+              <button
+                onClick={() => setBillingCycle('annual')}
+                className={`px-6 py-2 rounded-lg font-semibold transition-all relative ${
+                  billingCycle === 'annual'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-foreground hover:bg-secondary/80'
+                }`}
+              >
+                Billed Annually
+                {billingCycle === 'annual' && (
+                  <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded whitespace-nowrap">
+                    Save 15%
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -70,9 +115,12 @@ export default function Pricing() {
                 <p className="text-sm text-muted-foreground mb-2">{plan.desc}</p>
                 <p className="text-xs text-primary mb-6">Up to {plan.activations}</p>
                 <div className="flex items-baseline gap-1 mb-8">
-                  <span className="text-5xl font-bold gold-text">${plan.price}</span>
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-5xl font-bold gold-text">${getPrice(plan.price)}</span>
+                  <span className="text-muted-foreground">/{billingCycle === 'annual' ? 'year' : 'month'}</span>
                 </div>
+                {billingCycle === 'annual' && getSavings(plan.price) > 0 && (
+                  <p className="text-sm text-green-500 font-semibold mb-4">Save ${getSavings(plan.price)}/year</p>
+                )}
                 <div className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
                     <div key={j} className="flex items-start gap-2.5">

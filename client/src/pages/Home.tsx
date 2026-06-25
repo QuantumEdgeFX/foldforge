@@ -232,20 +232,20 @@ export default function Home() {
 
               {/* Headline with High-Impact Typography */}
               <h1 className="text-5xl md:text-7xl font-bold font-['Playfair_Display'] leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-6 duration-1000">
-                Catch the <span className="gold-text italic">Hidden Risk</span> <br />
-                <span className="text-white">That Blows Funded Accounts.</span>
+                Stop Blowing <span className="gold-text italic">Funded Accounts</span> <br />
+                <span className="text-white">Validate Your EA Before You Trade.</span>
               </h1>
 
               {/* Value Proposition */}
               <p className="text-xl md:text-2xl text-muted-foreground/90 mb-10 leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-                The institutional-grade <span className="text-foreground font-semibold">MT4/MT5 stress testing studio</span>. Validate your Expert Advisors with real broker data before the market exposes them.
+                Use <span className="text-foreground font-semibold">institutional-grade Monte Carlo and walk-forward testing</span> to prove your EA works under real conditions — before risking $200K on a prop firm challenge.
               </p>
 
               {/* CTA Group */}
               <div className="flex flex-col sm:flex-row items-center gap-5 mb-12 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
                 <Link href={getLink("/pricing")} className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 h-16 px-10 text-xl font-bold shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
-                    Start Free Trial <ArrowRight size={22} className="ml-2" />
+                    Start 7-Day Free Trial <ArrowRight size={22} className="ml-2" />
                   </Button>
                 </Link>
                 <Button 
@@ -264,19 +264,19 @@ export default function Home() {
                   <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <CheckCircle2 size={14} className="text-primary" />
                   </div>
-                  <span className="font-medium">No Credit Card Required</span>
+                  <span className="font-medium">No Credit Card. Cancel Anytime.</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <CheckCircle2 size={14} className="text-primary" />
                   </div>
-                  <span className="font-medium">Instant License Delivery</span>
+                  <span className="font-medium">Full Feature Access</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <CheckCircle2 size={14} className="text-primary" />
                   </div>
-                  <span className="font-medium">MT4 & MT5 Compatible</span>
+                  <span className="font-medium">256-bit Encrypted</span>
                 </div>
               </div>
             </div>
