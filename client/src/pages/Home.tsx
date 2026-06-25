@@ -17,6 +17,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import StrategyAuditModal from "@/components/StrategyAuditModal";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getLocalizedPath } from "@/lib/i18n";
+import { generateHomepageSchema } from "@/lib/seo-schema-enhanced";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -205,6 +206,7 @@ export default function Home() {
       <SEO 
         title="FoldForge — Pass Any Prop Firm Challenge with #1 EA Stress Testing Studio"
         description="Stop blowing funded accounts. FoldForge is the #1 EA stress testing studio for MT4/MT5. Pass FTMO, The5ers, and Topstep with Monte Carlo simulations and AI risk management."
+        schema={generateHomepageSchema()}
       />
       <Navbar />
       
@@ -546,7 +548,7 @@ export default function Home() {
                       style={{ width: `${blowUpRisk}%` }}
                     ></div>
                   </div>
-                  <Link href="/pricing">
+                  <Link href="/pricing" onClick={() => trackCTAClick("Get Full Stress Test Report", "calculator_section")}>
                     <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 font-bold">
                       Get Full Stress Test Report <ArrowRight size={18} className="ml-2" />
                     </Button>
@@ -627,7 +629,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <Link href="/pricing">
+              <Link href="/pricing" onClick={() => trackCTAClick("Protect My Account", "guardian_section")}>
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
                   Protect My Account <ArrowRight size={16} className="ml-2" />
                 </Button>
@@ -698,7 +700,13 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <a href={plan.link} target="_blank" rel="noopener noreferrer" className="block">
+                <a 
+                  href={plan.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="block"
+                  onClick={() => trackFreeTrialStart(plan.name, "home_pricing")}
+                >
                   <Button className={`w-full font-bold h-11 ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
                     {plan.cta}
                   </Button>
@@ -762,7 +770,13 @@ export default function Home() {
               <div key={i} className="glass-card rounded-xl border border-border/50 overflow-hidden transition-all hover:border-primary/20">
                 <button 
                   className="w-full px-6 py-5 flex items-center justify-between text-left font-bold"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  onClick={() => {
+                    const newState = openFaq === i ? null : i;
+                    setOpenFaq(newState);
+                    if (newState !== null) {
+                      trackFAQInteraction(faq.q, "home_page");
+                    }
+                  }}
                 >
                   <span>{faq.q}</span>
                   {openFaq === i ? <ChevronUp size={20} className="text-primary" /> : <ChevronDown size={20} className="text-muted-foreground" />}
@@ -785,7 +799,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-6xl font-bold font-['Playfair_Display'] mb-8">Stop Guessing. <span className="gold-text">Start Stress Testing.</span></h2>
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">Join 1,200+ traders who use FoldForge to protect their capital and validate their strategies.</p>
-            <Link href="/pricing">
+            <Link href="/pricing" onClick={() => trackCTAClick("Get Started Now", "final_cta")}>
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-16 px-12 text-xl font-bold shadow-2xl shadow-primary/20">
                 Get Started Now <ArrowRight size={22} className="ml-2" />
               </Button>

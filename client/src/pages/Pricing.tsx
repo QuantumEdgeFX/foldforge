@@ -2,14 +2,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-  import { useAuth } from "@/_core/hooks/useAuth";
-  import { CheckCircle2, ArrowRight } from "lucide-react";
-  import React from "react";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { CheckCircle2, ArrowRight } from "lucide-react";
+import React from "react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getLocalizedPath } from "@/lib/i18n";
-import { trackCTAClick, trackPricingView } from "@/lib/analytics";
-import Navbar from "@/components/Navbar";
+import { trackCTAClick, trackPricingView, trackFreeTrialStart } from "@/lib/analytics";
+import { generateProductSchema } from "@/lib/seo-schema-enhanced";
 
 const STRIPE_LINKS = {
   starter: "https://buy.stripe.com/9B6bJ11ITaEd7TJ6MBb3q02",
@@ -67,6 +67,7 @@ export default function Pricing() {
       <SEO 
         title="Pricing — Choose Your Trading Edge"
         description="Flexible pricing plans for every trader. From individual EA validation to institutional-grade prop firm workflows. All plans include a 7-day free trial."
+        schema={generateProductSchema()}
       />
       <Navbar />
       <div className="pt-28 pb-20">
@@ -141,7 +142,12 @@ export default function Pricing() {
                     </div>
                   ))}
                 </div>
-                <a href={plan.stripeLink} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={plan.stripeLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => trackFreeTrialStart(plan.name, "pricing_page")}
+                >
                   <Button className={`w-full h-11 ${plan.popular ? "bg-primary text-primary-foreground hover:bg-primary/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80"}`}>
                     Start 7-Day Free Trial <ArrowRight size={16} className="ml-2" />
                   </Button>
