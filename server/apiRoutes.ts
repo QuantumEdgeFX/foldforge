@@ -269,6 +269,40 @@ apiRouter.post("/api/stripe/webhook", async (req: Request, res: Response) => {
                 plan: plan as any, status: "active",
               });
               await db.createLicense({ userId: user.id, plan: plan as any });
+              
+              // Server-side GA4 Measurement Protocol call for Purchase event
+              // This ensures conversions are tracked even if the user closes the browser
+              const GA_MEASUREMENT_ID = "G-RM40NETNCG";
+              const GA_API_SECRET = process.env.GA_API_SECRET; // Ensure this is set in env
+              
+              if (GA_API_SECRET) {
+                try {
+                  const amount = session.amount_total ? session.amount_total / 100 : 0;
+                  await fetch(`https://www.google-analytics.com/mp/collect?measurement_id=${GA_MEASUREMENT_ID}&api_secret=${GA_API_SECRET}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                      client_id: user.id.toString(), // Using user ID as client ID for cross-device
+                      events: [{
+                        name: "purchase",
+                        params: {
+                          transaction_id: session.id,
+                          value: amount,
+                          currency: "USD",
+                          items: [{
+                            item_id: `plan_${plan}`,
+                            item_name: `FoldForge ${plan} Plan`,
+                            price: amount,
+                            quantity: 1
+                          }]
+                        }
+                      }]
+                    })
+                  });
+                  console.log(`[GA4] Purchase event tracked for ${email}`);
+                } catch (gaErr) {
+                  console.error("[GA4] Purchase tracking failed", gaErr);
+                }
+              }
             }
           }
         }

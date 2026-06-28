@@ -637,12 +637,20 @@ export default function BlogPost() {
     );
   }
 
+  // Generate a cleaner description for SEO
+  const seoDescription = post.content
+    .split('\n')
+    .find((line: string) => line.length > 50 && !line.startsWith('#') && !line.startsWith('!'))
+    ?.substring(0, 160)
+    .replace(/[#*`]/g, '') || "Expert insights on prop firm trading and EA testing.";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO 
-        title={post.title}
-        description={post.content.substring(0, 160).replace(/[#*!\[\]\(\)]/g, '')}
+        title={`${post.title} | FoldForge Blog`}
+        description={seoDescription}
         type="article"
+        image={post.image}
       />
       <Navbar />
       

@@ -238,13 +238,13 @@ export default function Home() {
 
               {/* Headline with High-Impact Typography */}
               <h1 className="text-5xl md:text-7xl font-bold font-['Playfair_Display'] leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-6 duration-1000">
-                Stop Blowing <span className="gold-text italic">Funded Accounts</span> <br />
-                <span className="text-white">Validate Your EA Before You Trade.</span>
+                Pass Your <span className="gold-text italic">Prop Firm Challenge</span> <br />
+                <span className="text-white">With Institutional-Grade EA Testing.</span>
               </h1>
 
               {/* Value Proposition */}
               <p className="text-xl md:text-2xl text-muted-foreground/90 mb-10 leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-                Use <span className="text-foreground font-semibold">institutional-grade Monte Carlo and walk-forward testing</span> to prove your EA works under real conditions — before risking $200K on a prop firm challenge.
+                Stop blowing funded accounts. Use <span className="text-foreground font-semibold">Monte Carlo simulations</span> and <span className="text-foreground font-semibold">real broker data</span> to validate your strategy edge. Join 1,200+ traders who passed with FoldForge.
               </p>
 
               {/* CTA Group */}

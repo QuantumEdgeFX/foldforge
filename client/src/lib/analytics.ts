@@ -15,9 +15,13 @@ export interface GAEvent {
  */
 export function trackEvent(event: GAEvent): void {
   if (typeof window !== "undefined" && (window as any).gtag) {
-    (window as any).gtag("event", event.event, {
-      ...event,
-    });
+    // Use a small timeout to ensure gtag is ready and doesn't block UI
+    setTimeout(() => {
+      (window as any).gtag("event", event.event, {
+        ...event,
+        send_to: 'G-RM40NETNCG'
+      });
+    }, 1);
   }
 }
 
@@ -43,9 +47,18 @@ export function trackCTAClick(
  */
 export function trackFreeTrialStart(tier: string, source: string): void {
   trackEvent({
-    event: "free_trial_start",
+    event: "begin_checkout", // Use standard GA4 event name for better funnel tracking
     tier: tier,
     source: source,
+    value: tier === "Starter" ? 19 : tier === "Pro" ? 39 : 79,
+    currency: "USD",
+    items: [{
+      item_id: `plan_${tier.toLowerCase()}`,
+      item_name: `FoldForge ${tier} Plan`,
+      item_category: "Subscription",
+      price: tier === "Starter" ? 19 : tier === "Pro" ? 39 : 79,
+      quantity: 1
+    }],
     timestamp: new Date().toISOString(),
   });
 }

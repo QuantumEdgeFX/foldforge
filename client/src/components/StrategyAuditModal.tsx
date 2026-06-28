@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, CheckCircle2, ArrowRight, X, Activity } from "lucide-react";
+import { trackFormSubmission } from "@/lib/analytics";
 
 interface StrategyAuditModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export default function StrategyAuditModal({ isOpen, onClose }: StrategyAuditMod
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    trackFormSubmission("strategy_audit", false, ["email"]);
     try {
       const res = await fetch("/api/leads/collect", {
         method: "POST",
@@ -22,6 +24,7 @@ export default function StrategyAuditModal({ isOpen, onClose }: StrategyAuditMod
         body: JSON.stringify({ email, source: "strategy_audit_modal" }),
       });
       if (res.ok) {
+        trackFormSubmission("strategy_audit", true, ["email"]);
         setSubmitted(true);
       }
     } catch (err) {
